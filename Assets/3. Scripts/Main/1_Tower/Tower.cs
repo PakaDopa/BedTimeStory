@@ -8,7 +8,7 @@ public class Tower : DestroyableSingleton<Tower>
 
 
     public float hp;
-    public float maxHp = 1000;
+    public float maxHp = 500;
 
 
     public void Init()

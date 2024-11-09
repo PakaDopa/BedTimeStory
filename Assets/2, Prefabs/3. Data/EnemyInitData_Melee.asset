@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: EnemyInitData_Melee
   m_EditorClassIdentifier: 
   maxHp: 100
-  movementSpeed: 4
+  movementSpeed: 2
   attackSpeed: 2
-  attackRange: 1.5
+  attackRange: 2
   playerDectectionRange: 10
-  dmg: 10
+  dmg: 15
   inc_maxHp: 10
-  inc_movementSpeed: 0.3
-  inc_dmg: 3
+  inc_movementSpeed: 0.5
+  inc_dmg: 5

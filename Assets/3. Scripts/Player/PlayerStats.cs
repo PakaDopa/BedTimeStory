@@ -19,12 +19,12 @@ public class PlayerStats : Singleton<PlayerStats>
     public Status playerStatus { get; set; }
     private float maxHP = 100;
     [SerializeField] public float currHP;
-    private int currGold = 100000;
+    private int currGold = 0;
     public int CurrGold => currGold;
 
-    private float attackPower = 20;
-    private float moveSpeed = 5;
-    private float reloadSpeed = 1;
+    private float attackPower = 5;
+    private float moveSpeed = 3;
+    private float reloadSpeed = 3;
     private float skillCooltime = 10;
 
     public float AttackPower => attackPower;

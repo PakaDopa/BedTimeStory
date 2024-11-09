@@ -20,7 +20,7 @@ public class UpgradeSystem : MonoBehaviour
 
     float hpRecoverRate = 100;
     int hpRecoverCost = 100;
-    int rerollCost = 0; // Ã³À½ rollÀº 0¿ø, reroll ½Ã¿¡´Â ÄÚ½ºÆ®°¡ µë
+    int rerollCost = 0; // Ã³ï¿½ï¿½ rollï¿½ï¿½ 0ï¿½ï¿½, reroll ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½
 
     private void Awake()
     {
@@ -49,17 +49,17 @@ public class UpgradeSystem : MonoBehaviour
             if (upgradeMenuItem.IsLocked)
                 continue;
 
-            // Å¸ÀÔ ºÐ·ù ¿ÀÇÁ¼Â
-            int typeOffset = i * 6; // A~F±îÁö 6°³ÀÇ µî±Þ
+            // Å¸ï¿½ï¿½ ï¿½Ð·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            int typeOffset = i * 6; // A~Fï¿½ï¿½ï¿½ï¿½ 6ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-            // µî±Þ ºÐ·ù ¿ÀÇÁ¼Â
+            // ï¿½ï¿½ï¿½ ï¿½Ð·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             int gradeOffset;
             float randomNumber = UnityEngine.Random.Range(0, 100);
-            if (randomNumber < 5)
+            if (randomNumber < 2.5)
                 gradeOffset = 0;
-            else if (randomNumber < 15)
+            else if (randomNumber < 8)
                 gradeOffset = 1;
-            else if (randomNumber < 30)
+            else if (randomNumber < 20)
                 gradeOffset = 2;
             else if (randomNumber < 60)
                 gradeOffset = 3;
@@ -136,7 +136,7 @@ public class UpgradeSystem : MonoBehaviour
                 count++;
         }
 
-        if (count == 4) // ´Ù Àá±×¸é rerollÀ» ¸øÇÏ°Ô
+        if (count == 4) // ï¿½ï¿½ ï¿½ï¿½×¸ï¿½ rerollï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½
         {
             rerollButton.interactable = false;
             return;
@@ -148,19 +148,19 @@ public class UpgradeSystem : MonoBehaviour
 
         if (count == 0)
         {
-            rerollCost = 100;
+            rerollCost = 50;
         }
         else if (count == 1)
         {
-            rerollCost = 150;
+            rerollCost = 75;
         }
         else if (count == 2)
         {
-            rerollCost = 300;
+            rerollCost = 150;
         }
         else if (count == 3)
         {
-            rerollCost = 600;
+            rerollCost = 300;
         }
 
         rerollButton.GetComponentInChildren<TextMeshProUGUI>().SetText($"Reroll : {rerollCost}");

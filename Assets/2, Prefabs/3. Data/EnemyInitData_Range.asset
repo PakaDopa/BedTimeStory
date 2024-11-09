@@ -17,8 +17,8 @@ MonoBehaviour:
   attackSpeed: 3
   attackRange: 8
   playerDectectionRange: 12
-  dmg: 30
+  dmg: 5
   inc_maxHp: 10
-  inc_movementSpeed: 0.3
-  inc_dmg: 3
+  inc_movementSpeed: 0.5
+  inc_dmg: 5
   prefab_enemyProjectile: {fileID: 6255401877423121132, guid: 029a4fbc0e143154daf561fde648a247, type: 3}

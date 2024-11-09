@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isWalking = true;
             PlayerStats.Instance.playerStatus = PlayerStats.Status.Walk;
-            controller.Move(dir * (moveSpeed * 5f) * Time.deltaTime);
+            controller.Move(dir * (moveSpeed * 2f) * Time.deltaTime);
         }
         else
         {

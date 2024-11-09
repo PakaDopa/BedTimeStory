@@ -183,7 +183,7 @@ public class Enemy : MonoBehaviour
     {        
         // string str = "돈1원 ";
 
-        PlayerStats.Instance.GetGold(1);
+        PlayerStats.Instance.GetGold(10);
         int rand = UnityEngine.Random.Range(0, 100);
         if ( 95<= rand)
         // if ( 66<= rand)
