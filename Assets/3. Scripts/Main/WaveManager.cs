@@ -101,6 +101,7 @@ public class WaveManager : DestroyableSingleton<WaveManager>
             yield return new WaitForSeconds(1f);
         }
         FinishWave();
+        StartWave();
     }
 
     /// <summary>
