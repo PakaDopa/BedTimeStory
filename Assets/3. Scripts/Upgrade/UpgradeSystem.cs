@@ -35,7 +35,34 @@ public class UpgradeSystem : MonoBehaviour
     {
         onItemLocked.AddListener(ChangeRerollCost);
 
-        Roll();
+        for (int i = 0; i < upgradeMenuItems.Count; i++)
+        {
+            var upgradeMenuItem = upgradeMenuItems[i];
+            if (upgradeMenuItem.IsLocked)
+                continue;
+
+            int index = -1;
+            if(i == 0)
+                index = 5;
+            else if(i==1)
+                index = 9;
+            else if (i == 2)
+                index = 15;
+            else if (i == 3)
+                index = 23;
+
+            var row = dataset[index];
+
+            int grade = Convert.ToInt32(row["Grade"]);
+            int value = Convert.ToInt32(row["Value"]);
+
+            upgradeMenuItem.Construct(i, grade, value);
+            upgradeMenuItem.OnSelected();
+        }
+
+        ChangeRerollCost();
+
+
         SetRecoverButtonText();
     }
 
