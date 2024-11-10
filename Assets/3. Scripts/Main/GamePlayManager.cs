@@ -9,7 +9,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     [SerializeField] SoundEventSO gameOver;
     [SerializeField] SoundEventSO gameWin;
 
-    [SerializeField] Button testWaveStartBtn;
+    // [SerializeField] Button testWaveStartBtn;
     [SerializeField] CutSceneManager cutSceneManager;
 
     public static bool isGamePlaying;
@@ -17,7 +17,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     //
     void Start()
     {
-        testWaveStartBtn.onClick.AddListener(  StartWave );
+        // testWaveStartBtn.onClick.AddListener(  StartWave );
         bgm.Raise();
         StartGame();
     }
@@ -71,6 +71,14 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     {
         gameOver.Raise();
         isGamePlaying = false;
+    }
+
+    public void Victory()
+    {
+        isGamePlaying = false;
+
+
+        Debug.Log("승리!");
     }
 
 }

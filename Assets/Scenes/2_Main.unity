@@ -3199,6 +3199,10 @@ PrefabInstance:
       propertyPath: waveInfoUI
       value: 
       objectReference: {fileID: 1697606874}
+    - target: {fileID: 7045760442429964645, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
+      propertyPath: stageWaveInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 7360a3e7c85a9964a9b5cbdb0bad87ab, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
