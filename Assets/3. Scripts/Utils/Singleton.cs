@@ -31,10 +31,10 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
                         DontDestroyOnLoad(singletonObj);
                     }
-                    else
-                    {
-                        DontDestroyOnLoad(_instance.gameObject);
-                    }
+                    // else
+                    // {
+                    //     DontDestroyOnLoad(_instance.gameObject);
+                    // }
                 }
             }
 

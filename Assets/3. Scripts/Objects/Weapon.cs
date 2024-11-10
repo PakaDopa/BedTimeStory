@@ -36,6 +36,12 @@ public class Weapon : MonoBehaviour
     }
     void Update()
     {
+        if(GamePlayManager.isGamePlaying ==false)
+        {
+            return;
+        }
+
+        
         float deltaTime = Time.deltaTime;
         currSkillCooltime = Mathf.Max(currSkillCooltime - deltaTime, 0);
 

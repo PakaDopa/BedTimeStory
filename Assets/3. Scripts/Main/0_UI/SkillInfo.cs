@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class SkillInfo : MonoBehaviour
 {
-    TMP_Text text;
+    [SerializeField] TMP_Text text;
     Weapon weapon;
 
-    private void Awake()
-    {
-        text = GetComponentInChildren<TextMeshProUGUI>();
-    }
+    // private void Awake()
+    // {
+    //     text = GetComponentInChildren<TextMeshProUGUI>();
+    // }
 
     private void Start()
     {

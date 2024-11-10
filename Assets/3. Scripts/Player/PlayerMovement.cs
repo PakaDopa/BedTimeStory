@@ -63,14 +63,16 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //첫대쉬 판정
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-            dashSoundSO.Raise();
+
         Gravity();
         
         if(GamePlayManager.isGamePlaying==false)
             return;
         
+
+        //첫대쉬 판정
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            dashSoundSO.Raise();
         GetDirectionAndMove();
         
     }
