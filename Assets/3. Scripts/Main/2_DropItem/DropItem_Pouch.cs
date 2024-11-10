@@ -7,7 +7,8 @@ public class DropItem_Pouch : DropItem
 
     public override void Get()
     {
-        PlayerStats.Instance.Recover(30);
+        
+        PlayerStats.Instance.GetGold(100);
     }
 
 }

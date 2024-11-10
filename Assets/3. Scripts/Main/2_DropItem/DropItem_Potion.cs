@@ -6,7 +6,7 @@ public class DropItem_Potion : DropItem
 {
     public override void Get()
     {
-        PlayerStats.Instance.GetGold(100);
+        PlayerStats.Instance.Recover(30);
     }
 
 
