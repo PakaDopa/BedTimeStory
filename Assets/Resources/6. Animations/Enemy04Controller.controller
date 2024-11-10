@@ -70,7 +70,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ed3427604fbe9ee4fb75633f23f5cd6a, type: 2}
+  m_Motion: {fileID: 7400000, guid: b2824d494caf48e418d25d0d2e72b1f0, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -97,7 +97,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ba82082b4e9654e4b9cb26b653f47d25, type: 2}
+  m_Motion: {fileID: 7400000, guid: 04b89f282e57e97408e9ce719c098085, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -117,7 +117,7 @@ AnimatorStateMachine:
     m_Position: {x: 240, y: 80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3061372696148543652}
-    m_Position: {x: 230, y: 190, z: 0}
+    m_Position: {x: 250, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2750212828527553488}
     m_Position: {x: 260, y: 10, z: 0}
@@ -154,7 +154,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 2cb5acdda1b255f4fb4ab36d165e3170, type: 2}
+  m_Motion: {fileID: 7400000, guid: ad23ebaa862555a47a0eb3f2eed0813c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -166,7 +166,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Enemy01Controller
+  m_Name: Enemy04Controller
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isDead
