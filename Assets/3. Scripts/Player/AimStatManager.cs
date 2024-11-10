@@ -11,17 +11,17 @@ public class AimStatManager : MonoBehaviour
 
     public AxisState xAxis, yAxis;
 
-    [Header("ÇÃ·¹ÀÌ¾î µû¶ó´Ù´Ï´Â Ä«¸Þ¶ó, ½Ã³×¸Ó½Å Ä«¸Þ¶ó¿¡¼­ ÃßÀûÁß")]
+    [Header("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½Ù´Ï´ï¿½ Ä«ï¿½Þ¶ï¿½, ï¿½Ã³×¸Ó½ï¿½ Ä«ï¿½Þ¶ó¿¡¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] Transform camFollowPos;
 
-    [Header("°¢ ÇàÀ§º° ÁÂÇ¥ ÀúÀå")]
+    [Header("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] Transform camFollowPosTarget;
     [SerializeField] Transform camFollowPosRunTarget;
     [SerializeField] Transform camFollowPosAimTarget;
 
     [SerializeField] float mouseSense;
 
-    [Header("¿¡ÀÓ ÀÌ¹ÌÁö UI")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ UI")]
     [SerializeField] RectTransform crosshairImg;
 
     private void Start()
@@ -33,6 +33,12 @@ public class AimStatManager : MonoBehaviour
     void Update()
     {
         //State
+        if(GamePlayManager.isGamePlaying ==false)
+        {
+            return;
+        }
+
+
         AimMode();
 
         xAxis.Value += Input.GetAxisRaw("Mouse X") * mouseSense;
@@ -46,7 +52,7 @@ public class AimStatManager : MonoBehaviour
     }
     private void AimMode()
     {
-        // ¿¡ÀÓ ¸ðµå È°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         if (Input.GetKey(KeyCode.Mouse1))
         {
             camFollowPos.DOLocalMove(camFollowPosAimTarget.localPosition, 0.25f, false);

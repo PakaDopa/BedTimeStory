@@ -10,6 +10,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     [SerializeField] SoundEventSO gameWin;
 
     [SerializeField] Button testWaveStartBtn;
+    [SerializeField] CutSceneManager cutSceneManager;
 
     public static bool isGamePlaying;
 
@@ -34,15 +35,25 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     public void StartGame()
     {
-        isGamePlaying = true;
+        isGamePlaying = false;
         
         Tower.Instance.Init();
         Stage.Instance.Init();
         
         GameEventManager.Instance.onGameStart.Invoke();
 
+        StartCoroutine(cutSceneManager.PlayCutScene());
 
         Debug.Log("게임 시작");
+    }
+
+
+    public void OnCutSceneFinish()
+    {
+        isGamePlaying = true;
+        Time.timeScale = 1;
+
+        StartWave();
     }
 
     

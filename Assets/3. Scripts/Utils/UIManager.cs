@@ -9,12 +9,18 @@ public class UIManager : DestroyableSingleton<UIManager>
 
     private void Update()
     {
+        if (GamePlayManager.isGamePlaying == false)
+        {
+            return;
+        }
+        
+        
         UseUpgradePanel();
         UseOptionPanel();
     }
 
     private void UseOptionPanel()
-    {
+    { 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             optionPanel.SetActive(!optionPanel.activeSelf);
