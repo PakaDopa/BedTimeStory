@@ -37,7 +37,7 @@ public class Tower : DestroyableSingleton<Tower>
     public void DestroyTower()
     {
         // Destroy(gameObject);
-        soundSO.Raise();
+        //soundSO.Raise();
         GamePlayManager.Instance.GameOver();
         Debug.LogError("패배!!!!!!!!!!");
     }   

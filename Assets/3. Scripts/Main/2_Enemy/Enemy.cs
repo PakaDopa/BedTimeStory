@@ -204,14 +204,18 @@ public class Enemy : MonoBehaviour
     public void Attack(Vector3 targetPos)
     {
         isCasting = true;
+        aniamtor.SetBool("isAttack", true);
+        //
         enemyData.Attack(this,targetPos);
         lastAttackTime = Time.time;
 
+        //
         StopAttack();
     }
 
     public void StopAttack()
     {
+        aniamtor.SetBool("isAttack", false);
         isCasting = false;
     }
 
