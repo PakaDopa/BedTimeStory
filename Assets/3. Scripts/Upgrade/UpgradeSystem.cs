@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class UpgradeSystem : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class UpgradeSystem : MonoBehaviour
     [SerializeField] Button rerollButton;
     [SerializeField] Button hpRecoverButton;
     [SerializeField] Transform upgradeMenu;
+
+    [SerializeField] RectTransform[] effectGroup;
 
     List<UpgradeMenuItem> upgradeMenuItems = new List<UpgradeMenuItem>();
     List<Dictionary<string, object>> dataset;
@@ -65,9 +68,27 @@ public class UpgradeSystem : MonoBehaviour
 
         SetRecoverButtonText();
     }
-
+    private void EnableVFX(int offset, int index)
+    {
+        if (offset > 2)
+            return;
+        Debug.Log(offset);
+        effectGroup[index].GetChild(offset).GetComponent<ParticleSystem>().Play();
+        Debug.Log(effectGroup[index].GetChild(offset).GetComponent<ParticleSystem>().isPlaying);
+    }
+    private void DisenableVFX()
+    {
+        for(int i = 0; i < effectGroup.Length; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                effectGroup[i].GetChild(j).GetComponent<ParticleSystem>().Stop();
+            }
+        }
+    }
     private void Roll()
     {
+        DisenableVFX();
         PlayerStats.Instance.UseGold(rerollCost);
 
         for (int i = 0; i < upgradeMenuItems.Count; i++)
@@ -82,21 +103,21 @@ public class UpgradeSystem : MonoBehaviour
             // ��� �з� ������
             int gradeOffset;
             float randomNumber = UnityEngine.Random.Range(0, 100);
-            if (randomNumber < 2.5)
+            if (randomNumber < 2.5) //A
                 gradeOffset = 0;
-            else if (randomNumber < 8)
+            else if (randomNumber < 8) //B
                 gradeOffset = 1;
-            else if (randomNumber < 20)
+            else if (randomNumber < 20) //C
                 gradeOffset = 2;
-            else if (randomNumber < 60)
+            else if (randomNumber < 60) // D
                 gradeOffset = 3;
-            else if (randomNumber < 80)
+            else if (randomNumber < 80) //E
                 gradeOffset = 4;
             else // (randomNumber < 100)
                 gradeOffset = 5;
 
             var row = dataset[typeOffset + gradeOffset];
-
+            EnableVFX(gradeOffset, i);
             int grade = Convert.ToInt32(row["Grade"]);
             int value = Convert.ToInt32(row["Value"]);
 
