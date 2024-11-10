@@ -66,6 +66,11 @@ public class UpgradeSystem : MonoBehaviour
         SetRecoverButtonText();
     }
 
+    void OnEnable()
+    {
+        SetButtonsInteractable();
+    }
+
     private void Roll()
     {
         PlayerStats.Instance.UseGold(rerollCost);
@@ -143,13 +148,16 @@ public class UpgradeSystem : MonoBehaviour
         {
             hpRecoverButton.interactable = false;
         }
-
+        Debug.Log( $"  {PlayerStats.Instance.CurrGold  }  >{ rerollCost}  ????ㅁㄹ다"); 
         if (PlayerStats.Instance.CurrGold >= rerollCost)
         {
+            Debug.Log( "true");
             rerollButton.interactable = true;
         }
         else
         {
+
+            Debug.Log( "false"); 
             rerollButton.interactable = false;
         }
     }
