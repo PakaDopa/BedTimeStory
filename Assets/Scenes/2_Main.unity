@@ -3473,6 +3473,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[UI] Canvas'
       objectReference: {fileID: 0}
+    - target: {fileID: 4614493867753943282, guid: 4877c1fad344cde43aaa7e9cc6622df5, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4999655293628846365, guid: 4877c1fad344cde43aaa7e9cc6622df5, type: 3}
       propertyPath: m_Pivot.x
       value: 0

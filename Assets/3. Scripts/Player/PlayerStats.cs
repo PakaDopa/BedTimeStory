@@ -44,6 +44,8 @@ public class PlayerStats : Singleton<PlayerStats>
     {
         currHP = Mathf.Clamp(currHP - amount, 0, maxHP);
 
+        GameEventManager.Instance.onPlayerGetDamage.Invoke();
+
         if (currHP <= 0)
         {
             Die();
