@@ -46,4 +46,22 @@ public class GameManager : Singleton<GameManager>
         
     }
 
+
+    public void LockCursor(bool flag)
+    {
+
+        if (flag)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+        }
+
+    }
+
 }
