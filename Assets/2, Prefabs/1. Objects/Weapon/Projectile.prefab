@@ -5226,7 +5226,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459469fadf7b0984c9112ce0fa88f2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundSO: {fileID: 11400000, guid: aca63742748f68647bfe98707ea18392, type: 2}
+  soundSO:
+  - {fileID: 11400000, guid: 5d9c74598a378d94abe6a4a210399adc, type: 2}
+  - {fileID: 11400000, guid: c203671e4611ac645b8476e3914d224c, type: 2}
+  - {fileID: 11400000, guid: 21b739840688f2f469344ae3ebdbe8f3, type: 2}
   hitPrefab: {fileID: 1958568899816826, guid: 922574f7f2e5e4b46a6b64296d4eac41, type: 3}
   trails:
   - {fileID: 1697879271537238}

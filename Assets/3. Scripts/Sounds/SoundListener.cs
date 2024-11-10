@@ -26,24 +26,4 @@ public class SoundListener : MonoBehaviour
     {
         response.Invoke(soundEventSo);
     }
-
-    //public void SoundPlaySFX(SoundType type)
-    //{
-    //    audioSource = GetComponent<AudioSource>();
-    //    audioSource.PlayOneShot(soSoundDatas[(int)type].clip);
-    //}
-    //public void SoundPlayBGM(SoundType type)
-    //{
-    //    if (type != SoundType.BGM)
-    //        return;
-
-    //    audioSource = GetComponent<AudioSource>();
-    //    var bgmClips = soSoundDatas[(int)type].clip;
-    //    if (audioSource.clip != null)
-    //        audioSource.Stop();
-
-    //    audioSource.clip = bgmClips;
-    //    audioSource.loop = true;
-    //    audioSource.Play();
-    //}
 }

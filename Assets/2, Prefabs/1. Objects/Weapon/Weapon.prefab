@@ -81,6 +81,12 @@ MonoBehaviour:
   rocketProjectilePrefab: {fileID: 5579294690110463380, guid: edf9dc89fe3736f429d9ea8e79dc1300, type: 3}
   muzzle: {fileID: 7384516944435984176}
   reloadParticleSystem: {fileID: 8011353231429659768}
+  attackEventSOs:
+  - {fileID: 11400000, guid: e606f3db8203d6f49ae0098052255acf, type: 2}
+  - {fileID: 11400000, guid: 10d715a026b89d64a9b04a575ec60346, type: 2}
+  - {fileID: 11400000, guid: a53717d54fe9bfc4c8a26c9960abfb59, type: 2}
+  - {fileID: 11400000, guid: 3f4720d17794657479b8bc1352235a1d, type: 2}
+  reloadEventSo: {fileID: 11400000, guid: dec4c8d7364cfe64fba62643b699027d, type: 2}
 --- !u!1 &9126711894665870018
 GameObject:
   m_ObjectHideFlags: 0
