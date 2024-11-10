@@ -16,7 +16,7 @@ public class GameEventManager : Singleton<GameEventManager>
 
 
 
-
+    public UnityEvent onPlayerGetDamage = new();
 
 
 
