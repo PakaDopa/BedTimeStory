@@ -12,6 +12,13 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     // [SerializeField] Button testWaveStartBtn;
     [SerializeField] CutSceneManager cutSceneManager;
 
+
+    //======= UI ==========
+    [SerializeField] VictoryPanel victoryPanel;
+
+
+    //=====================
+
     public static bool isGamePlaying;
 
     //
@@ -76,8 +83,8 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     public void Victory()
     {
         isGamePlaying = false;
-
-
+        victoryPanel.Open();
+        GameManager.Instance.LockCursor(false);
         Debug.Log("승리!");
     }
 
