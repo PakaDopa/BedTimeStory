@@ -24,7 +24,7 @@ public class Slider_EnemyHp : MonoBehaviour
     void Update()
     {
         // 적의 월드 위치 계산
-        Vector3 worldPos = enemy.t.position + Vector3.up * 1.5f;
+        Vector3 worldPos = enemy.t.position + Vector3.up * 3f;
 
         // 월드 위치를 스크린 좌표로 변환
         Vector3 screenPos = mainCamera.WorldToScreenPoint(worldPos);
