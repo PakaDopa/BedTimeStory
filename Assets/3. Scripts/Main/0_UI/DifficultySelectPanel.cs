@@ -11,20 +11,20 @@ public class DifficultySelectPanel : MonoBehaviour
     {
         foreach(var ed in enemyDataSOs)
             ed.maxHp = 65;
-        SceneManager.LoadScene("2_Main");
+        SceneLoadManager.Instance.Load_MainScene();
     }
 
     public void SelectNormalMode()
     {
         foreach (var ed in enemyDataSOs)
             ed.maxHp = 100;
-        SceneManager.LoadScene("2_Main");
+        SceneLoadManager.Instance.Load_MainScene();
     }
 
     public void SelectHardMode()
     {
         foreach (var ed in enemyDataSOs)
             ed.maxHp = 135;
-        SceneManager.LoadScene("2_Main");
+        SceneLoadManager.Instance.Load_MainScene();
     }
 }

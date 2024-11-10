@@ -18,6 +18,8 @@ public class WaveManager : DestroyableSingleton<WaveManager>
 
     public int currWaveNum => clearedWaveNum +1;
 
+    public bool isVictory => clearedWaveNum >= stageWaveInfo.waveInfos.Count;
+
     public bool isWavePlaying; 
     public float waveStartTime;
     public float wavePlayTime;
@@ -72,6 +74,17 @@ public class WaveManager : DestroyableSingleton<WaveManager>
         }
 
         clearedWaveNum++;
+        
+        if (isVictory)
+        {
+            GamePlayManager.Instance.Victory();
+        }
+        else
+        {
+            StartWave();
+        }
+        
+        
         GameEventManager.Instance.onWaveFinish.Invoke();
     }
     
@@ -101,7 +114,7 @@ public class WaveManager : DestroyableSingleton<WaveManager>
             yield return new WaitForSeconds(1f);
         }
         FinishWave();
-        StartWave();
+        
     }
 
     /// <summary>
