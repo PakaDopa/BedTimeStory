@@ -18,8 +18,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float gravity = -9.81f;
     Vector3 velocity;
 
-    [Header("�ɾ�� ����")]
+    [Header("WalkSound")]
     [SerializeField] SoundEventSO[] soundEventSOs;
+    [Header("DashSound")]
+    [SerializeField] SoundEventSO dashSoundSO;
     private Coroutine walkSoundCoroutine;
     private int soundIndex = 0;
     private bool isWalking = false;
@@ -61,13 +63,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //첫대쉬 판정
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            dashSoundSO.Raise();
         Gravity();
         
         if(GamePlayManager.isGamePlaying==false)
-        {
             return;
-        }
-        
         
         GetDirectionAndMove();
         

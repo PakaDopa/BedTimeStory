@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 {
     [SerializeField] SoundEventSO bgm;
+    [SerializeField] SoundEventSO gameOver;
+    [SerializeField] SoundEventSO gameWin;
+
     [SerializeField] Button testWaveStartBtn;
 
     public static bool isGamePlaying;
@@ -55,6 +58,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     public void GameOver()
     {
+        gameOver.Raise();
         isGamePlaying = false;
     }
 
