@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] ParticleSystem reloadParticleSystem;
 
     [SerializeField] private SoundEventSO[] attackEventSOs;
+    [SerializeField] private SoundEventSO reloadEventSo;
     bool isAiming = false;
     bool isShotting = false;
     bool isReloading = false;
@@ -106,6 +107,7 @@ public class Weapon : MonoBehaviour
         {
             if(currAmmo < maxAmmo && !isReloading)
             {
+                reloadEventSo.Raise();
                 StartCoroutine(ReloadCoroutine());
             }
         }
