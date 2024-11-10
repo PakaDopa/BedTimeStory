@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Tower : DestroyableSingleton<Tower>
 {
+    [SerializeField] private SoundEventSO soundSO;
 
 
     public float hp;
@@ -36,6 +37,7 @@ public class Tower : DestroyableSingleton<Tower>
     public void DestroyTower()
     {
         // Destroy(gameObject);
+        soundSO.Raise();
         GamePlayManager.Instance.GameOver();
         Debug.LogError("패배!!!!!!!!!!");
     }   

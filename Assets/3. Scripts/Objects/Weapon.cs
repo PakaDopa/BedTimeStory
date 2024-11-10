@@ -32,6 +32,7 @@ public class Weapon : MonoBehaviour
     {
         reloadParticleSystem.Stop();
         StartCoroutine(Shotting());
+        EventManager.Instance.PostNotification(MEventType.ChangeArmo, this, new TransformEventArgs(transform, currAmmo, maxAmmo));
     }
     void Update()
     {
@@ -111,10 +112,10 @@ public class Weapon : MonoBehaviour
         EventManager.Instance.PostNotification(MEventType.ReloadingArmo, this, new TransformEventArgs(transform, true));
         yield return new WaitForSeconds(PlayerStats.Instance.ReloadSpeed);
         reloadParticleSystem.Stop();
-        EventManager.Instance.PostNotification(MEventType.ReloadingArmo, this, new TransformEventArgs(transform, false));
-        EventManager.Instance.PostNotification(MEventType.ChangeArmo, this, new TransformEventArgs(transform, currAmmo, maxAmmo));
         currAmmo = maxAmmo;
         isReloading = false;
+        EventManager.Instance.PostNotification(MEventType.ReloadingArmo, this, new TransformEventArgs(transform, false));
+        EventManager.Instance.PostNotification(MEventType.ChangeArmo, this, new TransformEventArgs(transform, currAmmo, maxAmmo));
     }
 
     private Vector3 CalcDir()

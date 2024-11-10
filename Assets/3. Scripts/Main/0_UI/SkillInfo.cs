@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SkillInfo : MonoBehaviour
 {
-    TextMeshProUGUI text;
+    TMP_Text text;
     Weapon weapon;
 
     private void Awake()

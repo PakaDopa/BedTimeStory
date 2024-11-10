@@ -1399,6 +1399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2133a7f0464e1394a80790df1d17c73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundSO: {fileID: 0}
   hp: 0
   maxHp: 1000
 --- !u!1 &952178693
@@ -1814,38 +1815,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 980024841860452105, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      propertyPath: attackEventSOs.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 980024841860452105, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      propertyPath: attackEventSOs.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 414c462252fe8904cae8b1deece2bf39, type: 2}
-    - target: {fileID: 980024841860452105, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      propertyPath: attackEventSOs.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 690948c4d92f7cc43870993904c313a2, type: 2}
-    - target: {fileID: 980024841860452105, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      propertyPath: attackEventSOs.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 354a661dac722f442bde2b7221a941b7, type: 2}
-    - target: {fileID: 980024841860452105, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      propertyPath: attackEventSOs.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 6f27b4597633b654ca3e37255e9b89b5, type: 2}
-    - target: {fileID: 4807865899677616379, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807865899677616379, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807865899677616379, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 4807865899677616379, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 46.45
@@ -1886,14 +1855,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4812748691583265961, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      propertyPath: m_Center.y
-      value: 2.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 5106548278100044039, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      propertyPath: m_Center.y
-      value: 2.43
-      objectReference: {fileID: 0}
     - target: {fileID: 5328647024945386049, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
       propertyPath: m_Name
       value: MainCharacter
@@ -1905,10 +1866,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5328647024945386049, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1639234323}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
 --- !u!4 &1306824648 stripped
 Transform:
@@ -2547,40 +2505,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2133a7f0464e1394a80790df1d17c73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundSO: {fileID: 11400000, guid: 0faf87f25acf6b848a5535953b5b8cab, type: 2}
   hp: 0
   maxHp: 1000
---- !u!1 &1639234315 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5328647024945386049, guid: 7d98d56bb6676ef46a29a1049d20f8a8, type: 3}
-  m_PrefabInstance: {fileID: 1306824647}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &1639234323
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639234315}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
 --- !u!1 &1682004856
 GameObject:
   m_ObjectHideFlags: 0
@@ -3198,6 +3125,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1551806264656179801, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
+      propertyPath: gameWin
+      value: 
+      objectReference: {fileID: 11400000, guid: d72b088c4c5de5f439deb62bfb9528d9, type: 2}
+    - target: {fileID: 1551806264656179801, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
+      propertyPath: gameOver
+      value: 
+      objectReference: {fileID: 11400000, guid: 5a32ef79d0b8f6e428c1484ce7ced308, type: 2}
+    - target: {fileID: 1551806264656179801, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
       propertyPath: testWaveStartBtn
       value: 
       objectReference: {fileID: 1910748695}
@@ -3333,24 +3268,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4134805315731165656, guid: df0082c804f876844985899cab5ac493, type: 3}
       propertyPath: soSoundDatas.Array.size
-      value: 22
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 4134805315731165656, guid: df0082c804f876844985899cab5ac493, type: 3}
-      propertyPath: soSoundDatas.Array.data[18]
+      propertyPath: soSoundDatas.Array.data[24]
       value: 
-      objectReference: {fileID: 11400000, guid: 38e26dcd8834a2844ada1ad38b6e07e1, type: 2}
+      objectReference: {fileID: 11400000, guid: d72b088c4c5de5f439deb62bfb9528d9, type: 2}
     - target: {fileID: 4134805315731165656, guid: df0082c804f876844985899cab5ac493, type: 3}
-      propertyPath: soSoundDatas.Array.data[19]
+      propertyPath: soSoundDatas.Array.data[25]
       value: 
-      objectReference: {fileID: 11400000, guid: c4339d4510d5cab409ccdb9971474429, type: 2}
-    - target: {fileID: 4134805315731165656, guid: df0082c804f876844985899cab5ac493, type: 3}
-      propertyPath: soSoundDatas.Array.data[20]
-      value: 
-      objectReference: {fileID: 11400000, guid: aca63742748f68647bfe98707ea18392, type: 2}
-    - target: {fileID: 4134805315731165656, guid: df0082c804f876844985899cab5ac493, type: 3}
-      propertyPath: soSoundDatas.Array.data[21]
-      value: 
-      objectReference: {fileID: 11400000, guid: 9ed3286b9ad60a0499d9c85a619055c8, type: 2}
+      objectReference: {fileID: 11400000, guid: 5a32ef79d0b8f6e428c1484ce7ced308, type: 2}
     - target: {fileID: 4833362230867226620, guid: df0082c804f876844985899cab5ac493, type: 3}
       propertyPath: m_LocalPosition.x
       value: 46.72
