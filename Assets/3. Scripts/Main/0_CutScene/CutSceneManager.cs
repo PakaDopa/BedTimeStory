@@ -27,7 +27,7 @@ public class CutSceneManager : MonoBehaviour
         if (isCutSceneFinished == false && Input.GetKeyDown(KeyCode.Alpha6))
         {
             Debug.Log("히든 커맨드");
-            Time.timeScale = 3f;
+            Time.timeScale = 5f;
         }
         
         

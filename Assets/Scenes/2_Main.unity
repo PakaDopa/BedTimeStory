@@ -3159,6 +3159,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1792885703}
     - target: {fileID: 1551806264656179801, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
+      propertyPath: gameOverPanel
+      value: 
+      objectReference: {fileID: 8399982857016199282}
+    - target: {fileID: 1551806264656179801, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
       propertyPath: cutSceneManager
       value: 
       objectReference: {fileID: 1751247527}
@@ -3404,10 +3408,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6964889642565028634, guid: 4877c1fad344cde43aaa7e9cc6622df5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9097349764829993215, guid: 4877c1fad344cde43aaa7e9cc6622df5, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -3425,6 +3425,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4877c1fad344cde43aaa7e9cc6622df5, type: 3}
+--- !u!114 &8399982857016199282 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1897886772024684383, guid: 4877c1fad344cde43aaa7e9cc6622df5, type: 3}
+  m_PrefabInstance: {fileID: 8399982857016199281}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf6e7c2b7c3b0c4482a3aceed82a537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

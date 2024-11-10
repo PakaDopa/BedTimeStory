@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     //======= UI ==========
     [SerializeField] VictoryPanel victoryPanel;
+    [SerializeField] GameOverPanel gameOverPanel;
 
 
     //=====================
@@ -77,15 +79,23 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     public void GameOver()
     {
         gameOver.Raise();
+
         isGamePlaying = false;
+        GameManager.Instance.LockCursor(false);
+
+        gameOverPanel.Open();
     }
 
     public void Victory()
     {
-        isGamePlaying = false;
-        victoryPanel.Open();
-        GameManager.Instance.LockCursor(false);
         Debug.Log("승리!");
+        
+        isGamePlaying = false;
+        
+        GameManager.Instance.LockCursor(false);
+
+        victoryPanel.Open();
+        
     }
 
 }
