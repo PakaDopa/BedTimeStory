@@ -977,6 +977,37 @@ Transform:
   - {fileID: 6086903126257107055}
   m_Father: {fileID: 6859748767519994467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3649017409938790112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6749336682137871887}
+  m_Layer: 0
+  m_Name: NexusSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6749336682137871887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3649017409938790112}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 50, y: 0, z: 50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3934910739279982088}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3735303822395505708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1530,6 +1561,7 @@ Transform:
   - {fileID: 6859748767519994467}
   - {fileID: 6780199270152136405}
   - {fileID: 1853960934140146798}
+  - {fileID: 6749336682137871887}
   m_Father: {fileID: 1643525053506711760}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!218 &9033174021626010359
