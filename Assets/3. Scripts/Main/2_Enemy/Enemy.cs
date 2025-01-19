@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
     public bool isCasting;
 
 
-    Slider_EnemyHp enemyState;
+    // Slider_EnemyHp enemyState;
     //===================================
 
     void Update()
@@ -97,8 +97,8 @@ public class Enemy : MonoBehaviour
         enemyAI.Init( this, waveNum);
 
 
-        enemyState = EnemyCanvas.Instance.Generate_EnemyHpBar();
-        enemyState?.Init(this);
+        // enemyState = EnemyCanvas.Instance.Generate_EnemyHpBar();
+        // enemyState?.Init(this);
     }
 
     void InitStatus(int waveNum)
@@ -131,7 +131,7 @@ public class Enemy : MonoBehaviour
         }
         // Debug.Log($"앗 {currHp}/ {maxHp}");
         // ui
-        enemyState?.OnUpdateEnemyHp();
+        // enemyState?.OnUpdateEnemyHp();
     }
 
 
@@ -173,7 +173,7 @@ public class Enemy : MonoBehaviour
     {
         _collider.enabled = false;
         DropItem();
-        enemyState?.OnEnemyDie();
+        // enemyState?.OnEnemyDie();
         enemyAI.OnDie();
         aniamtor.SetBool("isDead", true);
         Destroy(gameObject, 6.0f);

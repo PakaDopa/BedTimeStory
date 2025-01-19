@@ -53,8 +53,8 @@ public class Slider_EnemyHp : MonoBehaviour
     private bool IsInViewport(Vector3 screenPos)
     {
         return true;
-        return screenPos.x >= 0 && screenPos.x <= Screen.width &&
-            screenPos.y >= 0 && screenPos.y <= Screen.height;
+        // return screenPos.x >= 0 && screenPos.x <= Screen.width &&
+        //     screenPos.y >= 0 && screenPos.y <= Screen.height;
     }
 
     public void Init(Enemy enemy)
