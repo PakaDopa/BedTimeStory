@@ -206,9 +206,9 @@ public class Enemy : MonoBehaviour
     [Header("Ability")]
     [SerializeField] EnemyAnimationEvent_Attack attackAnimationEvent;
 
-    int hash_attack = Animator.StringToHash("attack");
-    int hash_die = Animator.StringToHash("die");
-    int hash_movementSpeed = Animator.StringToHash("movementSpeed");
+    static int hash_attack = Animator.StringToHash("attack");
+    static int hash_die = Animator.StringToHash("die");
+    static int hash_movementSpeed = Animator.StringToHash("movementSpeed");
     
 
     public void StartAttack(Vector3 targetPos)
@@ -226,18 +226,18 @@ public class Enemy : MonoBehaviour
         }
         
         //
-        Debug.Log("공격시작");
+        // Debug.Log("공격시작");
         isCasting = true;
         animator.SetBool(hash_attack, true);
         attackAnimationEvent.OnStart();
         yield return new WaitUntil(()=> attackAnimationEvent.AbilityActivationTime == true || isCasting == false);
-        Debug.Log("퍽");
+        // Debug.Log("퍽");
         enemyData.Attack(this, targetPos);
         lastAttackTime = Time.time;
         
 
         yield return new WaitUntil(()=> attackAnimationEvent.animationFinished == true || isCasting == false);
-        Debug.Log("공격끝");
+        // Debug.Log("공격끝");
         animator.SetBool(hash_attack, false);
         isCasting = false;
     }

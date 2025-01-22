@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundSO: {fileID: 11400000, guid: 5a32ef79d0b8f6e428c1484ce7ced308, type: 2}
+  towerCollider: {fileID: 0}
   hp: 0
   maxHp: 1000
 --- !u!65 &3785227977805097808
@@ -64,12 +65,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6, y: 8, z: 6}
-  m_Center: {x: 0.5, y: 0, z: 1}
+  m_Size: {x: 5.9514275, y: 8, z: 7.126709}
+  m_Center: {x: 0.47571373, y: 0, z: 0.4366455}
 --- !u!1001 &2894509416145187489
 PrefabInstance:
   m_ObjectHideFlags: 0
