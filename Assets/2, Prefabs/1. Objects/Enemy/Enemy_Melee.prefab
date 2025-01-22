@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a379da69c7748564eb4e2b2fbcb8fb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  targetCollider: {fileID: 0}
   playerDetectionRange: 10
   attackRange: 1.5
 --- !u!114 &3654369698663907916
@@ -98,6 +98,7 @@ MonoBehaviour:
   stunDurationRemain: 0
   lastAttackTime: 0
   isCasting: 0
+  attackAnimationEvent: {fileID: 5273249839945013014}
 --- !u!136 &8407753709932845091
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -200,16 +201,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9222080476064371203, guid: 6cd6e88a61e88af42a78e07c737f606d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 216376b1ab90f974698c87d57cd84f20, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7141096629945865682, guid: 6cd6e88a61e88af42a78e07c737f606d, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 5273249839945013014}
   m_SourcePrefab: {fileID: 100100000, guid: 6cd6e88a61e88af42a78e07c737f606d, type: 3}
 --- !u!4 &120040371034102328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7516953218335231848, guid: 6cd6e88a61e88af42a78e07c737f606d, type: 3}
   m_PrefabInstance: {fileID: 7636958404994946384}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &784093319448871042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7141096629945865682, guid: 6cd6e88a61e88af42a78e07c737f606d, type: 3}
+  m_PrefabInstance: {fileID: 7636958404994946384}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5273249839945013014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784093319448871042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a190140fafd3ff04498a37b8d7c5476e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1585412625004070739 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 9222080476064371203, guid: 6cd6e88a61e88af42a78e07c737f606d, type: 3}

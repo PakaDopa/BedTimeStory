@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a379da69c7748564eb4e2b2fbcb8fb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  targetCollider: {fileID: 0}
   playerDetectionRange: 10
   attackRange: 1.5
 --- !u!114 &3654369698663907916
@@ -98,6 +98,7 @@ MonoBehaviour:
   stunDurationRemain: 0
   lastAttackTime: 0
   isCasting: 0
+  attackAnimationEvent: {fileID: 376665610367830685}
 --- !u!136 &8407753709932845091
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -211,6 +212,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5974274555542434914}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 376665610367830685}
   m_SourcePrefab: {fileID: 100100000, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
 --- !u!4 &1584329444568337687 stripped
 Transform:
@@ -232,7 +236,7 @@ Animator:
   m_GameObject: {fileID: 2213373603703969709}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e47e8755400e8ad47ac1fb9f017e58a5, type: 2}
+  m_Controller: {fileID: 22100000, guid: fee039e863009ef419dab9f9cdca5fe2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -243,3 +247,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &376665610367830685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2213373603703969709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a190140fafd3ff04498a37b8d7c5476e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

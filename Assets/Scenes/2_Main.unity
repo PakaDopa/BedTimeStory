@@ -633,6 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundSO: {fileID: 0}
+  towerCollider: {fileID: 0}
   hp: 0
   maxHp: 1000
 --- !u!1 &1237331307
@@ -1073,7 +1074,7 @@ PrefabInstance:
     - target: {fileID: 7045760442429964645, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
       propertyPath: stageWaveInfo
       value: 
-      objectReference: {fileID: 11400000, guid: 7360a3e7c85a9964a9b5cbdb0bad87ab, type: 2}
+      objectReference: {fileID: 11400000, guid: 00f94cada3fd6f841938e0cae1dea7b5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1133,6 +1134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 113680023150846311, guid: df43f9dc82121574191560f7441e0753, type: 3}
+    - {fileID: 4869323172996215188, guid: df43f9dc82121574191560f7441e0753, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

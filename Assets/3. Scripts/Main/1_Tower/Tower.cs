@@ -7,6 +7,8 @@ public class Tower : DestroyableSingleton<Tower>
 {
     [SerializeField] private SoundEventSO soundSO;
 
+    public Collider towerCollider;  //거리를 정확하게 측정하기 위함. 
+
 
     public float hp;
     public float maxHp = 500;
@@ -15,6 +17,8 @@ public class Tower : DestroyableSingleton<Tower>
     public void Init()
     {
         hp = maxHp;
+        towerCollider = GetComponent<Collider>();
+        
     }
 
 

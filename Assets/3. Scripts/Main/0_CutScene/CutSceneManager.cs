@@ -18,9 +18,9 @@ public class CutSceneManager : MonoBehaviour
     public int currPage;
     public int cutIdx;
     
-
-    public bool isCutSceneFinished => cutIdx >= cuts.Count;
-
+    
+    public bool isCutSceneFinished =>  cutIdx >= cuts.Count;
+    public static bool isCutSceneEnabled = false;                            // 컷씬 활성화여부 
 
     void Update()
     {
@@ -107,7 +107,7 @@ public class CutSceneManager : MonoBehaviour
         Debug.Log("컷씬 종료 입력");
         
         gameObject.SetActive(false);
-        GamePlayManager.Instance.OnCutSceneFinish();
+        // GamePlayManager.Instance.OnCutSceneFinish();
         
     }
 }

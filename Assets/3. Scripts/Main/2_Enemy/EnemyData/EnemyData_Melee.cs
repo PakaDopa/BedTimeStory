@@ -37,7 +37,7 @@ public class EnemyData_Melee : EnemyDataSO
         // 충돌된 오브젝트들에 대해 반복 실행
         for(int i=0;i<hits.Length;i++)
         {
-            Collider hit = hits[0];
+            Collider hit = hits[i];
 
             // 적에게 피해를 입히는 로직
             Player player = hit.GetComponent<Player>();

@@ -7,10 +7,11 @@ using System;
 using GameUtil;
 using DG.Tweening;
 
+
 [RequireComponent(typeof(EnemyAI), typeof(Collider), typeof(Rigidbody) )]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] Animator aniamtor;
+    [SerializeField] Animator animator;
 
     public Transform t;
     public EnemyAI enemyAI;
@@ -96,7 +97,7 @@ public class Enemy : MonoBehaviour
 
         enemyAI.Init( this, waveNum);
 
-
+        animator= GetComponentInChildren<Animator>();
         // enemyState = EnemyCanvas.Instance.Generate_EnemyHpBar();
         // enemyState?.Init(this);
     }
@@ -175,7 +176,7 @@ public class Enemy : MonoBehaviour
         DropItem();
         // enemyState?.OnEnemyDie();
         enemyAI.OnDie();
-        aniamtor.SetBool("isDead", true);
+        animator.SetTrigger(hash_die);
         Destroy(gameObject, 6.0f);
     }
 
@@ -201,25 +202,52 @@ public class Enemy : MonoBehaviour
     }
 
 
-    public void Attack(Vector3 targetPos)
-    {
-        isCasting = true;
-        aniamtor.SetBool("isAttack", true);
-        //
-        enemyData.Attack(this,targetPos);
-        lastAttackTime = Time.time;
+    #region Ability
+    [Header("Ability")]
+    [SerializeField] EnemyAnimationEvent_Attack attackAnimationEvent;
 
-        //
-        StopAttack();
+    int hash_attack = Animator.StringToHash("attack");
+    int hash_die = Animator.StringToHash("die");
+    int hash_movementSpeed = Animator.StringToHash("movementSpeed");
+    
+
+    public void StartAttack(Vector3 targetPos)
+    {
+        
+        StartCoroutine(AbilityRoutine(targetPos));
     }
 
-    public void StopAttack()
+    IEnumerator AbilityRoutine(Vector3 targetPos)
     {
-        aniamtor.SetBool("isAttack", false);
+        // 
+        if( attackAnimationEvent == null)
+        {
+            yield break;
+        }
+        
+        //
+        Debug.Log("공격시작");
+        isCasting = true;
+        animator.SetBool(hash_attack, true);
+        attackAnimationEvent.OnStart();
+        yield return new WaitUntil(()=> attackAnimationEvent.AbilityActivationTime == true || isCasting == false);
+        Debug.Log("퍽");
+        enemyData.Attack(this, targetPos);
+        lastAttackTime = Time.time;
+        
+
+        yield return new WaitUntil(()=> attackAnimationEvent.animationFinished == true || isCasting == false);
+        Debug.Log("공격끝");
+        animator.SetBool(hash_attack, false);
         isCasting = false;
     }
 
+    public void OnMove(float movementSpeed)
+    {
+        animator.SetFloat(hash_movementSpeed, movementSpeed );
+    }
 
 
+    #endregion
 }
 

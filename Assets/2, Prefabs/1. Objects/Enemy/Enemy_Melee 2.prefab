@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a379da69c7748564eb4e2b2fbcb8fb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  targetCollider: {fileID: 0}
   playerDetectionRange: 10
   attackRange: 1.5
 --- !u!114 &3654369698663907916
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf789e100088104dbbe0e8effe78bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aniamtor: {fileID: 7467306383896006539}
+  animator: {fileID: 0}
   t: {fileID: 0}
   enemyAI: {fileID: 0}
   enemyData: {fileID: 11400000, guid: 337a99ee2da903544916e01ad4b7988c, type: 2}
@@ -98,6 +98,7 @@ MonoBehaviour:
   stunDurationRemain: 0
   lastAttackTime: 0
   isCasting: 0
+  attackAnimationEvent: {fileID: 2551502669650019185}
 --- !u!136 &8407753709932845091
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -211,6 +212,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d22c2df6a8ea4a4c81f8efd71794f9c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7467306383896006539}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d22c2df6a8ea4a4c81f8efd71794f9c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2551502669650019185}
   m_SourcePrefab: {fileID: 100100000, guid: 7d22c2df6a8ea4a4c81f8efd71794f9c, type: 3}
 --- !u!1 &6193537248291708245 stripped
 GameObject:
@@ -227,7 +231,7 @@ Animator:
   m_GameObject: {fileID: 6193537248291708245}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 18dd93c87c2158a4f8d13150de67e0e2, type: 2}
+  m_Controller: {fileID: 22100000, guid: 87c6d178a773eec41bf0b12566d5f82e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -238,6 +242,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2551502669650019185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6193537248291708245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a190140fafd3ff04498a37b8d7c5476e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityActivationTime: 0
+  animationFinished: 0
 --- !u!4 &6825220613832148975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7d22c2df6a8ea4a4c81f8efd71794f9c, type: 3}
