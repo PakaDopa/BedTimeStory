@@ -34,6 +34,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1315594156452406786}
   - {fileID: 1584329444568337687}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -86,10 +87,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf789e100088104dbbe0e8effe78bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aniamtor: {fileID: 5974274555542434914}
+  animator: {fileID: 0}
   t: {fileID: 0}
   enemyAI: {fileID: 0}
   enemyData: {fileID: 11400000, guid: 337a99ee2da903544916e01ad4b7988c, type: 2}
+  t_damageEffectPos: {fileID: 1315594156452406786}
   maxHp: 0
   currHp: 0
   dmg: 0
@@ -149,6 +151,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &7535768238237775261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1315594156452406786}
+  m_Layer: 7
+  m_Name: DamageEffectPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1315594156452406786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7535768238237775261}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.729, z: 1.655}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2168429780066838514}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1330270810988702460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -259,3 +292,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a190140fafd3ff04498a37b8d7c5476e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AbilityActivationTime: 0
+  animationFinished: 0

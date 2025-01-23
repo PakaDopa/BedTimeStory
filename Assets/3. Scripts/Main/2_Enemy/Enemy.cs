@@ -18,8 +18,12 @@ public class Enemy : MonoBehaviour
     public EnemyDataSO enemyData;
 
     //
-    Collider _collider;
+    [SerializeField] Transform t_damageEffectPos;
+    CapsuleCollider _collider;
+
     Rigidbody _rb;
+
+    public float damageEffectPos =>t_damageEffectPos?t_damageEffectPos.position.y:t.position.y;
 
     public float maxHp;
     public float currHp;
@@ -86,7 +90,7 @@ public class Enemy : MonoBehaviour
         enemyAI = GetComponent<EnemyAI>();
         
 
-        _collider = GetComponent<Collider>();
+        _collider = GetComponent<CapsuleCollider>();
         _collider.enabled = true;
 
         _rb = GetComponent<Rigidbody>();

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5541993883485754443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8268459724339647057}
+  m_Layer: 7
+  m_Name: DamageEffectPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8268459724339647057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5541993883485754443}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.13, z: 0.45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2168429780066838514}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7331839071635631618
 GameObject:
   m_ObjectHideFlags: 0
@@ -35,6 +66,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 120040371034102328}
+  - {fileID: 8268459724339647057}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &4215363838467967512
@@ -86,10 +118,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf789e100088104dbbe0e8effe78bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aniamtor: {fileID: 1585412625004070739}
+  animator: {fileID: 0}
   t: {fileID: 0}
   enemyAI: {fileID: 0}
   enemyData: {fileID: 11400000, guid: 337a99ee2da903544916e01ad4b7988c, type: 2}
+  t_damageEffectPos: {fileID: 8268459724339647057}
   maxHp: 0
   currHp: 0
   dmg: 0
@@ -235,8 +268,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a190140fafd3ff04498a37b8d7c5476e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &1585412625004070739 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9222080476064371203, guid: 6cd6e88a61e88af42a78e07c737f606d, type: 3}
-  m_PrefabInstance: {fileID: 7636958404994946384}
-  m_PrefabAsset: {fileID: 0}
+  AbilityActivationTime: 0
+  animationFinished: 0

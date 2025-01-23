@@ -33,12 +33,17 @@ public class RocketProjectile : Projectile
     {
         var colliders = Physics.OverlapSphere(transform.position, 2f);
 
-        float dmg = PlayerStats.Instance.AttackPower * 2;
+        float damage = PlayerStats.Instance.AttackPower * 2;
         foreach (var collider in colliders)
         {
             if (collider.TryGetComponent(out Enemy enemy))
             {
-                enemy.GetDamaged(dmg);
+                Vector3 hitPoint = collider.ClosestPoint(transform.position);
+                Vector3 damageEffectPos = new Vector3(hitPoint.x, enemy.damageEffectPos , hitPoint.z);
+                
+                enemy.GetDamaged(damage);
+                EffectPoolManager.Instance.GetNormalDamageText(damageEffectPos, damage);
+
             }
         }
     }

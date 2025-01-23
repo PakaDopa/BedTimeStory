@@ -35,7 +35,14 @@ public class Projectile : MonoBehaviour
         // Damage Enemy
         if( other.TryGetComponent(out Enemy e))
         {
-            e.GetDamaged(PlayerStats.Instance.AttackPower);
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            Vector3 damageEffectPos = new Vector3(hitPoint.x, e.damageEffectPos , hitPoint.z);
+            float damage = PlayerStats.Instance.AttackPower;
+
+            e.GetDamaged(damage);
+            EffectPoolManager.Instance.GetNormalDamageText(damageEffectPos, damage);
+
+
             EventManager.Instance.PostNotification(MEventType.EnemyHitted, this, new TransformEventArgs(transform, true));
             soundSO[Random.Range(0, soundSO.Length)].Raise();
             Explode();
