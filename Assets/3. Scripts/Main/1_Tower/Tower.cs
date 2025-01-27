@@ -18,6 +18,7 @@ public class Tower : DestroyableSingleton<Tower>
     {
         hp = maxHp;
         towerCollider = GetComponent<Collider>();
+
         
     }
 

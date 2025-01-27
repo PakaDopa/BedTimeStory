@@ -9,7 +9,7 @@ using DG.Tweening;
 
 
 [RequireComponent(typeof(EnemyAI), typeof(Collider), typeof(Rigidbody) )]
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IPoolObject
 {
     [SerializeField] Animator animator;
 
@@ -80,37 +80,39 @@ public class Enemy : MonoBehaviour
         enemyAI.OnUpdate();
     }    
 
-
-
-    public void Init(int waveNum)
+    public void OnCreatedInPool()
     {
         t = transform;
-        
-        // this.enemyData = enemyData;
         enemyAI = GetComponent<EnemyAI>();
-        
-
         _collider = GetComponent<CapsuleCollider>();
-        _collider.enabled = true;
-
         _rb = GetComponent<Rigidbody>();
-
-    
-        InitStatus(waveNum);
-        
-
-        enemyAI.Init( this, waveNum);
-
         animator= GetComponentInChildren<Animator>();
-        // enemyState = EnemyCanvas.Instance.Generate_EnemyHpBar();
-        // enemyState?.Init(this);
     }
 
-    void InitStatus(int waveNum)
+    public void OnGettingFromPool()
     {
-        maxHp = enemyData.maxHp +  enemyData.inc_maxHp * waveNum;
-        movementSpeed = enemyData.movementSpeed + enemyData.inc_movementSpeed * waveNum;
-        dmg = enemyData.dmg + enemyData.inc_dmg * waveNum;
+
+    }
+
+
+
+    public void Init(EnemyDataSO enemyData,int clearedwaveCount, Vector3 initPos)
+    {
+        transform.position = initPos;
+        this.enemyData = enemyData;
+
+        InitStatus(clearedwaveCount);
+    
+        enemyAI.Init( this, clearedwaveCount);
+
+        _collider.enabled = true;
+    }
+
+    void InitStatus(int clearedWaveCount)
+    {
+        maxHp = enemyData.maxHp +  enemyData.inc_maxHp * clearedWaveCount;
+        movementSpeed = enemyData.movementSpeed + enemyData.inc_movementSpeed * clearedWaveCount;
+        dmg = enemyData.dmg + enemyData.inc_dmg * clearedWaveCount;
         
         currHp = maxHp;
     }
@@ -181,8 +183,18 @@ public class Enemy : MonoBehaviour
         // enemyState?.OnEnemyDie();
         enemyAI.OnDie();
         animator.SetTrigger(hash_die);
-        Destroy(gameObject, 6.0f);
+
+
+        StartCoroutine(DestroyRoutine());
     }
+
+    IEnumerator DestroyRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+
+        EnemyPoolManager.Instance.ReturnEnemy(this);
+    }
+
 
     void DropItem()
     {        
@@ -250,6 +262,7 @@ public class Enemy : MonoBehaviour
     {
         animator.SetFloat(hash_movementSpeed, movementSpeed );
     }
+
 
 
     #endregion

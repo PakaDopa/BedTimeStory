@@ -5,15 +5,33 @@ using UnityEngine;
 
 using DG.Tweening;
 
+
+public enum Difficulty
+{
+    Easy,
+    Normal,
+    Hard
+}
+
+
+
+
+
 public class GameManager : Singleton<GameManager>
 {
     public bool isPaused;
-    
+
+    public Difficulty currDifficulty{get;private set;}
     public override void Init()
     {
-       
+        currDifficulty = 0;
     }
 
+
+    public void SetDifficulty(Difficulty targetDifficulty)
+    {
+        currDifficulty = targetDifficulty;
+    }
 
 
 

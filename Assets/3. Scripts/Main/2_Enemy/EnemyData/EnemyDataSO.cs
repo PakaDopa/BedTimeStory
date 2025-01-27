@@ -4,8 +4,21 @@ using UnityEngine;
 
 using GameUtil;
 
+public enum EnemyType
+{
+    Melee,
+    Range,
+    Tank,
+    Speed,
+}
+
+
 public abstract class EnemyDataSO : ScriptableObject
 {
+    // public abstract string id {get;}
+
+    public abstract EnemyType type { get;}
+    
     public float maxHp = 100;
     
     public float movementSpeed = 4;
