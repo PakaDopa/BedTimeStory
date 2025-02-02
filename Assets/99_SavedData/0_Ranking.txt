@@ -127,6 +127,18 @@
         {
             "id": "",
             "currDifficulty": 2,
+            "startDate": "20250202223745",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202223811",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 2,
             "startDate": "20250202201525",
             "killCount": 0,
             "totalGold": 0,
@@ -158,18 +170,6 @@
             "totalHealingDone": 0.0,
             "cleared": true,
             "clearDate": "20250202201519",
-            "towerHp": 1000.0
-        },
-        {
-            "id": "",
-            "currDifficulty": 2,
-            "startDate": "20250202201517",
-            "killCount": 0,
-            "totalGold": 0,
-            "totalDamageTaken": 0.0,
-            "totalHealingDone": 0.0,
-            "cleared": true,
-            "clearDate": "20250202201517",
             "towerHp": 1000.0
         }
     ]
