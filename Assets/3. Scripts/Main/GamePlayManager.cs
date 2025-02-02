@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -32,6 +33,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     //=====================
 
     public static bool isGamePlaying;
+    public bool initialized;
 
     //
     void Start()
@@ -39,6 +41,10 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         // testWaveStartBtn.onClick.AddListener(  StartWave );
         bgm.Raise();
         // StartGame();
+        if(GameManager.Instance.currGamePlayInfo == null)
+        {
+            GameManager.Instance.currGamePlayInfo = new(Difficulty.Easy);
+        }
 
         StartCoroutine( GameStartRoutine() );
     }
@@ -81,7 +87,11 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
             yield return new WaitUntil( ()=>cutSceneManager.gameObject.activeSelf == false);
         }
 
+        initialized =  true;
 
+
+
+        
         // 게임 플레이 시작
         isGamePlaying = true;
         Time.timeScale = 1;
@@ -90,7 +100,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     void SetStage()
     {
-        Difficulty currDifficulty = GameManager.Instance.currDifficulty;
+        Difficulty currDifficulty = GameManager.Instance.currGamePlayInfo.currDifficulty;
         Debug.Log($"현재 난이도 : {currDifficulty}");
 
         GameObject prefab_stage = prefabs_stage[currDifficulty];
@@ -120,6 +130,9 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     public void Victory()
     {
+        // 통계 기록. 
+        GameManager.Instance.currGamePlayInfo.OnVictory();
+        //
         Debug.Log("승리!");
         
         isGamePlaying = false;

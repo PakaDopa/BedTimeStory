@@ -15,14 +15,7 @@ MonoBehaviour:
   difficulty: 1
   waves:
   - waveNum: 1
-    waveDuration: 0
-    spawnInfos: []
-  - waveNum: 2
-    waveDuration: 0
-    spawnInfos: []
-  - waveNum: 3
-    waveDuration: 0
-    spawnInfos: []
-  - waveNum: 4
-    waveDuration: 0
-    spawnInfos: []
+    waveDuration: 30
+    spawnInfos:
+    - enemyType: 3
+      spawnCount: 1

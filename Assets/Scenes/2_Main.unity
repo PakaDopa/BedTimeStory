@@ -1287,9 +1287,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nexus
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 113680023150846311, guid: df43f9dc82121574191560f7441e0753, type: 3}
-    - {fileID: 4869323172996215188, guid: df43f9dc82121574191560f7441e0753, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

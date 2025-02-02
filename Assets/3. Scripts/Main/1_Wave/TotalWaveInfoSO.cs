@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TotalaveData", menuName = "SO/TotalWaveData", order = int.MaxValue)]
 public class TotalWaveInfoSO : ScriptableObject
 {
-    public int difficulty;
+    public Difficulty difficulty;
     public List<StageWaveInfoSO> waves;
 
 

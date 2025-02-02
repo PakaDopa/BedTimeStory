@@ -87,6 +87,9 @@ public class Stage : DestroyableSingleton<Stage>
 
     IEnumerator WaveRoutine(StageWaveInfoSO currWaveInfo )
     {
+        yield return new WaitUntil(()=>EnemyPoolManager.Instance.initialized );
+        
+        
         int waveNum = currWaveInfo.waveNum;
         float waveDuration = currWaveInfo.waveDuration;
         
@@ -94,7 +97,7 @@ public class Stage : DestroyableSingleton<Stage>
         spawnRoutines.Clear();
         foreach( SpawnInfo spawnInfo in currWaveInfo.spawnInfos)
         {
-            spawnRoutines.Add( StartCoroutine( SpawnRoutine( waveDuration, spawnInfo)) );
+            spawnRoutines.Add( StartCoroutine( SpawnRoutine( waveDuration, spawnInfo)) ); 
         }
 
         

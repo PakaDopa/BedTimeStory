@@ -44,17 +44,18 @@ public class PlayerStats : Singleton<PlayerStats>
     {
         currHP = Mathf.Clamp(currHP - amount, 0, maxHP);
 
+        GameManager.Instance.currGamePlayInfo.totalDamageTaken +=amount; 
         GameEventManager.Instance.onPlayerGetDamage.Invoke();
-
         if (currHP <= 0)
         {
             Die();
-        }
+        }       
     }
 
     public void Recover(float amount)
     {
         currHP = Mathf.Clamp(currHP + amount, 0, maxHP);
+        GameManager.Instance.currGamePlayInfo.totalHealingDone +=amount; 
     }
 
     public void GetGold(int amount)
@@ -62,6 +63,9 @@ public class PlayerStats : Singleton<PlayerStats>
         currGold += amount;
 
         onGoldChanged.Invoke();
+
+
+        GameManager.Instance.currGamePlayInfo.totalGold += amount;
     }
 
     public void UseGold(int amount)

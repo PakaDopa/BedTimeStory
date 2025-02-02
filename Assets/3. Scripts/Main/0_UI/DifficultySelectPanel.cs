@@ -7,23 +7,16 @@ public class DifficultySelectPanel : MonoBehaviour
 {
     public void SelectEasyMode()
     {
-        SetDifficultyAndLoadMainScene(Difficulty.Easy);
+        GameManager.Instance.StartNewGame( Difficulty.Easy);
     }
 
     public void SelectNormalMode()
     {
-        SetDifficultyAndLoadMainScene(Difficulty.Normal);
+        GameManager.Instance.StartNewGame( Difficulty.Normal);
     }
 
     public void SelectHardMode()
     {
-        SetDifficultyAndLoadMainScene(Difficulty.Hard);
-    }
-
-
-    void SetDifficultyAndLoadMainScene(Difficulty targetDifficulty)
-    {
-        GameManager.Instance.SetDifficulty( targetDifficulty );
-        SceneLoadManager.Instance.Load_MainScene();
+        GameManager.Instance.StartNewGame( Difficulty.Hard);
     }
 }
