@@ -184,7 +184,7 @@ public class Enemy : MonoBehaviour, IPoolObject
         enemyAI.OnDie();
         animator.SetTrigger(hash_die);
 
-
+        GameManager.Instance.currGamePlayInfo.killCount ++;
         StartCoroutine(DestroyRoutine());
     }
 

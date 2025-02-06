@@ -1,0 +1,176 @@
+{
+    "list_easy": [
+        {
+            "id": "",
+            "currDifficulty": 0,
+            "startDate": "20250202221247",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202221252",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 0,
+            "startDate": "20250202221003",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202221007",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 0,
+            "startDate": "20250202220838",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202220843",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 0,
+            "startDate": "20250202201447",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202201451",
+            "towerHp": 1000.0
+        }
+    ],
+    "list_normal": [
+        {
+            "id": "",
+            "currDifficulty": 1,
+            "startDate": "20250202221010",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202221039",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 1,
+            "startDate": "20250202220718",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202220738",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 1,
+            "startDate": "20250202201508",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202201508",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 1,
+            "startDate": "20250202201503",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202201503",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 1,
+            "startDate": "20250202221433",
+            "killCount": 1,
+            "totalGold": 30,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202221557",
+            "towerHp": 980.0
+        }
+    ],
+    "list_hard": [
+        {
+            "id": "",
+            "currDifficulty": 2,
+            "startDate": "20250202220629",
+            "killCount": 1,
+            "totalGold": 30,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 30.0,
+            "cleared": true,
+            "clearDate": "20250202220650",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 2,
+            "startDate": "20250202223745",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202223811",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 2,
+            "startDate": "20250202201525",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202201526",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 2,
+            "startDate": "20250202201522",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202201522",
+            "towerHp": 1000.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 2,
+            "startDate": "20250202201519",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "20250202201519",
+            "towerHp": 1000.0
+        }
+    ]
+}

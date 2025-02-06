@@ -23,8 +23,9 @@ public class WaveInfoUI : MonoBehaviour
         GameEventManager.Instance.onWaveStart.AddListener(OnWaveStart);
     }
 
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitUntil(()=>GamePlayManager.Instance.initialized);
         StartCoroutine( UpdateRoutine());
     }
 

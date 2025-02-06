@@ -24,6 +24,7 @@ public static class Pool
 /// Represent <typeparamref name="T"/>'s pool.
 /// </summary>
 /// <typeparam name="T">Pool object's type.</typeparam>
+[Serializable]
 public class Pool<T> : IPool<T> where T : Component
 {
     #region Fields and properties

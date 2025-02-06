@@ -6,7 +6,8 @@ using System;
 
 public class EnemyPoolManager : DestroyableSingleton<EnemyPoolManager>
 {
-  public Transform t;
+    public bool initialized {get;private set;}
+    public Transform t;
     [SerializeField] EnemyDictionarySO enemyDictionary;                           // 프리팹 정보들로 미리 풀 데이터 세팅
     [SerializeField] SerializableDictionary<EnemyType, Pool<Enemy>> _pools = new();     // 풀
  
@@ -14,8 +15,10 @@ public class EnemyPoolManager : DestroyableSingleton<EnemyPoolManager>
     // [SerializeField] SerializableDictionary<EnemyType, PoolData> totalPoolData = new(); // 이번스테이지에 사용할 풀 데이터 
 
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitUntil(()=>GamePlayManager.Instance.initialized);
+        
         Init();
     }
 
@@ -26,19 +29,19 @@ public class EnemyPoolManager : DestroyableSingleton<EnemyPoolManager>
         //
         InitPoolsWithDifficulty();
 
+        initialized = true;
 
 
 
-
-        foreach(var kv in _pools)
-        {
-            Debug.Log($"{kv.Key} {kv.Value}");
-        }
+        // foreach(var kv in _pools)
+        // {
+        //     Debug.Log($"{kv.Key} {kv.Value}");
+        // }
     }
 
     void InitPoolsWithDifficulty()
     {
-        Difficulty difficulty = GameManager.Instance.currDifficulty;
+        Difficulty difficulty = GameManager.Instance.currGamePlayInfo.currDifficulty;
 
         _pools = new();
         enemyData = new();
