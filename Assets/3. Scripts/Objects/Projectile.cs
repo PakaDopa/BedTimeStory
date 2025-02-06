@@ -2,6 +2,7 @@ using DG.Tweening.Core.Easing;
 using Manager;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -32,22 +33,23 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Damage Enemy
-        DamageEnemy(other);
-        EventManager.Instance.PostNotification(MEventType.EnemyHitted, this, new TransformEventArgs(transform, true));
-        soundSO[Random.Range(0, soundSO.Length)].Raise();
-        Explode();
+        if( other.TryGetComponent(out Enemy e))
+        {
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            Vector3 damageEffectPos = new Vector3(hitPoint.x, e.damageEffectPos , hitPoint.z);
+            float damage = PlayerStats.Instance.AttackPower;
+
+            e.GetDamaged(damage);
+            EffectPoolManager.Instance.GetNormalDamageText(damageEffectPos, damage);
+
+
+            EventManager.Instance.PostNotification(MEventType.EnemyHitted, this, new TransformEventArgs(transform, true));
+            soundSO[Random.Range(0, soundSO.Length)].Raise();
+            Explode();
+        }
         //StartCoroutine(DestroyParticle(0f));
     }
 
-    protected virtual void DamageEnemy(Collider co)
-    {
-        Enemy enemy = null;
-        if (enemy = co.gameObject.GetComponent<Enemy>())
-        {
-            // Debug.Log(PlayerStats.Instance.AttackPower);
-            enemy.GetDamaged(PlayerStats.Instance.AttackPower);
-        }
-    }
 
     public IEnumerator DestroyParticle(float waitTime)
     {

@@ -111,6 +111,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9ed3286b9ad60a0499d9c85a619055c8, type: 2}
   - {fileID: 11400000, guid: 0faf87f25acf6b848a5535953b5b8cab, type: 2}
   - {fileID: 11400000, guid: c55114ab8e37478449ed40ca0ae761f2, type: 2}
+  - {fileID: 11400000, guid: d72b088c4c5de5f439deb62bfb9528d9, type: 2}
+  - {fileID: 11400000, guid: 5a32ef79d0b8f6e428c1484ce7ced308, type: 2}
+  - {fileID: 11400000, guid: dec4c8d7364cfe64fba62643b699027d, type: 2}
   response:
     m_PersistentCalls:
       m_Calls:
@@ -281,13 +284,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damping: {x: 0, y: 0, z: 0}
   ShoulderOffset: {x: 0, y: 0, z: 0}
-  VerticalArmLength: 0.4
+  VerticalArmLength: 0
   CameraSide: 1
   CameraDistance: 2
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 4294967295
-  IgnoreTag: 
+    m_Bits: 6656
+  IgnoreTag: Player
   CameraRadius: 0.2
-  DampingIntoCollision: 0
-  DampingFromCollision: 2
+  DampingIntoCollision: 0.5
+  DampingFromCollision: 0

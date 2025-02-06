@@ -21,8 +21,8 @@ TagManager:
   - Wall
   - Tower
   - EnemyProjectile
-  - 
-  - 
+  - Boundary
+  - Ground
   - 
   - 
   - 
@@ -45,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: TextEffect
+    uniqueID: 2999203689
     locked: 0

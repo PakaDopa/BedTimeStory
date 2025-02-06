@@ -6,6 +6,15 @@ using UnityEngine.UI;
 
 public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 {
+    [Header("Stage Setting")]
+    // [SerializeField] List<GameObject> prefabs_stage = new();
+    // [SerializeField] List<TotalWaveInfoSO> totalWaves = new();   
+
+    [SerializeField] SerializableDictionary<Difficulty, GameObject> prefabs_stage= new();
+    [SerializeField] SerializableDictionary<Difficulty, TotalWaveInfoSO> totalWaves =new(); //난이도에 따른 웨이브 정보.
+
+    
+    [Header("Sound Events")]
     [SerializeField] SoundEventSO bgm;
     [SerializeField] SoundEventSO gameOver;
     [SerializeField] SoundEventSO gameWin;
@@ -15,6 +24,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
 
     //======= UI ==========
+    [Header("UI")]
     [SerializeField] VictoryPanel victoryPanel;
     [SerializeField] GameOverPanel gameOverPanel;
 
@@ -28,7 +38,9 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     {
         // testWaveStartBtn.onClick.AddListener(  StartWave );
         bgm.Raise();
-        StartGame();
+        // StartGame();
+
+        StartCoroutine( GameStartRoutine() );
     }
 
 
@@ -36,43 +48,63 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     {
         if( Input.GetKeyDown( KeyCode.Alpha0))
         {
-            StartWave();
+            Stage.Instance.FinishWave();
         }
 
     }
 
 
-    public void StartGame()
+    // public void StartGame()
+    // {
+        
+
+    //     Debug.Log("게임 시작");
+    // }
+
+    IEnumerator GameStartRoutine()
     {
         isGamePlaying = false;
         
-        Tower.Instance.Init();
-        Stage.Instance.Init();
-        
+        //
+        SetStage();
+        Tower.Instance.Init();              // 
+        Player.Instance.Init();             // 
+
+
+        //
         GameEventManager.Instance.onGameStart.Invoke();
+        
+        // 컷씬대기
+        if( CutSceneManager.isCutSceneEnabled )
+        {
+            StartCoroutine(cutSceneManager.PlayCutScene());
+            yield return new WaitUntil( ()=>cutSceneManager.gameObject.activeSelf == false);
+        }
 
-        StartCoroutine(cutSceneManager.PlayCutScene());
 
-        Debug.Log("게임 시작");
-    }
-
-
-    public void OnCutSceneFinish()
-    {
+        // 게임 플레이 시작
         isGamePlaying = true;
         Time.timeScale = 1;
-
         StartWave();
+    }
+
+    void SetStage()
+    {
+        Difficulty currDifficulty = GameManager.Instance.currDifficulty;
+        Debug.Log($"현재 난이도 : {currDifficulty}");
+
+        GameObject prefab_stage = prefabs_stage[currDifficulty];
+        TotalWaveInfoSO waves = totalWaves[currDifficulty];
+
+        Stage stage = Instantiate(prefab_stage, Vector3.zero, Quaternion.identity ).GetComponent<Stage>();
+        stage.Init(waves);
     }
 
     
     public void StartWave()
     {
         Debug.Log("웨이브 시작");
-        WaveManager.Instance.FinishWave();
-        WaveManager.Instance.StartWave();
-
-        
+        Stage.Instance.StartWave();
     }
 
 

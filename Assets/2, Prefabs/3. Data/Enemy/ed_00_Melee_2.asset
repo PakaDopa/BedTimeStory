@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a96b830e9d6f2b048a3b5271107b04bc, type: 3}
+  m_Name: ed_00_Melee_2
+  m_EditorClassIdentifier: 
+  maxHp: 135
+  movementSpeed: 2
+  attackSpeed: 2
+  attackRange: 2
+  playerDectectionRange: 10
+  dmg: 15
+  inc_maxHp: 10
+  inc_movementSpeed: 0.5
+  inc_dmg: 5

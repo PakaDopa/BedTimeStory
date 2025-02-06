@@ -5,26 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class DifficultySelectPanel : MonoBehaviour
 {
-    [SerializeField] List<EnemyDataSO> enemyDataSOs = new();
-
     public void SelectEasyMode()
     {
-        foreach(var ed in enemyDataSOs)
-            ed.maxHp = 65;
-        SceneLoadManager.Instance.Load_MainScene();
+        SetDifficultyAndLoadMainScene(Difficulty.Easy);
     }
 
     public void SelectNormalMode()
     {
-        foreach (var ed in enemyDataSOs)
-            ed.maxHp = 100;
-        SceneLoadManager.Instance.Load_MainScene();
+        SetDifficultyAndLoadMainScene(Difficulty.Normal);
     }
 
     public void SelectHardMode()
     {
-        foreach (var ed in enemyDataSOs)
-            ed.maxHp = 135;
+        SetDifficultyAndLoadMainScene(Difficulty.Hard);
+    }
+
+
+    void SetDifficultyAndLoadMainScene(Difficulty targetDifficulty)
+    {
+        GameManager.Instance.SetDifficulty( targetDifficulty );
         SceneLoadManager.Instance.Load_MainScene();
     }
 }

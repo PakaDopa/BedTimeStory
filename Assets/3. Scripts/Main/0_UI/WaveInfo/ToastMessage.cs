@@ -17,7 +17,7 @@ public class ToastMessage : MonoBehaviour
 
     public void OnWaveStart()
     {
-        text_toast.SetText($"Wave {WaveManager.Instance.currWaveNum}" );
+        text_toast.SetText($"Wave {Stage.Instance.clearedWaveCount+1}" );
         
         Sequence seqeunce = DOTween.Sequence()
         .AppendCallback( ()=>gameObject.SetActive(true) )

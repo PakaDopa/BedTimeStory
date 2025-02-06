@@ -5,17 +5,19 @@ using UnityEngine.AI;
 using System;
 
 using GameUtil;
+using UnityEngine.UIElements;
 
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour
 {
     Transform t;
-    Transform t_tower;
-    Transform t_player;
+    // Transform t_tower;
+    // Transform t_player;
     
-    [SerializeField] Transform target;
-    
+    // [SerializeField] Transform target;
+
+    [SerializeField] Collider targetCollider;    
     
     NavMeshAgent navAgent;
     
@@ -23,6 +25,12 @@ public class EnemyAI : MonoBehaviour
 
     public float playerDetectionRange = 10;
     public float attackRange = 1.5f;
+    float targetDistSqr;
+
+    float reactionTime = 0.2f;  // 업데이트 갱신시간
+    float lastReactionTime;
+
+    bool canReact => Time.time >= lastReactionTime + reactionTime;
 
 
 
@@ -32,43 +40,31 @@ public class EnemyAI : MonoBehaviour
     {
         if (GamePlayManager.isGamePlaying == false)
         {
-            OnStopped();
+            Stop();
         }
     }
 
 
     public void OnUpdate()
     {        
-        // 플레이어 쫓는 경우
-        if (t.position.GetSqrDistWith(t_player.position) <= playerDetectionRange * playerDetectionRange )
-        {   
-            OnPlayerInRange();
-            
-        }
-        // 타워 쫓는경우
-        else
-        {
-            OnPlayerOutOfRange();
-        }
-
         //
-        if( enemy.isCasting )
+        if( canReact ==false || enemy.isCasting )
         {
             return;
         }
-
-
-        // 아직 잘 되는 지는 모르겠음.
-        float targetDistSqr =  t.position.WithFloorHeight().GetSqrDistWith(target.position.WithFloorHeight());
+        lastReactionTime = Time.time;
         
+        // 타겟 업데이트 
+        UpdateTarget();     
 
-        if ( targetDistSqr <= attackRange * attackRange)   // 공격사거리 안 일때,
+        // 공격 or 접근
+        if( IsTargetInAttackRange( out Vector3 targetPos))
         {
-            OnTargetInAttackRange();
+            Attack(targetPos);
         }
         else
         {
-            OnTargetOutofAttackRange();
+            Approach();
         }
     }
 
@@ -83,8 +79,8 @@ public class EnemyAI : MonoBehaviour
         
 
         t=transform;
-        t_tower = Tower.Instance.transform;
-        t_player = Player.Instance.transform;
+        // t_tower = Tower.Instance.transform;
+        // t_player = Player.Instance.transform;
 
 
         //
@@ -92,45 +88,102 @@ public class EnemyAI : MonoBehaviour
         playerDetectionRange = enemy.enemyData.playerDectectionRange;
 
         navAgent.speed = enemy.movementSpeed;
+        navAgent.stoppingDistance = attackRange *0.85f;
         // navAgent.stoppingDistance = attackRange;
     }
 
-
-    void OnPlayerInRange()
+    //=====================================================================
+    // 플레이어가 감지 사거리 안인지, - 타겟 업데이트할 때 사용,
+    bool IsPlayerInDectectionRange(out Vector3 targetPoint)
     {
-        target = t_player;
-        navAgent.SetDestination( target.position );   // 플레이어 쫓음
+        Collider _targetCollider = Player.Instance.playerCollider;
+        return IsTargetInRange(_targetCollider, playerDetectionRange, out targetPoint );
+    }
+    
+    
+    // 타겟이 공격 사거리 안인지, - 공격 시전할 때 사용, 
+    bool IsTargetInAttackRange(out Vector3 targetPoint)
+    {
+        //
+        return IsTargetInRange(targetCollider, attackRange , out targetPoint);
     }
 
-    void OnPlayerOutOfRange()
+    /// <summary>
+    /// 해당 콜라이더가 해당 범위 안 인지 판단 - > 넥서스가 적과 포개지는 상황을 방지하기 위함. 
+    /// </summary>
+    bool IsTargetInRange(Collider _targetCollider, float dist, out Vector3 targetPoint)
     {
-        target = t_tower;
-        navAgent.SetDestination( target.position );    // 타워 쫓음
-    }
-
-    void OnTargetInAttackRange( )
-    {
-        if( enemy.attackAvailable )
+        //
+        Vector3 currPos = t.position.WithFloorHeight();
+        if(_targetCollider == null)
         {
-            enemy.Attack( target.position);
+            targetPoint = currPos;
+            return false;
         }
         
-        navAgent.isStopped = true;
-        navAgent.velocity = Vector3.zero;
+        targetPoint = _targetCollider.ClosestPoint(currPos);
+        float sqrDist = currPos.GetSqrDistWith(targetPoint);
 
-        
+        return sqrDist <= dist * dist;
+    }
+
+    /// <summary>
+    /// 타겟 변경 - 플레이어가 공격 범위 내라면 플레이어를 공격/ 아니면 넥서스 공격
+    /// </summary>
+    void UpdateTarget()
+    {
+        Vector3 targetPosition;
+        if (IsPlayerInDectectionRange( out targetPosition))
+        {
+            targetCollider = Player.Instance.playerCollider;
+        }
+        else
+        {
+            targetCollider = Tower.Instance.towerCollider;
+            targetPosition = targetCollider.ClosestPoint(t.position);
+        }
+
+        navAgent.SetDestination( targetPosition );    // 타워 쫓음
     }
 
 
-    void OnTargetOutofAttackRange()
+    // void OnPlayerInRange()
+    // {
+    //     target = t_player;
+    //     navAgent.SetDestination( target.position );   // 플레이어 쫓음
+    // }
+
+    // void OnPlayerOutOfRange()
+    // {
+    //     target = t_tower;
+    //     navAgent.SetDestination( target.position );    // 타워 쫓음
+    // }
+
+    void Attack(Vector3 targetPos )
+    {
+        
+        if( enemy.attackAvailable )
+        {
+            enemy.StartAttack( targetCollider.transform.position.WithPlayerWaistHeight() );
+        }
+        
+        Stop();
+         
+    }
+
+
+    void Approach()
     {
         navAgent.isStopped = false;
+        navAgent.velocity = navAgent.desiredVelocity;
+
+        enemy.OnMove(99);
     }
 
 
     //================================
     
-    public void OnStopped()
+    public void Stop()
     {
         navAgent.isStopped = true;
         navAgent.velocity = Vector3.zero;

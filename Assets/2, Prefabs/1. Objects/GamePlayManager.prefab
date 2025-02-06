@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6186577929868901491}
   - component: {fileID: 1551806264656179801}
-  - component: {fileID: 7045760442429964645}
   - component: {fileID: 3567085322995140672}
   m_Layer: 0
   m_Name: GamePlayManager
@@ -46,32 +45,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6695eb9187168345afddfa52f57bfc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabs_stage:
+    array:
+    - Key: 0
+      Value: {fileID: 1482141931824618128, guid: 79f1241a167ab504bb47f51a2a86c55f, type: 3}
+    - Key: 1
+      Value: {fileID: 1482141931824618128, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
+    - Key: 2
+      Value: {fileID: 1482141931824618128, guid: ec0fcab890e332c4da9177724e8bc097, type: 3}
+  totalWaves:
+    array:
+    - Key: 0
+      Value: {fileID: 11400000, guid: a48a5fc0898c507409cae3169ffb0ac2, type: 2}
+    - Key: 1
+      Value: {fileID: 11400000, guid: 559160ea25b50454aa4542fe3a354eeb, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: ff46e7692b7689f429666406cd7d6db3, type: 2}
   bgm: {fileID: 11400000, guid: 3b315de47a359624c88b06bcacd9e35b, type: 2}
-  testWaveStartBtn: {fileID: 0}
---- !u!114 &7045760442429964645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4145629733318170811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4e38f0c3c2688b469b928925491e8dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waveInfoUI: {fileID: 0}
-  enemyPrefabs:
-  - {fileID: 7331839071635631618, guid: 3c27962e059ae4643b9984e4ba0fc482, type: 3}
-  - {fileID: 7331839071635631618, guid: 1677b1894bfe8f64e923931e9292f71f, type: 3}
-  - {fileID: 7331839071635631618, guid: 61e5b380349d64d46857415562b9afd2, type: 3}
-  - {fileID: 7331839071635631618, guid: f700f52ef5a35494ebb24495c910b33e, type: 3}
-  prefab_enemy: {fileID: 7331839071635631618, guid: 3c27962e059ae4643b9984e4ba0fc482, type: 3}
-  stageWaveInfo: {fileID: 11400000, guid: 7360a3e7c85a9964a9b5cbdb0bad87ab, type: 2}
-  clearedWaveNum: 0
-  isWavePlaying: 0
-  waveStartTime: 0
-  wavePlayTime: 0
+  gameOver: {fileID: 11400000, guid: 5a32ef79d0b8f6e428c1484ce7ced308, type: 2}
+  gameWin: {fileID: 11400000, guid: d72b088c4c5de5f439deb62bfb9528d9, type: 2}
+  cutSceneManager: {fileID: 0}
+  victoryPanel: {fileID: 0}
+  gameOverPanel: {fileID: 0}
 --- !u!114 &3567085322995140672
 MonoBehaviour:
   m_ObjectHideFlags: 0

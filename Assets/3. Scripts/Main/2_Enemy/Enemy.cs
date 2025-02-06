@@ -7,18 +7,23 @@ using System;
 using GameUtil;
 using DG.Tweening;
 
+
 [RequireComponent(typeof(EnemyAI), typeof(Collider), typeof(Rigidbody) )]
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IPoolObject
 {
-    [SerializeField] Animator aniamtor;
+    [SerializeField] Animator animator;
 
     public Transform t;
     public EnemyAI enemyAI;
     public EnemyDataSO enemyData;
 
     //
-    Collider _collider;
+    [SerializeField] Transform t_damageEffectPos;
+    CapsuleCollider _collider;
+
     Rigidbody _rb;
+
+    public float damageEffectPos =>t_damageEffectPos?t_damageEffectPos.position.y:t.position.y;
 
     public float maxHp;
     public float currHp;
@@ -43,7 +48,7 @@ public class Enemy : MonoBehaviour
     public bool isCasting;
 
 
-    Slider_EnemyHp enemyState;
+    // Slider_EnemyHp enemyState;
     //===================================
 
     void Update()
@@ -75,37 +80,39 @@ public class Enemy : MonoBehaviour
         enemyAI.OnUpdate();
     }    
 
-
-
-    public void Init(int waveNum)
+    public void OnCreatedInPool()
     {
         t = transform;
-        
-        // this.enemyData = enemyData;
         enemyAI = GetComponent<EnemyAI>();
-        
-
-        _collider = GetComponent<Collider>();
-        _collider.enabled = true;
-
+        _collider = GetComponent<CapsuleCollider>();
         _rb = GetComponent<Rigidbody>();
-
-    
-        InitStatus(waveNum);
-        
-
-        enemyAI.Init( this, waveNum);
-
-
-        enemyState = EnemyCanvas.Instance.Generate_EnemyHpBar();
-        enemyState?.Init(this);
+        animator= GetComponentInChildren<Animator>();
     }
 
-    void InitStatus(int waveNum)
+    public void OnGettingFromPool()
     {
-        maxHp = enemyData.maxHp +  enemyData.inc_maxHp * waveNum;
-        movementSpeed = enemyData.movementSpeed + enemyData.inc_movementSpeed * waveNum;
-        dmg = enemyData.dmg + enemyData.inc_dmg * waveNum;
+
+    }
+
+
+
+    public void Init(EnemyDataSO enemyData,int clearedwaveCount, Vector3 initPos)
+    {
+        transform.position = initPos;
+        this.enemyData = enemyData;
+
+        InitStatus(clearedwaveCount);
+    
+        enemyAI.Init( this, clearedwaveCount);
+
+        _collider.enabled = true;
+    }
+
+    void InitStatus(int clearedWaveCount)
+    {
+        maxHp = enemyData.maxHp +  enemyData.inc_maxHp * clearedWaveCount;
+        movementSpeed = enemyData.movementSpeed + enemyData.inc_movementSpeed * clearedWaveCount;
+        dmg = enemyData.dmg + enemyData.inc_dmg * clearedWaveCount;
         
         currHp = maxHp;
     }
@@ -131,7 +138,7 @@ public class Enemy : MonoBehaviour
         }
         // Debug.Log($"앗 {currHp}/ {maxHp}");
         // ui
-        enemyState?.OnUpdateEnemyHp();
+        // enemyState?.OnUpdateEnemyHp();
     }
 
 
@@ -173,17 +180,27 @@ public class Enemy : MonoBehaviour
     {
         _collider.enabled = false;
         DropItem();
-        enemyState?.OnEnemyDie();
+        // enemyState?.OnEnemyDie();
         enemyAI.OnDie();
-        aniamtor.SetBool("isDead", true);
-        Destroy(gameObject, 6.0f);
+        animator.SetTrigger(hash_die);
+
+
+        StartCoroutine(DestroyRoutine());
     }
+
+    IEnumerator DestroyRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+
+        EnemyPoolManager.Instance.ReturnEnemy(this);
+    }
+
 
     void DropItem()
     {        
         // string str = "돈1원 ";
 
-        PlayerStats.Instance.GetGold(10);
+        PlayerStats.Instance.GetGold(30);
         int rand = UnityEngine.Random.Range(0, 100);
         if ( 95<= rand)
         // if ( 66<= rand)
@@ -201,25 +218,53 @@ public class Enemy : MonoBehaviour
     }
 
 
-    public void Attack(Vector3 targetPos)
-    {
-        isCasting = true;
-        aniamtor.SetBool("isAttack", true);
-        //
-        enemyData.Attack(this,targetPos);
-        lastAttackTime = Time.time;
+    #region Ability
+    [Header("Ability")]
+    [SerializeField] EnemyAnimationEvent_Attack attackAnimationEvent;
 
-        //
-        StopAttack();
+    static int hash_attack = Animator.StringToHash("attack");
+    static int hash_die = Animator.StringToHash("die");
+    static int hash_movementSpeed = Animator.StringToHash("movementSpeed");
+    
+
+    public void StartAttack(Vector3 targetPos)
+    {
+        
+        StartCoroutine(AbilityRoutine(targetPos));
     }
 
-    public void StopAttack()
+    IEnumerator AbilityRoutine(Vector3 targetPos)
     {
-        aniamtor.SetBool("isAttack", false);
+        // 
+        if( attackAnimationEvent == null)
+        {
+            yield break;
+        }
+        
+        //
+        // Debug.Log("공격시작");
+        isCasting = true;
+        animator.SetBool(hash_attack, true);
+        attackAnimationEvent.OnStart();
+        yield return new WaitUntil(()=> attackAnimationEvent.AbilityActivationTime == true || isCasting == false);
+        // Debug.Log("퍽");
+        enemyData.Attack(this, targetPos);
+        lastAttackTime = Time.time;
+        
+
+        yield return new WaitUntil(()=> attackAnimationEvent.animationFinished == true || isCasting == false);
+        // Debug.Log("공격끝");
+        animator.SetBool(hash_attack, false);
         isCasting = false;
     }
 
+    public void OnMove(float movementSpeed)
+    {
+        animator.SetFloat(hash_movementSpeed, movementSpeed );
+    }
 
 
+
+    #endregion
 }
 

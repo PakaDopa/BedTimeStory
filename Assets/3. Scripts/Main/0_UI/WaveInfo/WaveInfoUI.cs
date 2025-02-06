@@ -23,12 +23,10 @@ public class WaveInfoUI : MonoBehaviour
         GameEventManager.Instance.onWaveStart.AddListener(OnWaveStart);
     }
 
-
-    void Update()
+    void Start()
     {
-        UpdateWaveTime();
+        StartCoroutine( UpdateRoutine());
     }
-
 
 
     void InitUI()
@@ -38,25 +36,35 @@ public class WaveInfoUI : MonoBehaviour
 
     void OnWaveStart()
     {
-        text_waveNum.SetText($"Wave : {WaveManager.Instance.currWaveNum}");
+        text_waveNum.SetText($"Wave : {Stage.Instance.clearedWaveCount + 1}");
 
         toastMessage.OnWaveStart();// 토스트 메시지도 업데이트 
     }
 
 
-    void UpdateWaveTime()
-    {   
-        if (WaveManager.Instance.isWavePlaying ==false )
-        {   
-            return;
-        }
-        float waveTime = WaveManager.Instance.wavePlayTime;
 
-        int min  = (int)waveTime/60;
-        int sec = (int)waveTime%60;
+
+    IEnumerator UpdateRoutine()
+    {
+        WaitForSeconds wfs = new (0.49f);
         
-        text_waveTime.SetText($"Time: {min:00}:{sec:00}");
+        while ( true)
+        {
+            if (Stage.Instance.isWavePlaying )
+            {   
+                float waveTime = Stage.Instance.wavePlayTime;
 
+                int min  = (int)waveTime/60;
+                int sec = (int)waveTime%60;
+                
+                text_waveTime.SetText($"Time: {min:00}:{sec:00}");
+            }
+            
+            yield return wfs;
+        }
+        
+        
+        
 
     }
 }

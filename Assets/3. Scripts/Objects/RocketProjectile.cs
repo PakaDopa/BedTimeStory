@@ -19,22 +19,31 @@ public class RocketProjectile : Projectile
     private void OnTriggerEnter(Collider co)
     {
         // Damage Enemy
-        DamageEnemy(co);
+        if(co.CompareTag("Enemy"))
+        {
+            DamageEnemy(co);
 
-        Explode();
-        StartCoroutine(DestroyParticle(0f));
+            Explode();
+            StartCoroutine(DestroyParticle(0f));
+        }
+        
     }
 
-    protected override void DamageEnemy(Collider co)
+    protected void DamageEnemy(Collider co)
     {
         var colliders = Physics.OverlapSphere(transform.position, 2f);
 
+        float damage = PlayerStats.Instance.AttackPower * 2;
         foreach (var collider in colliders)
         {
-            Enemy enemy = null;
-            if (enemy = collider.gameObject.GetComponent<Enemy>())
+            if (collider.TryGetComponent(out Enemy enemy))
             {
-                enemy.GetDamaged(PlayerStats.Instance.AttackPower * 2);
+                Vector3 hitPoint = collider.ClosestPoint(transform.position);
+                Vector3 damageEffectPos = new Vector3(hitPoint.x, enemy.damageEffectPos , hitPoint.z);
+                
+                enemy.GetDamaged(damage);
+                EffectPoolManager.Instance.GetNormalDamageText(damageEffectPos, damage);
+
             }
         }
     }

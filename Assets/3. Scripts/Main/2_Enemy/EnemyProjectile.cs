@@ -27,7 +27,7 @@ public class EnemyProjectile : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         
         
-        Vector3 dir = (targetPos.WithWaistHeight() - transform.position ).normalized;
+        Vector3 dir = (targetPos.WithPlayerWaistHeight() - transform.position ).normalized;
         transform.LookAt(targetPos, Vector3.up);    
         
         rb.velocity = dir * speed;

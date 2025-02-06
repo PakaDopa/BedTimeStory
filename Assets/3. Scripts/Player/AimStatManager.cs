@@ -1,8 +1,6 @@
 using Cinemachine;
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class AimStatManager : MonoBehaviour
@@ -11,17 +9,17 @@ public class AimStatManager : MonoBehaviour
 
     public AxisState xAxis, yAxis;
 
-    [Header("�÷��̾� ����ٴϴ� ī�޶�, �ó׸ӽ� ī�޶󿡼� ������")]
+    [Header(" ? ")]
     [SerializeField] Transform camFollowPos;
 
-    [Header("�� ������ ��ǥ ����")]
+    [Header(" ? ?? ")]
     [SerializeField] Transform camFollowPosTarget;
     [SerializeField] Transform camFollowPosRunTarget;
     [SerializeField] Transform camFollowPosAimTarget;
 
     [SerializeField] float mouseSense;
 
-    [Header("���� �̹��� UI")]
+    [Header(" ?  ? ")]
     [SerializeField] RectTransform crosshairImg;
 
     private void Start()
@@ -52,7 +50,7 @@ public class AimStatManager : MonoBehaviour
     }
     private void AimMode()
     {
-        // ���� ��� Ȱ��ȭ
+        // ???? ??? ????
         if (Input.GetKey(KeyCode.Mouse1))
         {
             camFollowPos.DOLocalMove(camFollowPosAimTarget.localPosition, 0.25f, false);
