@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.beetlecircus.serializabledictionary": "0.1.2-preview.4",
     "com.coffee.ui-particle": "https://github.com/mob-sakai/ParticleEffectForUGUI.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "1.1.5",
@@ -42,5 +43,14 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "Rain Office",
+      "url": "https://office.rain-games.com:4873",
+      "scopes": [
+        "com.beetlecircus"
+      ]
+    }
+  ]
 }

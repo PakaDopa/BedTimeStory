@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.beetlecircus.serializabledictionary": {
+      "version": "0.1.2-preview.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://office.rain-games.com:4873"
+    },
     "com.coffee.ui-particle": {
       "version": "https://github.com/mob-sakai/ParticleEffectForUGUI.git",
       "depth": 0,
