@@ -19,7 +19,7 @@ public class PlayerStats : Singleton<PlayerStats>
     public Status playerStatus { get; set; }
     private float maxHP = 100;
     [SerializeField] public float currHP;
-    private int currGold = 0;
+    private int currGold = 100000;
     public int CurrGold => currGold;
 
     private float attackPower = 5;
