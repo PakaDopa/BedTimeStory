@@ -22,7 +22,7 @@ public class Stage : DestroyableSingleton<Stage>
     public float waveStartTime;
     public float wavePlayTime => Time.time - waveStartTime;
 
-    List<Coroutine> spawnRoutines = new();
+    List<Coroutine> spawnRoutines = new(); 
     Coroutine waveRoutine;
 
     //==========================================================================================================================
@@ -102,6 +102,7 @@ public class Stage : DestroyableSingleton<Stage>
 
         
         yield return new WaitForSeconds(waveDuration);
+
         FinishWave();
     }
 
