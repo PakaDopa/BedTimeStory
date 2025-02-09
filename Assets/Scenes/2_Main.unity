@@ -1514,6 +1514,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8690402615294348805, guid: 4877c1fad344cde43aaa7e9cc6622df5, type: 3}
+      propertyPath: closePanelKey
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 8690402615294348805, guid: 4877c1fad344cde43aaa7e9cc6622df5, type: 3}
+      propertyPath: optionPanelOpenKey
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 8690402615294348805, guid: 4877c1fad344cde43aaa7e9cc6622df5, type: 3}
+      propertyPath: upgradePanelOpenKey
+      value: 98
+      objectReference: {fileID: 0}
     - target: {fileID: 9097349764829993215, guid: 4877c1fad344cde43aaa7e9cc6622df5, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
