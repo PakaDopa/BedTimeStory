@@ -19,3 +19,28 @@ MonoBehaviour:
     spawnInfos:
     - enemyType: 0
       spawnCount: 1
+  - waveNum: 2
+    waveDuration: 4
+    spawnInfos:
+    - enemyType: 0
+      spawnCount: 1
+  - waveNum: 3
+    waveDuration: 4
+    spawnInfos:
+    - enemyType: 0
+      spawnCount: 1
+  - waveNum: 4
+    waveDuration: 4
+    spawnInfos:
+    - enemyType: 0
+      spawnCount: 1
+  - waveNum: 5
+    waveDuration: 4
+    spawnInfos:
+    - enemyType: 0
+      spawnCount: 1
+  - waveNum: 6
+    waveDuration: 4
+    spawnInfos:
+    - enemyType: 0
+      spawnCount: 1
