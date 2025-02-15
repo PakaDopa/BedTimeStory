@@ -322,7 +322,7 @@ public class Enemy : MonoBehaviour, IPoolObject
     {
         // float angle = ;
         // angleWithTarget  = angle;
-        yield return new  WaitUntil(()=> Vector3.Angle(t.forward, enemyAI.targetPos-t.position) <= 5f  );
+        yield return new  WaitUntil(()=> Vector3.Angle(t.forward, (enemyAI.targetPos-t.position).WithFloorHeight()) <= 5f  );
     }
 
 
