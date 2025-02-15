@@ -1,11 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : DestroyableSingleton<UIManager>
 {
+    private enum PanelState
+    {
+        Option,     //옵션 열려있는 상태
+        Upgrade,    //업그레이드 열려있는 상태
+        None        //열려 있는게 없는 상태
+    }
+
     [SerializeField] GameObject upgradePanel;
     [SerializeField] GameObject optionPanel;
+
+    [SerializeField] KeyCode upgradePanelOpenKey;
+    [SerializeField] KeyCode optionPanelOpenKey;
+    [SerializeField] KeyCode closePanelKey;
+
+    private PanelState panelState = PanelState.None;
 
     private void Update()
     {
@@ -14,50 +27,56 @@ public class UIManager : DestroyableSingleton<UIManager>
             return;
         }
         
-        
-        UseUpgradePanel();
-        UseOptionPanel();
-    }
-
-    private void UseOptionPanel()
-    { 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        //패널 키 조작
+        switch(panelState)
         {
-            optionPanel.SetActive(!optionPanel.activeSelf);
-
-            if(optionPanel.activeSelf)
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                GameManager.Instance.PauseGamePlay(true);
-            }
-            else
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                GameManager.Instance.PauseGamePlay(false);
-            }
+            case PanelState.None:
+                if(Input.GetKeyDown(upgradePanelOpenKey))
+                {
+                    EnablePanel(upgradePanel, true);
+                    panelState = PanelState.Upgrade;
+                }
+                else if(Input.GetKeyDown(optionPanelOpenKey))
+                {
+                    EnablePanel(optionPanel, true);
+                    panelState = PanelState.Option;
+                }
+                break;
+            case PanelState.Option:
+                //옵션 닫기
+                if(Input.GetKeyDown(closePanelKey))
+                {
+                    EnablePanel(optionPanel, false);
+                    panelState = PanelState.None;
+                }
+                break;
+            case PanelState.Upgrade:
+                //업그레이드 닫기
+                if (Input.GetKeyDown(closePanelKey))
+                {
+                    EnablePanel(upgradePanel, false);
+                    panelState = PanelState.None;
+                }
+                break;
+            default:
+                break;
         }
     }
-
-    private void UseUpgradePanel()
+    private void EnablePanel(GameObject panel, bool enable)
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            upgradePanel.SetActive(!upgradePanel.activeSelf);
+        panel.SetActive(enable);
 
-            if (upgradePanel.activeSelf)
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                GameManager.Instance.PauseGamePlay(true);
-            }
-            else
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                GameManager.Instance.PauseGamePlay(false);
-            }
+        if (panel.activeSelf)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            GameManager.Instance.PauseGamePlay(true);
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            GameManager.Instance.PauseGamePlay(false);
         }
     }
 }

@@ -1,5 +1,5 @@
 using System.Collections;
-
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         
 
         //첫대쉬 판정
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && GamePlayManager.isGamePlaying)
             dashSoundSO.Raise();
         GetDirectionAndMove();
         
@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
     }
     IEnumerator PlayerWalkSound()
     {
-        yield return new WaitUntil(() => isWalking);
+        yield return new WaitUntil(() => isWalking && GamePlayManager.isGamePlaying == true);
 
         soundEventSOs[soundIndex++].Raise();
         if (soundEventSOs.Length <= soundIndex)

@@ -100,12 +100,21 @@ public class PlayerStats : Singleton<PlayerStats>
 
     public override void Init()
     {
-        
+        ResetInfo();
     }
-
+    void ResetInfo()
+    {
+        currHP = maxHP;
+        currGold = 0;
+        attackPower = 5;
+        moveSpeed = 3;
+        reloadSpeed = 3;
+        skillCooltime = 10;
+    }
 
     void Die()
     {
+        ResetInfo();
         GamePlayManager.Instance.GameOver();
     }
 }
