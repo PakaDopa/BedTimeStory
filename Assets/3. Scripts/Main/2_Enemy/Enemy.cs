@@ -45,9 +45,12 @@ public class Enemy : MonoBehaviour, IPoolObject
     public float lastAttackTime;
     public bool attackAvailable => Time.time >= lastAttackTime + enemyData.attackSpeed;
 
+    public bool canRotate;
     public bool isCasting;
 
+    public float angleWithTarget;
 
+    WaitForFixedUpdate wffu = new();
     // Slider_EnemyHp enemyState;
     //===================================
 
@@ -75,9 +78,11 @@ public class Enemy : MonoBehaviour, IPoolObject
         {
             return;
         }
-
+    
         // 스턴걸리면 아래까지 안내려가게.
-        enemyAI.OnUpdate();
+        bool aiUpdated = enemyAI.OnUpdate();
+
+        RotateToTarget();
     }    
 
     public void OnCreatedInPool()
@@ -91,7 +96,8 @@ public class Enemy : MonoBehaviour, IPoolObject
 
     public void OnGettingFromPool()
     {
-
+        animator.applyRootMotion = false;
+        animator.transform.rotation = Quaternion.identity;
     }
 
 
@@ -106,6 +112,9 @@ public class Enemy : MonoBehaviour, IPoolObject
         enemyAI.Init( this, clearedwaveCount);
 
         _collider.enabled = true;
+
+
+        canRotate = true;
     }
 
     void InitStatus(int clearedWaveCount)
@@ -182,6 +191,7 @@ public class Enemy : MonoBehaviour, IPoolObject
         DropItem();
         // enemyState?.OnEnemyDie();
         enemyAI.OnDie();
+        animator.applyRootMotion = true;
         animator.SetTrigger(hash_die);
 
         GameManager.Instance.currGamePlayInfo.killCount ++;
@@ -222,6 +232,7 @@ public class Enemy : MonoBehaviour, IPoolObject
     [Header("Ability")]
     [SerializeField] EnemyAnimationEvent_Attack attackAnimationEvent;
 
+    static int hash_isCasting = Animator.StringToHash("isCasting");
     static int hash_attack = Animator.StringToHash("attack");
     static int hash_die = Animator.StringToHash("die");
     static int hash_movementSpeed = Animator.StringToHash("movementSpeed");
@@ -242,9 +253,17 @@ public class Enemy : MonoBehaviour, IPoolObject
         }
         
         //
-        // Debug.Log("공격시작");
         isCasting = true;
-        animator.SetBool(hash_attack, true);
+
+
+
+        yield return WaitUntilLookAtTarget();
+        canRotate = false;
+
+        // Debug.Log("공격시작");
+        
+        animator.SetTrigger(hash_attack);
+        animator.SetBool(hash_isCasting, true);
         attackAnimationEvent.OnStart();
         yield return new WaitUntil(()=> attackAnimationEvent.AbilityActivationTime == true || isCasting == false);
         // Debug.Log("퍽");
@@ -254,9 +273,65 @@ public class Enemy : MonoBehaviour, IPoolObject
 
         yield return new WaitUntil(()=> attackAnimationEvent.animationFinished == true || isCasting == false);
         // Debug.Log("공격끝");
-        animator.SetBool(hash_attack, false);
+        animator.SetBool(hash_isCasting, false);
         isCasting = false;
+        canRotate = true;
     }
+
+
+    void RotateToTarget()
+    {
+        if ( canRotate == false)
+        {
+            return;
+        }
+
+
+        // 1) 현재 바라보는 방향
+        float rotationSpeed = 180f;
+        Vector3 currentForward = transform.forward;
+        Vector3 targetDirection = (enemyAI.targetPos-t.position).normalized;
+        // 2) SignedAngle로 현재 방향과 목표 방향의 '사이 각도' (단위: 도) 구하기
+        float angleToTarget = Vector3.SignedAngle(currentForward, targetDirection, Vector3.up);
+
+        // 양수면 왼쪽, 음수면 오른쪽으로 회전해야 함
+        // (Unity 좌표계에서, 위쪽(Y)축 기준)
+
+        // 3) 이번 프레임에 회전할 수 있는 최대 각도
+        float maxRotateThisFrame = rotationSpeed * Time.deltaTime;
+
+        // 4) '남은 각도'의 절댓값이 이번에 회전할 각도보다 작거나 같으면,
+        //    그 각도만큼만 한 번에 회전해 최종 방향을 맞춤
+        if (Mathf.Abs(angleToTarget) <= maxRotateThisFrame)
+        {
+            // 목표 방향으로 정확히 맞춤
+            t.rotation = Quaternion.LookRotation(targetDirection, Vector3.up);
+        }
+        else
+        {
+            // 그렇지 않다면, maxRotateThisFrame(도)을 부호에 맞춰 회전
+            // 부호(+/-)는 angleToTarget에 따름
+            float rotateStep = maxRotateThisFrame * Mathf.Sign(angleToTarget);
+
+            // Y축 기준 회전만 적용하는 예시 (Pitch, Roll은 고정)
+            t.Rotate(Vector3.up, rotateStep, Space.World);
+        }
+    }
+
+    IEnumerator WaitUntilLookAtTarget()
+    {
+        // float angle = ;
+        // angleWithTarget  = angle;
+        yield return new  WaitUntil(()=> Vector3.Angle(t.forward, enemyAI.targetPos-t.position) <= 5f  );
+    }
+
+
+
+
+
+
+
+
 
     public void OnMove(float movementSpeed)
     {

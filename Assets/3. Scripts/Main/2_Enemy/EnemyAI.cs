@@ -18,6 +18,7 @@ public class EnemyAI : MonoBehaviour
     // [SerializeField] Transform target;
 
     [SerializeField] Collider targetCollider;    
+    public Vector3 targetPos=> targetCollider==null? t.position + t.forward: targetCollider.transform.position;
     
     NavMeshAgent navAgent;
     
@@ -33,8 +34,6 @@ public class EnemyAI : MonoBehaviour
     bool canReact => Time.time >= lastReactionTime + reactionTime;
 
 
-
-
     //=================================
     void Update()
     {
@@ -45,12 +44,12 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    public void OnUpdate()
+    public bool OnUpdate()
     {        
         //
         if( canReact ==false || enemy.isCasting )
         {
-            return;
+            return false;
         }
         lastReactionTime = Time.time;
         
@@ -66,6 +65,7 @@ public class EnemyAI : MonoBehaviour
         {
             Approach();
         }
+        return true;
     }
 
 
@@ -176,7 +176,6 @@ public class EnemyAI : MonoBehaviour
     {
         navAgent.isStopped = false;
         navAgent.velocity = navAgent.desiredVelocity;
-
         enemy.OnMove(99);
     }
 
@@ -187,12 +186,16 @@ public class EnemyAI : MonoBehaviour
     {
         navAgent.isStopped = true;
         navAgent.velocity = Vector3.zero;
+
+        enemy.OnMove(0);
     }
 
     public void OnDie()
     {
         navAgent.isStopped = true;
         navAgent.velocity = Vector3.zero;
+
+
     }
 
     //==================================

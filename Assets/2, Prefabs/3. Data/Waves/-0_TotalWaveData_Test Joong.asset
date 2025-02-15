@@ -10,33 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51e27d30ead747d46a3dcc371512bdf9, type: 3}
-  m_Name: -0_TotalWaveData_Test
+  m_Name: -0_TotalWaveData_Test Joong
   m_EditorClassIdentifier: 
   difficulty: 0
   waves:
   - waveNum: 1
-    waveDuration: 4
+    waveDuration: 132
     spawnInfos:
-    - enemyType: 0
-      spawnCount: 1
-  - waveNum: 2
-    waveDuration: 4
-    spawnInfos: []
-  - waveNum: 3
-    waveDuration: 4
-    spawnInfos: []
-  - waveNum: 4
-    waveDuration: 4
-    spawnInfos:
-    - enemyType: 0
-      spawnCount: 1
-  - waveNum: 5
-    waveDuration: 4
-    spawnInfos:
-    - enemyType: 0
-      spawnCount: 1
-  - waveNum: 6
-    waveDuration: 4
-    spawnInfos:
-    - enemyType: 0
+    - enemyType: 1
       spawnCount: 1

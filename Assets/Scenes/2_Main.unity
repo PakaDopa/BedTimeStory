@@ -1186,6 +1186,10 @@ PrefabInstance:
       propertyPath: cutSceneManager
       value: 
       objectReference: {fileID: 1751247527}
+    - target: {fileID: 1551806264656179801, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
+      propertyPath: totalWaves.array.Array.data[0].Value
+      value: 
+      objectReference: {fileID: 11400000, guid: 2519e8690d4ea254c97d6afb40a58407, type: 2}
     - target: {fileID: 4145629733318170811, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
       propertyPath: m_Name
       value: GamePlayManager
