@@ -35,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1315594156452406786}
+  - {fileID: 3277457261343838292}
   - {fileID: 1584329444568337687}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57,7 +58,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 4
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &9128876561533133621
@@ -99,8 +100,10 @@ MonoBehaviour:
   stopDurationRemain: 0
   stunDurationRemain: 0
   lastAttackTime: 0
+  canRotate: 0
   isCasting: 0
-  attackAnimationEvent: {fileID: 376665610367830685}
+  angleWithTarget: 0
+  attackAnimationEvent: {fileID: 3174860138603508839}
 --- !u!136 &8407753709932845091
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -121,9 +124,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
-  m_Height: 3.59
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!54 &7448329445168510926
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -238,6 +241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_02_Zombie@Zombie Run
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -245,9 +252,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5974274555542434914}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 376665610367830685}
   m_SourcePrefab: {fileID: 100100000, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
 --- !u!4 &1584329444568337687 stripped
 Transform:
@@ -280,13 +284,90 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &376665610367830685
+--- !u!1001 &3094368213238151103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2168429780066838514}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_Name
+      value: Zombie@Mutant Breathing Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: fee039e863009ef419dab9f9cdca5fe2, type: 2}
+    - target: {fileID: 5866666021909216657, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3174860138603508839}
+  m_SourcePrefab: {fileID: 100100000, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+--- !u!1 &2751715517883271918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+  m_PrefabInstance: {fileID: 3094368213238151103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3174860138603508839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2213373603703969709}
+  m_GameObject: {fileID: 2751715517883271918}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a190140fafd3ff04498a37b8d7c5476e, type: 3}
@@ -294,3 +375,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityActivationTime: 0
   animationFinished: 0
+--- !u!4 &3277457261343838292 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b50a4bacda0a7034ba40f40b405e2a68, type: 3}
+  m_PrefabInstance: {fileID: 3094368213238151103}
+  m_PrefabAsset: {fileID: 0}

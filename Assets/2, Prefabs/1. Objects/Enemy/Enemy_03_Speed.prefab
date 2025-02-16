@@ -67,6 +67,7 @@ Transform:
   m_Children:
   - {fileID: 546279225362741853}
   - {fileID: 6825220613832148975}
+  - {fileID: 2549027652954099543}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &4215363838467967512
@@ -88,7 +89,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 4
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &9128876561533133621
@@ -130,8 +131,10 @@ MonoBehaviour:
   stopDurationRemain: 0
   stunDurationRemain: 0
   lastAttackTime: 0
+  canRotate: 0
   isCasting: 0
-  attackAnimationEvent: {fileID: 2551502669650019185}
+  angleWithTarget: 0
+  attackAnimationEvent: {fileID: 6358164774737395222}
 --- !u!136 &8407753709932845091
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -154,7 +157,7 @@ CapsuleCollider:
   m_Radius: 1
   m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!54 &7448329445168510926
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -182,6 +185,109 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &2654113696850602172
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2168429780066838514}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_Name
+      value: BearBase@Goalkeeper Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 87c6d178a773eec41bf0b12566d5f82e, type: 2}
+    - target: {fileID: 5866666021909216657, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:LeftHandIndex1'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
+        'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform
+        'mixamorig:RightHandIndex3'\n\tTransform 'mixamorig:RightFoot'\n\tand more
+        ...\n\tFrom animation clip 'Mma Kick'\n\tFrom animation clip 'Falling Back
+        Death'\n\tFrom animation clip 'Slow Run'\n\tFrom animation clip 'Slow Run'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6358164774737395222}
+  m_SourcePrefab: {fileID: 100100000, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+--- !u!4 &2549027652954099543 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+  m_PrefabInstance: {fileID: 2654113696850602172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2887976733540767213 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: faa93d2b5271dea40adaf4bc98c50b66, type: 3}
+  m_PrefabInstance: {fileID: 2654113696850602172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6358164774737395222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2887976733540767213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a190140fafd3ff04498a37b8d7c5476e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityActivationTime: 0
+  animationFinished: 0
 --- !u!1001 &6427398088240848900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -238,6 +344,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_03_Gentle@Slow Run
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d22c2df6a8ea4a4c81f8efd71794f9c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -245,9 +355,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d22c2df6a8ea4a4c81f8efd71794f9c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7467306383896006539}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d22c2df6a8ea4a4c81f8efd71794f9c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2551502669650019185}
   m_SourcePrefab: {fileID: 100100000, guid: 7d22c2df6a8ea4a4c81f8efd71794f9c, type: 3}
 --- !u!1 &6193537248291708245 stripped
 GameObject:
@@ -275,20 +382,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2551502669650019185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6193537248291708245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a190140fafd3ff04498a37b8d7c5476e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityActivationTime: 0
-  animationFinished: 0
 --- !u!4 &6825220613832148975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7d22c2df6a8ea4a4c81f8efd71794f9c, type: 3}

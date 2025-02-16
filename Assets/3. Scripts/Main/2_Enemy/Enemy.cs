@@ -92,12 +92,21 @@ public class Enemy : MonoBehaviour, IPoolObject
         _collider = GetComponent<CapsuleCollider>();
         _rb = GetComponent<Rigidbody>();
         animator= GetComponentInChildren<Animator>();
+
+
+        attackAnimationEvent = GetComponentInChildren<EnemyAnimationEvent_Attack>();
     }
 
     public void OnGettingFromPool()
     {
-        animator.applyRootMotion = false;
-        animator.transform.rotation = Quaternion.identity;
+        // animator.applyRootMotion = false;
+        // animator.transform.localPosition = Vector3.zero;
+        // animator.transform.rotation = Quaternion.identity;
+
+
+
+        isCasting = false;
+        canRotate = true;
     }
 
 
@@ -191,7 +200,7 @@ public class Enemy : MonoBehaviour, IPoolObject
         DropItem();
         // enemyState?.OnEnemyDie();
         enemyAI.OnDie();
-        animator.applyRootMotion = true;
+        // animator.applyRootMotion = true;
         animator.SetTrigger(hash_die);
 
         GameManager.Instance.currGamePlayInfo.killCount ++;
