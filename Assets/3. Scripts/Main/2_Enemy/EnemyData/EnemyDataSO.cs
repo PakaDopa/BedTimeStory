@@ -34,6 +34,11 @@ public abstract class EnemyDataSO : ScriptableObject
     public float inc_dmg = 3;
 
 
+    public float castDelay;
+    public float offsetWeight = 1f;
+
+    public abstract IEnumerator CastRoutine(Enemy enemy, Vector3 targetPos);
+    
     public abstract void Attack(Enemy enemy, Vector3 targetPos);
 
 

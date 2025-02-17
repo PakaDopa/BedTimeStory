@@ -15,9 +15,10 @@ MonoBehaviour:
   maxHp: 65
   movementSpeed: 2
   attackSpeed: 2
-  attackRange: 2
+  attackRange: 3
   playerDectectionRange: 10
   dmg: 15
   inc_maxHp: 10
   inc_movementSpeed: 0.5
   inc_dmg: 5
+  attackAngle: 20

@@ -18,7 +18,7 @@ public class EnemyAI : MonoBehaviour
     // [SerializeField] Transform target;
 
     [SerializeField] Collider targetCollider;    
-    public Vector3 targetPos=> targetCollider==null? t.position + t.forward: targetCollider.transform.position;
+    public Vector3 targetPos=> targetCollider==null ? t.position + t.forward: targetCollider.transform.position;
     
     NavMeshAgent navAgent;
     
@@ -59,7 +59,7 @@ public class EnemyAI : MonoBehaviour
         // 공격 or 접근
         if( IsTargetInAttackRange( out Vector3 targetPos))
         {
-            Attack(targetPos);
+            Attack();
         }
         else
         {
@@ -124,7 +124,7 @@ public class EnemyAI : MonoBehaviour
         targetPoint = _targetCollider.ClosestPoint(currPos);
         float sqrDist = currPos.GetSqrDistWith(targetPoint);
 
-        return sqrDist <= (dist-0.2f) * (dist-0.2f);
+        return sqrDist <= (dist-0.15f) * (dist-0.15f);
     }
 
     /// <summary>
@@ -159,12 +159,12 @@ public class EnemyAI : MonoBehaviour
     //     navAgent.SetDestination( target.position );    // 타워 쫓음
     // }
 
-    void Attack(Vector3 targetPos )
+    void Attack( )
     {
         
         if( enemy.attackAvailable )
         {
-            enemy.StartAttack( targetCollider.transform.position.WithPlayerWaistHeight() );
+            enemy.StartAttack( targetPos.WithPlayerWaistHeight() );
         }
         
         Stop();

@@ -24,6 +24,10 @@ public class EnemyData_01_Range : EnemyDataSO
         inc_maxHp = 10;
         inc_movementSpeed = 0.3f;
         inc_dmg = 3;
+
+
+        castDelay = 1.5f;
+        offsetWeight = 0.5f;
     }
     
     
@@ -39,9 +43,14 @@ public class EnemyData_01_Range : EnemyDataSO
         ep.Init(dmg, enemy.t.position, targetPos);
     }   
 
-        public override AreaIndicator GetAttackAreaIndicator(Enemy enemy, Vector3 targetPos)
+    public override AreaIndicator GetAttackAreaIndicator(Enemy enemy, Vector3 targetPos)
     {
         
-        return AreaIndicatorGenerator.Instance.GetCone(enemy, enemy.t.position, targetPos - enemy.t.position, 0.5f, attackRange, 1 );
+        return AreaIndicatorGenerator.Instance.GetCircle(enemy, targetPos, castDelay, 1f);
+    }
+
+        public override IEnumerator CastRoutine(Enemy enemy, Vector3 targetPos)
+    {
+        yield return new WaitForSeconds(castDelay);
     }
 }

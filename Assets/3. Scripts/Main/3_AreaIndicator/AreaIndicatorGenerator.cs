@@ -6,7 +6,11 @@ using UnityEngine;
 public class AreaIndicatorGenerator : DestroyableSingleton<AreaIndicatorGenerator>
 {
     [SerializeField] ConeAreaIndicator prefab_cone;
+    [SerializeField] CircleAreaIndicator prefab_circle;
     
+
+
+    Vector3 offset =  new Vector3(0,0.11f,0);
 
     // IEnumerator Start()
     // {
@@ -24,16 +28,30 @@ public class AreaIndicatorGenerator : DestroyableSingleton<AreaIndicatorGenerato
 
     // }
 
+    Vector3 InitPos(Vector3 inputPos)
+    {
+        return inputPos.WithFloorHeight() + offset;
+    }
+
 
     public ConeAreaIndicator GetCone(Enemy enemy, Vector3 targetPos, Vector3 dir, float duration, float radius, float angle)
     {
         dir = dir.WithFloorHeight().normalized; // 회전 벡터는 보통 정규화해서 사용
         Quaternion rot = Quaternion.FromToRotation(Vector3.forward, dir);
 
-        ConeAreaIndicator  cone = Instantiate(prefab_cone.gameObject, targetPos+ new Vector3(0,0.1f,0) , rot ).GetComponent<ConeAreaIndicator>();
+        ConeAreaIndicator  cone = Instantiate(prefab_cone.gameObject, InitPos( targetPos) , rot ).GetComponent<ConeAreaIndicator>();
         cone.Init(enemy, duration, radius, angle);
 
         return cone;
 
+    }
+
+    public CircleAreaIndicator GetCircle(Enemy enemy, Vector3 targetPos, float duration, float radius)
+    {
+        
+        CircleAreaIndicator  circle = Instantiate(prefab_circle.gameObject, InitPos( targetPos) , Quaternion.identity ).GetComponent<CircleAreaIndicator>();
+        circle.Init(enemy, duration, radius);
+
+        return circle;
     }
 }

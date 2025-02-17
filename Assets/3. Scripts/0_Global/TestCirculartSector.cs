@@ -32,7 +32,7 @@ public class TestCirculartSector : MonoBehaviour
 
     [Header("=== 각 오브젝트 색상 (MPB) ===")]
     public Color fullMeshColor = new Color(0, 0, 1, 0.3f); // 풀 범위 메쉬: 반투명 파랑
-    public Color fullLineColor = Color.blue;               // 풀 범위 외곽선
+    public Color lineColor = Color.blue;               // 풀 범위 외곽선
     public Color fillMeshColor = Color.red;                // 채워지는 범위(메쉬)
 
     [Header("머티리얼 컬러 프로퍼티 이름")]
@@ -55,7 +55,7 @@ public class TestCirculartSector : MonoBehaviour
         // 1) 풀 범위 메쉬 생성 (항상 radius)
         // ---------------------------------------------------
         _fullSectorMesh = new Mesh { name = "FullSectorMesh" };
-        GenerateSectorMesh(_fullSectorMesh, radius);
+        GenerateCircleMesh(_fullSectorMesh, radius);
 
         if (fullSectorFilter)
             fullSectorFilter.mesh = _fullSectorMesh;
@@ -72,7 +72,7 @@ public class TestCirculartSector : MonoBehaviour
         // 3) 채워지는(애니메이션) 메쉬 (초기 0%)
         // ---------------------------------------------------
         _fillSectorMesh = new Mesh { name = "FillSectorMesh" };
-        GenerateSectorMesh(_fillSectorMesh, 0f);
+        GenerateCircleMesh(_fillSectorMesh, 0f);
 
         if (fillSectorFilter)
             fillSectorFilter.mesh = _fillSectorMesh;
@@ -132,59 +132,92 @@ public class TestCirculartSector : MonoBehaviour
             float curRadius = Mathf.Lerp(0f, radius, t);
 
             // 메시 갱신
-            GenerateSectorMesh(_fillSectorMesh, curRadius);
+            GenerateCircleMesh(_fillSectorMesh, curRadius);
 
             yield return null;
         }
 
         // 마지막에 radius로 확정
-        GenerateSectorMesh(_fillSectorMesh, radius);
+        GenerateCircleMesh(_fillSectorMesh, radius);
     }
 
-    // ---------------------------------------------------------
-    // (A) 부채꼴 메시 생성 함수 (XZ 평면, +Z가 0도)
-    // ---------------------------------------------------------
-    private void GenerateSectorMesh(Mesh targetMesh, float currentRadius)
+    /// <summary>
+    /// XZ 평면에 원형(Circle) 메쉬를 생성한다.
+    /// </summary>
+    /// <param name="targetMesh">생성할 메쉬를 할당할 Mesh 객체</param>
+    /// <param name="radius">원형의 반지름</param>
+    /// <param name="segmentCount">분할 개수(클수록 원에 가까워짐)</param>
+    private void GenerateCircleMesh(Mesh targetMesh, float radius)
     {
-        if (targetMesh == null || segmentCount < 1 || sectorAngle <= 0f)
+        if (targetMesh == null || segmentCount < 3)
         {
+            Debug.LogWarning("세그먼트가 3 이상이어야 원형을 만들 수 있습니다.");
             return;
         }
 
-        Vector3[] vertices = new Vector3[segmentCount + 2];
-        vertices[0] = Vector3.zero; // 중심
+        // -----------------------
+        // 1) 정점 (Vertices) 생성
+        // -----------------------
+        // 중심점(인덱스 0) + 세그먼트 개수만큼 (원 주위)
+        // 총 segmentCount + 1개의 정점
+        Vector3[] vertices = new Vector3[segmentCount + 1];
+        
+        // 중심점
+        vertices[0] = Vector3.zero;
 
-        float halfAngle = sectorAngle * 0.5f;
-        float startAngle = -halfAngle;
-        float endAngle   =  halfAngle;
-
-        for (int i = 0; i <= segmentCount; i++)
+        // 0 ~ 2파이(360도)를 segmentCount로 나누어 vertex 생성
+        for (int i = 0; i < segmentCount; i++)
         {
+            // i번째 세그먼트가 몇 도(라디안)인지
             float t = i / (float)segmentCount;
-            float angleDeg = Mathf.Lerp(startAngle, endAngle, t);
-            float rad = Mathf.Deg2Rad * angleDeg;
+            float angleRad = t * Mathf.PI * 2f; // 0 ~ 2PI
 
-            float x = Mathf.Sin(rad) * currentRadius;
-            float z = Mathf.Cos(rad) * currentRadius;
+            // XZ 평면에서 원 둘레 점
+            float x = Mathf.Cos(angleRad) * radius;
+            float z = Mathf.Sin(angleRad) * radius;
 
+            // 정점 저장
             vertices[i + 1] = new Vector3(x, 0f, z);
         }
 
+        // -----------------------
+        // 2) 삼각형 인덱스 (Triangles) 생성
+        // -----------------------
+        // 각 세그먼트마다 (중심점, 현재점, 다음점)으로 삼각형 하나씩
+        // => segmentCount * 3개의 인덱스
         int[] triangles = new int[segmentCount * 3];
+
         for (int i = 0; i < segmentCount; i++)
         {
-            triangles[i * 3]     = 0;
-            triangles[i * 3 + 1] = i + 1;
-            triangles[i * 3 + 2] = i + 2;
+            // 중심점은 0번
+            int current = i + 1;         // 현재 꼭짓점
+            int next = (i + 1) + 1;      // 다음 꼭짓점
+            
+            // 마지막 꼭짓점 처리 (세그먼트 wrap)
+            // i == segmentCount-1 인 경우, next가 (segmentCount+1)이 되어야 하는데,
+            // 배열 밖이므로 next = 1로 순환
+            if (i == segmentCount - 1)
+            {
+                next = 1;
+            }
+
+            int triIndex = i * 3;
+            triangles[triIndex + 0] = 0;      // 중심
+            triangles[triIndex + 1] = current;
+            triangles[triIndex + 2] = next;
         }
 
+        // -----------------------
+        // 3) Mesh에 적용
+        // -----------------------
         targetMesh.Clear();
-        targetMesh.vertices  = vertices;
+        targetMesh.vertices = vertices;
         targetMesh.triangles = triangles;
+
+        // 노말 및 경계 재계산
         targetMesh.RecalculateNormals();
         targetMesh.RecalculateBounds();
     }
-
 
 
     // ------------------------------------------------------------
@@ -195,49 +228,32 @@ public class TestCirculartSector : MonoBehaviour
     // ------------------------------------------------------------
     void DrawClosedSectorOutline()
     {
-        if (segmentCount < 1 || sectorAngle <= 0f)
+                // 세그먼트가 최소 3 이상이어야 원을 구성
+        if (segmentCount < 3 || fullLineRenderer == null)
         {
-            fullLineRenderer.positionCount = 0;
+            if (fullLineRenderer != null)
+                fullLineRenderer.positionCount = 0;
             return;
         }
+        fullLineRenderer.startColor = lineColor;
+        fullLineRenderer.endColor   = lineColor;
 
+        
+        fullLineRenderer.useWorldSpace = false; // transform 로컬 기준으로 그릴지 여부
 
-        // 라인렌더러 기본 세팅
-        fullLineRenderer.useWorldSpace = false; // 로컬 좌표 사용
-        fullLineRenderer.startColor = fullLineColor;
-        fullLineRenderer.endColor   = fullLineColor;
-        fullLineRenderer.loop       = false;    
+        fullLineRenderer.loop = true;
+        fullLineRenderer.positionCount = segmentCount;
 
-        // 총 (segmentCount + 3)개 위치:
-        //   0: center
-        //   1..(segmentCount+1): 호
-        //   (segmentCount+2): center
-        fullLineRenderer.positionCount = segmentCount + 3;
-
-        // 0번: 중심
-        fullLineRenderer.SetPosition(0, Vector3.zero);
-
-        float halfAngle = sectorAngle * 0.5f;
-        float startAngle = -halfAngle;
-        float endAngle   =  halfAngle;
-
-        // segmentCount+1개 점으로 "호"를 만든다.
-        for (int i = 0; i <= segmentCount; i++)
+        for (int i = 0; i < segmentCount; i++)
         {
             float t = i / (float)segmentCount;
-            float currentAngleDeg = Mathf.Lerp(startAngle, endAngle, t);
-            float currentAngleRad = Mathf.Deg2Rad * currentAngleDeg;
+            float angleDeg = t * 360f;
+            float angleRad = Mathf.Deg2Rad * angleDeg;
 
-            float x = Mathf.Sin(currentAngleRad) * radius;
-            float z = Mathf.Cos(currentAngleRad) * radius;
+            float x = Mathf.Cos(angleRad) * radius;
+            float z = Mathf.Sin(angleRad) * radius;
 
-            // lineRenderer에서 i+1 인덱스에 세팅
-            fullLineRenderer.SetPosition(i + 1, new Vector3(x, 0f, z));
+            fullLineRenderer.SetPosition(i, new Vector3(x, 0f, z));
         }
-
-        // 마지막 점: 다시 중앙
-        fullLineRenderer.SetPosition(segmentCount + 2, Vector3.zero);
-
-
     }
 }

@@ -31,6 +31,10 @@ public class EnemyData_00_Melee : EnemyDataSO
         inc_maxHp = 10;
         inc_movementSpeed = 0.3f;
         inc_dmg = 3;
+
+
+        castDelay = 1f;
+        offsetWeight = 0.5f;
     }
     
     
@@ -53,7 +57,6 @@ public class EnemyData_00_Melee : EnemyDataSO
             float targetAngle = Mathf.Acos(dot) * Mathf.Rad2Deg; // 내적을 각도로 변환
 
             // Debug.Log(targetAngle);
-
             if (targetAngle <= attackAngle *0.5f)  // 부채꼴 범위 내에 있는지 확인
             {
                 // 적에게 피해를 입히는 로직
@@ -78,6 +81,13 @@ public class EnemyData_00_Melee : EnemyDataSO
     public override AreaIndicator GetAttackAreaIndicator(Enemy enemy, Vector3 targetPos)
     {
         
-        return AreaIndicatorGenerator.Instance.GetCone(enemy, enemy.t.position, targetPos - enemy.t.position, 1f, attackRange, attackAngle );
+        return AreaIndicatorGenerator.Instance.GetCone(enemy, enemy.t.position, targetPos - enemy.t.position, castDelay, attackRange, attackAngle );
+    }
+
+    public override IEnumerator CastRoutine(Enemy enemy, Vector3 targetPos)
+    {
+        Debug.Log($"욥 {Time.time}");
+        yield return new WaitForSeconds(castDelay);
+        Debug.Log($"얍 {Time.time}");
     }
 }

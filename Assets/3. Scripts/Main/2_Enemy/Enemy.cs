@@ -6,6 +6,7 @@ using System;
 
 using GameUtil;
 using DG.Tweening;
+using UnityEditor.Playables;
 
 
 [RequireComponent(typeof(EnemyAI), typeof(Collider), typeof(Rigidbody) )]
@@ -51,6 +52,7 @@ public class Enemy : MonoBehaviour, IPoolObject
     public float angleWithTarget;
 
     WaitForFixedUpdate wffu = new();
+    Vector3 currTargetPosOffset;
     // Slider_EnemyHp enemyState;
     //===================================
 
@@ -264,21 +266,29 @@ public class Enemy : MonoBehaviour, IPoolObject
         //
         isCasting = true;
 
-
-
+        currTargetPosOffset = new Vector3( UnityEngine.Random.Range(-1,1), 0, UnityEngine.Random.Range(-1,1) ).normalized * enemyData.offsetWeight;
+        Vector3 fixedTargetPos = targetPos+ currTargetPosOffset;
+        Debug.Log($" a0  {currTargetPosOffset} / {fixedTargetPos}");
         yield return WaitUntilLookAtTarget();
         canRotate = false;
 
 
-        enemyData.GetAttackAreaIndicator(this, targetPos);
+        enemyData.GetAttackAreaIndicator(this, fixedTargetPos);
         // Debug.Log("공격시작");
         
         animator.SetTrigger(hash_attack);
         animator.SetBool(hash_isCasting, true);
         attackAnimationEvent.OnStart();
-        yield return new WaitUntil(()=> attackAnimationEvent.AbilityActivationTime == true || isCasting == false);
-        // Debug.Log("퍽");
-        enemyData.Attack(this, targetPos);
+
+        Debug.Log(" a1");
+        yield return enemyData.CastRoutine(this, fixedTargetPos); 
+        if(isAlive == false)
+        {
+            yield break;
+        }
+
+        Debug.Log(" a2");
+        enemyData.Attack(this, fixedTargetPos);
         lastAttackTime = Time.time;
         
 
@@ -300,8 +310,8 @@ public class Enemy : MonoBehaviour, IPoolObject
 
         // 1) 현재 바라보는 방향
         float rotationSpeed = 180f;
-        Vector3 currentForward = transform.forward;
-        Vector3 targetDirection = (enemyAI.targetPos-t.position).normalized;
+        Vector3 currentForward = t.forward;
+        Vector3 targetDirection = (enemyAI.targetPos + currTargetPosOffset-t.position).normalized;
         // 2) SignedAngle로 현재 방향과 목표 방향의 '사이 각도' (단위: 도) 구하기
         float angleToTarget = Vector3.SignedAngle(currentForward, targetDirection, Vector3.up);
 
@@ -333,7 +343,7 @@ public class Enemy : MonoBehaviour, IPoolObject
     {
         // float angle = ;
         // angleWithTarget  = angle;
-        yield return new  WaitUntil(()=> Vector3.Angle(t.forward, (enemyAI.targetPos-t.position).WithFloorHeight()) <= 5f  );
+        yield return new  WaitUntil(()=> Vector3.Angle(t.forward, (enemyAI.targetPos + currTargetPosOffset -t.position).WithFloorHeight()) <= 5f  );
     }
 
 
