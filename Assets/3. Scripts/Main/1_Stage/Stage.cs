@@ -25,6 +25,10 @@ public class Stage : DestroyableSingleton<Stage>
     List<Coroutine> spawnRoutines = new(); 
     Coroutine waveRoutine;
 
+
+
+
+
     //==========================================================================================================================
     //
     public void Init(TotalWaveInfoSO waveInfos)
@@ -160,6 +164,20 @@ public class Stage : DestroyableSingleton<Stage>
 
         return ret;
     }
+
+
+
+
+    // //
+    // public Vector3 testPos;
+    // public float radius = 0.2f; // 구의 반지름
+    // public Color color = Color.red;
+    
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = color;
+    //     Gizmos.DrawSphere(testPos, radius);
+    // }
 
 }
 

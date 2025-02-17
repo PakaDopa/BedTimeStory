@@ -38,4 +38,10 @@ public class EnemyData_01_Range : EnemyDataSO
         var ep = Instantiate(prefab_enemyProjectile).GetComponent<EnemyProjectile>();
         ep.Init(dmg, enemy.t.position, targetPos);
     }   
+
+        public override AreaIndicator GetAttackAreaIndicator(Enemy enemy, Vector3 targetPos)
+    {
+        
+        return AreaIndicatorGenerator.Instance.GetCone(enemy, enemy.t.position, targetPos - enemy.t.position, 0.5f, attackRange, 1 );
+    }
 }

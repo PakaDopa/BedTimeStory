@@ -40,5 +40,12 @@ public class EnemyData_02_Tank : EnemyDataSO
         }
     }
 
+
+        public override AreaIndicator GetAttackAreaIndicator(Enemy enemy, Vector3 targetPos)
+    {
+        
+        return AreaIndicatorGenerator.Instance.GetCone(enemy, enemy.t.position, targetPos - enemy.t.position, 0.5f, attackRange, 1 );
+    }
+
    
 }

@@ -99,7 +99,7 @@ public class Enemy : MonoBehaviour, IPoolObject
 
     public void OnGettingFromPool()
     {
-        // animator.applyRootMotion = false;
+        // animator.applyRootMotion = false; 
         // animator.transform.localPosition = Vector3.zero;
         // animator.transform.rotation = Quaternion.identity;
 
@@ -269,6 +269,8 @@ public class Enemy : MonoBehaviour, IPoolObject
         yield return WaitUntilLookAtTarget();
         canRotate = false;
 
+
+        enemyData.GetAttackAreaIndicator(this, targetPos);
         // Debug.Log("공격시작");
         
         animator.SetTrigger(hash_attack);
@@ -350,5 +352,47 @@ public class Enemy : MonoBehaviour, IPoolObject
 
 
     #endregion
+
+
+
+
+
+    // private void OnDrawGizmos()
+    // {
+      
+    //     // 1) OverlapSphere와 동일한 지점 + 반경 시각화
+    //     //    코드에서 OverlapSphere(center= targetPos.WithFloorHeight(), radius=attackRange)
+    //     Vector3 centerPos = t.position.WithFloorHeight();
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(centerPos, enemyData.attackRange);
+
+    //     // 2) 부채꼴(각도) 표시
+    //     //    - 중심점: enemy.t.position
+    //     //    - 기준 방향: enemy.t.forward
+    //     //    - 각도: attackAngle
+    //     //    - 실제로는 공격 각도의 절반(`attackAngle * 0.5f`)을 양옆으로 긋게 됨
+
+    //     //   (a) 원점
+    //     Vector3 enemyPos = t.position;
+
+    //     //   (b) 가장 정면선
+    //     Vector3 forwardDir = t.forward.normalized * enemyData.attackRange;
+        
+    //     //   (c) 부채꼴 양옆 방향
+    //     float halfAngle = ((EnemyData_00_Melee)enemyData).attackAngle * 0.5f;
+    //     Quaternion leftRot = Quaternion.Euler(0f, -halfAngle, 0f);
+    //     Quaternion rightRot = Quaternion.Euler(0f, halfAngle, 0f);
+
+    //     Vector3 leftDir = leftRot * forwardDir;
+    //     Vector3 rightDir = rightRot * forwardDir;
+        
+    //     Gizmos.color = Color.yellow;
+    //     // 정면
+    //     Gizmos.DrawLine(enemyPos, enemyPos + forwardDir);
+    //     // 왼쪽
+    //     Gizmos.DrawLine(enemyPos, enemyPos + leftDir);
+    //     // 오른쪽
+    //     Gizmos.DrawLine(enemyPos, enemyPos + rightDir);
+    // }
 }
 

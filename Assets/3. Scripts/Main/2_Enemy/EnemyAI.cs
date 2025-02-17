@@ -124,7 +124,7 @@ public class EnemyAI : MonoBehaviour
         targetPoint = _targetCollider.ClosestPoint(currPos);
         float sqrDist = currPos.GetSqrDistWith(targetPoint);
 
-        return sqrDist <= dist * dist;
+        return sqrDist <= (dist-0.2f) * (dist-0.2f);
     }
 
     /// <summary>
