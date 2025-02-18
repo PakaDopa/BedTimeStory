@@ -29,28 +29,4 @@ public class EnemyData_01_Range : EnemyDataSO
         castDelay = 1.5f;
         offsetWeight = 0.5f;
     }
-    
-    
-    [SerializeField] GameObject prefab_enemyProjectile;
-
-    
-
-    public override void Attack(Enemy enemy, Vector3 targetPos)
-    {
-        Debug.Log("빵야");
-        
-        var ep = Instantiate(prefab_enemyProjectile).GetComponent<EnemyProjectile>();
-        ep.Init(dmg, enemy.t.position, targetPos);
-    }   
-
-    public override AreaIndicator GetAttackAreaIndicator(Enemy enemy, Vector3 targetPos)
-    {
-        
-        return AreaIndicatorGenerator.Instance.GetCircle(enemy, targetPos, castDelay, 1f);
-    }
-
-        public override IEnumerator CastRoutine(Enemy enemy, Vector3 targetPos)
-    {
-        yield return new WaitForSeconds(castDelay);
-    }
 }

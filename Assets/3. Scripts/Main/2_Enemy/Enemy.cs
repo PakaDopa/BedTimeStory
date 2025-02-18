@@ -10,7 +10,7 @@ using UnityEditor.Playables;
 
 
 [RequireComponent(typeof(EnemyAI), typeof(Collider), typeof(Rigidbody) )]
-public class Enemy : MonoBehaviour, IPoolObject
+public abstract class Enemy : MonoBehaviour, IPoolObject
 {
     [SerializeField] Animator animator;
 
@@ -55,7 +55,15 @@ public class Enemy : MonoBehaviour, IPoolObject
     Vector3 currTargetPosOffset;
     // Slider_EnemyHp enemyState;
     //===================================
+    public abstract IEnumerator CastRoutine(Vector3 targetPos);
+    
+    public abstract void Attack(Vector3 targetPos);
 
+
+    public abstract AreaIndicator GetAttackAreaIndicator( Vector3 targetPos);
+
+
+    //========================================================================================
     void Update()
     {
         if (isAlive == false || GamePlayManager.isGamePlaying == false )
@@ -268,27 +276,27 @@ public class Enemy : MonoBehaviour, IPoolObject
 
         currTargetPosOffset = new Vector3( UnityEngine.Random.Range(-1,1), 0, UnityEngine.Random.Range(-1,1) ).normalized * enemyData.offsetWeight;
         Vector3 fixedTargetPos = targetPos+ currTargetPosOffset;
-        Debug.Log($" a0  {currTargetPosOffset} / {fixedTargetPos}");
+        // Debug.Log($" a0  {currTargetPosOffset} / {fixedTargetPos}");
         yield return WaitUntilLookAtTarget();
         canRotate = false;
 
 
-        enemyData.GetAttackAreaIndicator(this, fixedTargetPos);
+        GetAttackAreaIndicator(fixedTargetPos);
         // Debug.Log("공격시작");
         
         animator.SetTrigger(hash_attack);
         animator.SetBool(hash_isCasting, true);
         attackAnimationEvent.OnStart();
 
-        Debug.Log(" a1");
-        yield return enemyData.CastRoutine(this, fixedTargetPos); 
+        // Debug.Log(" a1");
+        yield return CastRoutine(fixedTargetPos); 
         if(isAlive == false)
         {
             yield break;
         }
 
-        Debug.Log(" a2");
-        enemyData.Attack(this, fixedTargetPos);
+        // Debug.Log(" a2");
+        Attack( fixedTargetPos);
         lastAttackTime = Time.time;
         
 

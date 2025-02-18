@@ -17,5 +17,5 @@ MonoBehaviour:
   - waveNum: 1
     waveDuration: 150
     spawnInfos:
-    - enemyType: 2
+    - enemyType: 1
       spawnCount: 1

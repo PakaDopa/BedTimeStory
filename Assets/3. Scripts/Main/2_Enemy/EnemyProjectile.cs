@@ -7,59 +7,73 @@ using GameUtil;
 using UnityEditor.Rendering;
 
 
-public class EnemyProjectile : MonoBehaviour
+public abstract class EnemyProjectile : MonoBehaviour,IPoolObject
 {
-    [SerializeField] float yOffset = 1f;
+    public bool activated;
     
-    [SerializeField] float lifeTime = 10f;
+    protected Enemy enemy;
+    protected Transform myTransform;
 
-    [SerializeField] float speed = 8f;
-
-    [SerializeField] float dmg;
-
+    public float dmg;
 
 
-    public void Init(float dmg, Vector3 currPos, Vector3 targetPos)
+    public Vector3 initPos;
+    public Vector3 targetPos;
+    public Vector3 dir;
+
+
+    [SerializeField] protected  ParticleSystem initEffect;
+    //=======================================================================
+
+
+    public void OnCreatedInPool()
     {
-        transform.position = currPos + new Vector3(0, yOffset, 0);
         
-        
-        Rigidbody rb = GetComponent<Rigidbody>();
-        
-        
-        Vector3 dir = (targetPos.WithPlayerWaistHeight() - transform.position ).normalized;
-        transform.LookAt(targetPos, Vector3.up);    
-        
-        rb.velocity = dir * speed;
-
-        
-        this.dmg = dmg;
-
-        Destroy(gameObject ,lifeTime );
     }
 
-
-    void OnTriggerEnter(Collider other)
+    public void OnGettingFromPool()
     {
-        Debug.Log(other.name);
-        
-        if (other.CompareTag("Player"))
-        {
-            PlayerStats.Instance.TakeDamage(dmg);
-            Destroy(gameObject);
-        }
-
-        else if (other.CompareTag("Tower"))
-        {
-            Tower.Instance.GetDamaged(dmg);
-            Destroy(gameObject);
-        }
+       activated = false;
     }
 
 
 
+    public void Init(Enemy enemy, Vector3 initPos,Vector3 targetPos)
+    {
+        
+        activated = true;
+        
+        this.enemy = enemy;
+        this.initPos = initPos;
+        this.targetPos = targetPos;
+        
+        this.dir = (targetPos - initPos).WithFloorHeight().normalized;;
+        
+        myTransform = transform;
+        myTransform.position = initPos;
+        if( dir != Vector3.zero)
+        {
+            myTransform.rotation = Quaternion.LookRotation(dir);
+        }
+        
 
+        this.dmg = enemy.dmg;        
+
+
+        Init_Custom();
     
+        StartCoroutine(DestroyRoutine());
+    }
 
+    protected abstract void Init_Custom();
 
+    IEnumerator DestroyRoutine()
+    {
+        yield return DestroyCondition();
+        activated = false;
+        Destroy(gameObject);
+    }
+
+    protected abstract IEnumerator DestroyCondition();
+    
 }

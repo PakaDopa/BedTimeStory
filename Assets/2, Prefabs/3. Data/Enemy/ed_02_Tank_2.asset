@@ -15,10 +15,13 @@ MonoBehaviour:
   maxHp: 185
   movementSpeed: 1.5
   attackSpeed: 2
-  attackRange: 1.5
+  attackRange: 8
   playerDectectionRange: 10
   dmg: 10
   inc_maxHp: 10
   inc_movementSpeed: 0.3
   inc_dmg: 3
+  castDelay: 1.5
+  offsetWeight: 1.5
+  prefab_enemyProjectile: {fileID: 1600015086017764103, guid: 886f5d5066b8da346a6f68a66a13f575, type: 3}
   attackAreaRadius: 2.5

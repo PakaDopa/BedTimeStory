@@ -37,10 +37,10 @@ public abstract class EnemyDataSO : ScriptableObject
     public float castDelay;
     public float offsetWeight = 1f;
 
-    public abstract IEnumerator CastRoutine(Enemy enemy, Vector3 targetPos);
-    
-    public abstract void Attack(Enemy enemy, Vector3 targetPos);
 
+    public EnemyProjectile prefab_enemyProjectile;
 
-    public abstract AreaIndicator GetAttackAreaIndicator(Enemy enemy, Vector3 targetPos);
+    // public abstract IEnumerator CastRoutine(Enemy enemy, Vector3 targetPos);
+    // public abstract void Attack(Enemy enemy, Vector3 targetPos);
+    // public abstract AreaIndicator GetAttackAreaIndicator(Enemy enemy, Vector3 targetPos);
 }

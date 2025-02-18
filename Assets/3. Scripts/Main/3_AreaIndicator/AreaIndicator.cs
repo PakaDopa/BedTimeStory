@@ -15,7 +15,7 @@ public abstract class AreaIndicator : MonoBehaviour
     [SerializeField] protected float param_1; 
 
     [SerializeField] protected float fillDuration;
-    [SerializeField] protected float cleanUpDuration = 0.5f;
+    [SerializeField] protected float cleanUpDuration = 0.25f;
 
     [SerializeField] protected Material baseMaterial;
     [SerializeField] protected Material outlineMaterial;

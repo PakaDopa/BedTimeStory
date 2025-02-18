@@ -21,3 +21,7 @@ MonoBehaviour:
   inc_maxHp: 10
   inc_movementSpeed: 0.5
   inc_dmg: 5
+  castDelay: 1
+  offsetWeight: 0.5
+  prefab_enemyProjectile: {fileID: 1344749883152620332, guid: 2ae0b45a84cb21c4499d4f4100c3db2e, type: 3}
+  attackAngle: 20

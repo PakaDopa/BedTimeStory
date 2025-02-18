@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2168429780066838514}
   - component: {fileID: 4215363838467967512}
   - component: {fileID: 9128876561533133621}
-  - component: {fileID: 3654369698663907916}
   - component: {fileID: 8407753709932845091}
   - component: {fileID: 7448329445168510926}
+  - component: {fileID: 8982092178779164646}
   m_Layer: 7
   m_Name: Enemy_02_Tank
   m_TagString: Enemy
@@ -36,7 +36,6 @@ Transform:
   m_Children:
   - {fileID: 1315594156452406786}
   - {fileID: 3277457261343838292}
-  - {fileID: 1584329444568337687}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &4215363838467967512
@@ -76,34 +75,6 @@ MonoBehaviour:
   targetCollider: {fileID: 0}
   playerDetectionRange: 10
   attackRange: 1.5
---- !u!114 &3654369698663907916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7331839071635631618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdf789e100088104dbbe0e8effe78bd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  t: {fileID: 0}
-  enemyAI: {fileID: 0}
-  enemyData: {fileID: 11400000, guid: 337a99ee2da903544916e01ad4b7988c, type: 2}
-  t_damageEffectPos: {fileID: 1315594156452406786}
-  maxHp: 0
-  currHp: 0
-  dmg: 0
-  movementSpeed: 0
-  stopDurationRemain: 0
-  stunDurationRemain: 0
-  lastAttackTime: 0
-  canRotate: 0
-  isCasting: 0
-  angleWithTarget: 0
-  attackAnimationEvent: {fileID: 3174860138603508839}
 --- !u!136 &8407753709932845091
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -154,6 +125,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8982092178779164646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7331839071635631618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3212589fb0d4135409affb322216b978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  t: {fileID: 0}
+  enemyAI: {fileID: 0}
+  enemyData: {fileID: 0}
+  t_damageEffectPos: {fileID: 1315594156452406786}
+  maxHp: 0
+  currHp: 0
+  dmg: 0
+  movementSpeed: 0
+  stopDurationRemain: 0
+  stunDurationRemain: 0
+  lastAttackTime: 0
+  canRotate: 0
+  isCasting: 0
+  angleWithTarget: 0
+  attackAnimationEvent: {fileID: 3174860138603508839}
 --- !u!1 &7535768238237775261
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,105 +184,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2168429780066838514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1330270810988702460
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2168429780066838514}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -3928295290381881758, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c77ea2bf7c3b08d42b91e57ad878b8db, type: 2}
-    - target: {fileID: 919132149155446097, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_Name
-      value: Enemy_02_Zombie@Zombie Run
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5974274555542434914}
-  m_SourcePrefab: {fileID: 100100000, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
---- !u!4 &1584329444568337687 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-  m_PrefabInstance: {fileID: 1330270810988702460}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2213373603703969709 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7a6fa4d76d5666b4caded7e32fdfc423, type: 3}
-  m_PrefabInstance: {fileID: 1330270810988702460}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &5974274555542434914
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2213373603703969709}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: fee039e863009ef419dab9f9cdca5fe2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &3094368213238151103
 PrefabInstance:
   m_ObjectHideFlags: 0
