@@ -24,4 +24,4 @@ MonoBehaviour:
   castDelay: 1.5
   offsetWeight: 1.5
   prefab_enemyProjectile: {fileID: 1600015086017764103, guid: 886f5d5066b8da346a6f68a66a13f575, type: 3}
-  attackAreaRadius: 2.5
+  attackAnimClip: {fileID: 7400000, guid: 3519c3ffc2817cd41a9923f84a2b62dc, type: 2}

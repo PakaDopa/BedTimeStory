@@ -7,7 +7,7 @@ using GameUtil;
 
 public class Enemy_02_Tank: Enemy
 {
-    
+    static WaitForFixedUpdate wffu = new();
      
     public override void Attack(Vector3 targetPos)
     {
@@ -25,16 +25,19 @@ public class Enemy_02_Tank: Enemy
     }
 
     public override IEnumerator CastRoutine( Vector3 targetPos)
-    {
-        WaitForFixedUpdate wffu = new();
-        
+    { 
         Vector3 startPos = t.position;
         Vector3 endPos = targetPos.WithFloorHeight();
 
         float elapsed = 0;
         while (elapsed < enemyData.castDelay)
         {
-            // code here
+            if (isAlive== false)
+            {
+                yield break;
+            }
+            
+            
             float progress = elapsed / enemyData.castDelay;
 
 

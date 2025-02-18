@@ -7,7 +7,7 @@ public class AreaIndicatorGenerator : DestroyableSingleton<AreaIndicatorGenerato
 {
     [SerializeField] ConeAreaIndicator prefab_cone;
     [SerializeField] CircleAreaIndicator prefab_circle;
-    
+    [SerializeField] SquareAreaIndicator prefab_square;
 
 
     Vector3 offset =  new Vector3(0,0.11f,0);
@@ -34,24 +34,36 @@ public class AreaIndicatorGenerator : DestroyableSingleton<AreaIndicatorGenerato
     }
 
 
-    public ConeAreaIndicator GetCone(Enemy enemy, Vector3 targetPos, Vector3 dir, float duration, float radius, float angle)
+    public ConeAreaIndicator GetCone(Enemy enemy, Vector3 initPos, Vector3 dir, float duration, float radius, float angle)
     {
         dir = dir.WithFloorHeight().normalized; // 회전 벡터는 보통 정규화해서 사용
         Quaternion rot = Quaternion.FromToRotation(Vector3.forward, dir);
 
-        ConeAreaIndicator  cone = Instantiate(prefab_cone.gameObject, InitPos( targetPos) , rot ).GetComponent<ConeAreaIndicator>();
+        ConeAreaIndicator  cone = Instantiate(prefab_cone.gameObject, InitPos( initPos) , rot ).GetComponent<ConeAreaIndicator>();
         cone.Init(enemy, duration, radius, angle);
 
         return cone;
 
     }
 
-    public CircleAreaIndicator GetCircle(Enemy enemy, Vector3 targetPos, float duration, float radius)
+    public CircleAreaIndicator GetCircle(Enemy enemy, Vector3 initPos, float duration, float radius)
     {
         
-        CircleAreaIndicator  circle = Instantiate(prefab_circle.gameObject, InitPos( targetPos) , Quaternion.identity ).GetComponent<CircleAreaIndicator>();
+        CircleAreaIndicator  circle = Instantiate(prefab_circle.gameObject, InitPos( initPos) , Quaternion.identity ).GetComponent<CircleAreaIndicator>();
         circle.Init(enemy, duration, radius);
 
         return circle;
+    }
+
+    public SquareAreaIndicator GetSquare(Enemy enemy, Vector3 initPos, Vector3 dir, float duration, float width, float height)
+    {
+        dir = dir.WithFloorHeight().normalized; // 회전 벡터는 보통 정규화해서 사용
+        Quaternion rot = Quaternion.FromToRotation(Vector3.forward, dir);
+
+
+        SquareAreaIndicator  square = Instantiate(prefab_square.gameObject, InitPos( initPos) , rot ).GetComponent<SquareAreaIndicator>();
+        square.Init(enemy, duration, width, height);
+
+        return square;
     }
 }

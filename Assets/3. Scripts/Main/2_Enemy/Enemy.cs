@@ -20,7 +20,7 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
 
     //
     [SerializeField] Transform t_damageEffectPos;
-    CapsuleCollider _collider;
+    protected CapsuleCollider _collider;
 
     Rigidbody _rb;
 

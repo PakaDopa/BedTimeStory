@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab_cone: {fileID: 429541466848366615, guid: ee72e41a4bce5dc4780d3d0355d93640, type: 3}
   prefab_circle: {fileID: 1710721692064657465, guid: 0c1fc92c094a9ec43833a784d92b6901, type: 3}
+  prefab_square: {fileID: 3204271473828977030, guid: 6b500e6e4ededde48a7da6438cf1922a, type: 3}

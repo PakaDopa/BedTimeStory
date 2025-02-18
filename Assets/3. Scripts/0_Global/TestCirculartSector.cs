@@ -7,6 +7,9 @@ public class TestCirculartSector : MonoBehaviour
     [Range(0, 360)]
     public float sectorAngle = 90f;     // 총 부채꼴 각도(도 단위)
     public float radius      = 3f;      // 최대 반지름
+
+    public float width = 3f;
+    public float height = 5f;
     public int segmentCount  = 18;      // 분할 개수 (값이 높을수록 곡면이 부드러워짐)
 
     [Range(0.1f, 5f)]
@@ -55,7 +58,7 @@ public class TestCirculartSector : MonoBehaviour
         // 1) 풀 범위 메쉬 생성 (항상 radius)
         // ---------------------------------------------------
         _fullSectorMesh = new Mesh { name = "FullSectorMesh" };
-        GenerateCircleMesh(_fullSectorMesh, radius);
+        GenerateCircleMesh(_fullSectorMesh, 1f);
 
         if (fullSectorFilter)
             fullSectorFilter.mesh = _fullSectorMesh;
@@ -129,16 +132,15 @@ public class TestCirculartSector : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / fillDuration);
 
-            float curRadius = Mathf.Lerp(0f, radius, t);
 
             // 메시 갱신
-            GenerateCircleMesh(_fillSectorMesh, curRadius);
+            GenerateCircleMesh(_fillSectorMesh, t);
 
             yield return null;
         }
 
         // 마지막에 radius로 확정
-        GenerateCircleMesh(_fillSectorMesh, radius);
+        GenerateCircleMesh(_fillSectorMesh, 1);
     }
 
     /// <summary>
@@ -147,74 +149,52 @@ public class TestCirculartSector : MonoBehaviour
     /// <param name="targetMesh">생성할 메쉬를 할당할 Mesh 객체</param>
     /// <param name="radius">원형의 반지름</param>
     /// <param name="segmentCount">분할 개수(클수록 원에 가까워짐)</param>
-    private void GenerateCircleMesh(Mesh targetMesh, float radius)
+    private void GenerateCircleMesh(Mesh targetMesh, float progress)
     {
-        if (targetMesh == null || segmentCount < 3)
+        if (targetMesh == null)
         {
-            Debug.LogWarning("세그먼트가 3 이상이어야 원형을 만들 수 있습니다.");
+            Debug.LogWarning("targetMesh가 존재하지 않습니다.");
             return;
         }
+
+        // 좌우 폭의 절반
+        float halfW = width * 0.5f;
+
+        float currW = halfW * progress;
+        float currH = height* progress;
+
 
         // -----------------------
         // 1) 정점 (Vertices) 생성
         // -----------------------
-        // 중심점(인덱스 0) + 세그먼트 개수만큼 (원 주위)
-        // 총 segmentCount + 1개의 정점
-        Vector3[] vertices = new Vector3[segmentCount + 1];
-        
-        // 중심점
-        vertices[0] = Vector3.zero;
-
-        // 0 ~ 2파이(360도)를 segmentCount로 나누어 vertex 생성
-        for (int i = 0; i < segmentCount; i++)
-        {
-            // i번째 세그먼트가 몇 도(라디안)인지
-            float t = i / (float)segmentCount;
-            float angleRad = t * Mathf.PI * 2f; // 0 ~ 2PI
-
-            // XZ 평면에서 원 둘레 점
-            float x = Mathf.Cos(angleRad) * radius;
-            float z = Mathf.Sin(angleRad) * radius;
-
-            // 정점 저장
-            vertices[i + 1] = new Vector3(x, 0f, z);
-        }
+        // 사각형 꼭짓점 총 4개
+        // 문제에서 원하는 좌표:
+        // ( -halfW, 0f, 0f ), ( -halfW, 0f, height ), ( halfW, 0f, height ), ( halfW, 0f, 0f )
+        Vector3[] vertices = new Vector3[4];
+        vertices[0] = new Vector3(-halfW, 0f, 0f);    
+        vertices[1] = new Vector3(-halfW, 0f, currH );
+        vertices[2] = new Vector3( halfW, 0f, currH );
+        vertices[3] = new Vector3( halfW, 0f, 0f);
 
         // -----------------------
         // 2) 삼각형 인덱스 (Triangles) 생성
         // -----------------------
-        // 각 세그먼트마다 (중심점, 현재점, 다음점)으로 삼각형 하나씩
-        // => segmentCount * 3개의 인덱스
-        int[] triangles = new int[segmentCount * 3];
-
-        for (int i = 0; i < segmentCount; i++)
+        // 사각형을 구성하기 위해서는 삼각형 2개가 필요
+        // (0,1,2), (2,3,0)
+        int[] triangles = new int[6]
         {
-            // 중심점은 0번
-            int current = i + 1;         // 현재 꼭짓점
-            int next = (i + 1) + 1;      // 다음 꼭짓점
-            
-            // 마지막 꼭짓점 처리 (세그먼트 wrap)
-            // i == segmentCount-1 인 경우, next가 (segmentCount+1)이 되어야 하는데,
-            // 배열 밖이므로 next = 1로 순환
-            if (i == segmentCount - 1)
-            {
-                next = 1;
-            }
-
-            int triIndex = i * 3;
-            triangles[triIndex + 0] = 0;      // 중심
-            triangles[triIndex + 1] = current;
-            triangles[triIndex + 2] = next;
-        }
+            0, 1, 2,
+            2, 3, 0
+        };
 
         // -----------------------
         // 3) Mesh에 적용
         // -----------------------
         targetMesh.Clear();
-        targetMesh.vertices = vertices;
+        targetMesh.vertices  = vertices;
         targetMesh.triangles = triangles;
 
-        // 노말 및 경계 재계산
+        // 노멀 및 경계 재계산
         targetMesh.RecalculateNormals();
         targetMesh.RecalculateBounds();
     }
@@ -228,32 +208,30 @@ public class TestCirculartSector : MonoBehaviour
     // ------------------------------------------------------------
     void DrawClosedSectorOutline()
     {
-                // 세그먼트가 최소 3 이상이어야 원을 구성
-        if (segmentCount < 3 || fullLineRenderer == null)
+        // LineRenderer가 연결되지 않았다면 종료
+        if (fullLineRenderer == null)
         {
-            if (fullLineRenderer != null)
-                fullLineRenderer.positionCount = 0;
             return;
         }
+
+        // 꼭짓점이 4개인 사각형, 마지막 점과 첫 점을 이어주려면 loop = true
+        fullLineRenderer.positionCount = 4;
+        fullLineRenderer.loop = true;
+
         fullLineRenderer.startColor = lineColor;
         fullLineRenderer.endColor   = lineColor;
 
-        
-        fullLineRenderer.useWorldSpace = false; // transform 로컬 기준으로 그릴지 여부
+        // world 기준이 아니라 local 기준 좌표로 그리려면 false
+        fullLineRenderer.useWorldSpace = false;
 
-        fullLineRenderer.loop = true;
-        fullLineRenderer.positionCount = segmentCount;
+        // 폭과 높이의 절반을 구함
+        float halfW = width  * 0.5f;
 
-        for (int i = 0; i < segmentCount; i++)
-        {
-            float t = i / (float)segmentCount;
-            float angleDeg = t * 360f;
-            float angleRad = Mathf.Deg2Rad * angleDeg;
-
-            float x = Mathf.Cos(angleRad) * radius;
-            float z = Mathf.Sin(angleRad) * radius;
-
-            fullLineRenderer.SetPosition(i, new Vector3(x, 0f, z));
-        }
+        // 사각형 꼭짓점 4개를 시계(또는 반시계) 방향으로 지정
+        // 바닥에서 X방향이 가로, Z방향이 세로(길이)라고 가정
+        fullLineRenderer.SetPosition(0, new Vector3(-halfW, 0f, 0));
+        fullLineRenderer.SetPosition(1, new Vector3(-halfW, 0f, height));
+        fullLineRenderer.SetPosition(2, new Vector3( halfW, 0f, height));
+        fullLineRenderer.SetPosition(3, new Vector3( halfW, 0f, 0));
     }
 }
