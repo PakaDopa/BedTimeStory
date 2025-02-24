@@ -20,12 +20,19 @@ public class AimStatManager : MonoBehaviour
     [SerializeField] float mouseSense;
 
     [Header(" ?  ? ")]
-    [SerializeField] RectTransform crosshairImg;
+    // [SerializeField] RectTransform crosshairImg;
+    [SerializeField] GameObject crossHairUI;
+
+    Sequence seq_shoot;
+    [SerializeField] CinemachineVirtualCamera vCam;
 
     private void Start()
     {
         //setting default position
         camFollowPos.position = camFollowPosTarget.position;
+
+
+        Manager.EventManager.Instance.AddListener(MEventType.OnShoot, OnShoot);
     }
     // Update is called once per frame
     void Update()
@@ -53,14 +60,60 @@ public class AimStatManager : MonoBehaviour
         // ???? ??? ????
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            camFollowPos.DOLocalMove(camFollowPosAimTarget.localPosition, 0.25f, false);
-            crosshairImg.gameObject.SetActive(true);
+            
+            if( (seq_shoot ==null && seq_shoot.IsActive() )==false ) 
+            {
+                camFollowPos.DOLocalMove(camFollowPosAimTarget.localPosition, 0.25f, false);
+            }
+            
+            OnAim(true);
             return;
         }
         else if(Input.GetKey(KeyCode.LeftShift))
             camFollowPos.DOLocalMove(camFollowPosRunTarget.localPosition, 0.25f, false);
         else
             camFollowPos.DOLocalMove(camFollowPosTarget.localPosition, 0.25f, false).SetEase(Ease.OutCubic);
-        crosshairImg.gameObject.SetActive(false);
+        OnAim(false);
+    }
+
+
+    void OnAim(bool isOn)
+    {
+        crossHairUI.SetActive(isOn);
+    }
+
+
+    void OnShoot(MEventType MEventType, Component Sender, System.EventArgs args = null)
+    {
+        float recoil_Y= 0.2f;
+        float recoil_X= Random.Range(-0.2f,0.2f);
+        float recoil_Z = -0.2f;
+        
+        Vector3 originPos = camFollowPos.position;
+        Vector3 targetPos =  originPos + new Vector3( recoil_X,recoil_Y,recoil_Z);
+
+        if(seq_shoot !=null && seq_shoot.IsActive())
+        {
+            seq_shoot.Kill();
+        }
+        // Sequence seq = DOTween.Sequence()
+        // .Append( camFollowPos.DOMove( targetPos,0.1f))
+        // .Append( camFollowPos.DOMove( originPos,0.1f))
+        // .Play();
+
+        float recoil_camera = 0.5f;
+        float originFOV = vCam.m_Lens.FieldOfView;
+        float targetFOV = originFOV + recoil_camera ;
+
+        // vCam.m_Lens.FieldOfView = targetFOV;
+
+        Sequence seq = DOTween.Sequence()
+        .Append(DOTween.To(() => vCam.m_Lens.FieldOfView, x =>vCam.m_Lens.FieldOfView= x, targetFOV, 0.05f))
+        // .Join( camFollowPos.DOMove( targetPos,0.1f))
+        .Append(DOTween.To(() => vCam.m_Lens.FieldOfView, x =>vCam.m_Lens.FieldOfView= x, originFOV, 0.05f))
+        // .Join( camFollowPos.DOMove( originPos,0.1f))
+        .Play();
+
+        seq_shoot = seq;
     }
 }

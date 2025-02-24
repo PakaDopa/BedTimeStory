@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Manager;
+using Cinemachine;
+
+
 
 public class Weapon : MonoBehaviour
 {
@@ -65,13 +68,14 @@ public class Weapon : MonoBehaviour
     IEnumerator Shotting()
     {
         //������ �����鼭, ������ ���ϰ� ������, ������ �ϰ� �־����.
-        bool checker = isShotting == true && isReloading == false && isAiming == true;
+        // bool checker = isShotting == true && isReloading == false && isAiming == true;
         Debug.Log(isShotting + " " + isReloading + " " + isAiming);
         yield return new WaitUntil(() => isShotting == true && isReloading == false && isAiming == true );
         if (currAmmo > 0)
         {
             Shot();
             currAmmo--;
+            EventManager.Instance.PostNotification(MEventType.OnShoot, this, new TransformEventArgs(transform));
             EventManager.Instance.PostNotification(MEventType.ChangeArmo, this, new TransformEventArgs(transform, currAmmo, maxAmmo));
             yield return new WaitForSeconds(delay);
         }
@@ -97,8 +101,6 @@ public class Weapon : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab,
             muzzle.position, Quaternion.Euler(projectileDir));
         projectile.GetComponent<Rigidbody>().AddForce(projectileDir * projectileSpeed, ForceMode.Impulse);
-
-
     }
 
     private void Reload()
