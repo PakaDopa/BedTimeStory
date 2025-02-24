@@ -22,11 +22,6 @@ public class UIManager : DestroyableSingleton<UIManager>
 
     private void Update()
     {
-        if (GamePlayManager.isGamePlaying == false)
-        {
-            return;
-        }
-        
         //패널 키 조작
         switch(panelState)
         {
@@ -69,6 +64,7 @@ public class UIManager : DestroyableSingleton<UIManager>
         if (panel.activeSelf)
         {
             Cursor.visible = true;
+            GamePlayManager.isGamePlaying = false;
             Cursor.lockState = CursorLockMode.None;
             GameManager.Instance.PauseGamePlay(true);
         }
@@ -76,6 +72,7 @@ public class UIManager : DestroyableSingleton<UIManager>
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            GamePlayManager.isGamePlaying = true;
             GameManager.Instance.PauseGamePlay(false);
         }
     }

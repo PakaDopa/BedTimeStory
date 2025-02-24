@@ -143,4 +143,10 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         
     }
 
+    public void EnablePanel(bool enable)
+    {
+        isGamePlaying = enable;
+        GameManager.Instance.LockCursor(enable);
+    }
+    
 }
