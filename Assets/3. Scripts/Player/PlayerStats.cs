@@ -32,7 +32,7 @@ public class PlayerStats : Singleton<PlayerStats>
     public float ReloadSpeed => reloadSpeed;
     public float SkillCooltime => skillCooltime;
 
-    public UnityEvent onGoldChanged = new();
+    public UnityEvent<int,int,int> onGoldChanged = new();   //p0 : amount , p1: before, p2: after
 
     public UnityEvent<float,float> onHpChanged = new();
 
@@ -67,9 +67,10 @@ public class PlayerStats : Singleton<PlayerStats>
 
     public void GetGold(int amount)
     {
+        int origin = currGold;
         currGold += amount;
 
-        onGoldChanged.Invoke();
+        onGoldChanged.Invoke(amount, origin, currGold);
 
 
         GameManager.Instance.currGamePlayInfo.totalGold += amount;
@@ -77,12 +78,16 @@ public class PlayerStats : Singleton<PlayerStats>
 
     public void UseGold(int amount)
     {
+        int origin = currGold;
         if (currGold >= amount)
+        {
             currGold -= amount;
+            onGoldChanged.Invoke(amount, origin, currGold);
+        }
         else
             throw new System.Exception("invalid use of gold!");
 
-        onGoldChanged.Invoke();
+        
 
         //Debug.Log("Currgold : " + currGold);
     }
