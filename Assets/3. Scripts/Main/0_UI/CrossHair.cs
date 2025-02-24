@@ -18,7 +18,7 @@ public class CrossHair : MonoBehaviour
     [Header("Slide Setting")]
     [SerializeField] Image img_ammoSlideFill;
     [SerializeField] Color color_ammo = new Color(1,1,0.6f,0.4f);
-    [SerializeField] Color color_reload = new Color(0,1,1,0.4f);
+    [SerializeField] Color color_reload = new Color(0,1,1,0.9f);
     //========================================================
 
 

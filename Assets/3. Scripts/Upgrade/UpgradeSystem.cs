@@ -200,6 +200,6 @@ public class UpgradeSystem : MonoBehaviour
             rerollCost = 300;
         }
 
-        rerollButton.GetComponentInChildren<TextMeshProUGUI>().SetText($"Reroll : {rerollCost}");
+        rerollButton.GetComponentInChildren<TextMeshProUGUI>().SetText($"Reroll <sprite name=\"0\">{rerollCost}");
     }
 }

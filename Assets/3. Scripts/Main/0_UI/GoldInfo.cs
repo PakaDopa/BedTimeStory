@@ -13,6 +13,6 @@ public class GoldInfo : MonoBehaviour
 
     void ChangeGoldUI()
     {
-        GetComponentInChildren<TextMeshProUGUI>().SetText( $"{PlayerStats.Instance.CurrGold}");
+        GetComponentInChildren<TextMeshProUGUI>().SetText( $"<sprite name=\"0\">{PlayerStats.Instance.CurrGold}");
     }
 }

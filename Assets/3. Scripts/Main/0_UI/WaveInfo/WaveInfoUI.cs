@@ -37,7 +37,7 @@ public class WaveInfoUI : MonoBehaviour
 
     void OnWaveStart()
     {
-        text_waveNum.SetText($"Wave : {Stage.Instance.clearedWaveCount + 1}");
+        text_waveNum.SetText($"<sprite name=\"0\">{Stage.Instance.clearedWaveCount + 1:00}/{Stage.Instance.totalWaveCount}");
 
         toastMessage.OnWaveStart();// 토스트 메시지도 업데이트 
     }
@@ -58,7 +58,7 @@ public class WaveInfoUI : MonoBehaviour
                 int min  = (int)waveTime/60;
                 int sec = (int)waveTime%60;
                 
-                text_waveTime.SetText($"Time: {min:00}:{sec:00}");
+                text_waveTime.SetText($"<sprite name=\"0\">{min:00}:{sec:00}");
             }
             
             yield return wfs;

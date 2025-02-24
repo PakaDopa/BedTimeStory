@@ -17,7 +17,8 @@ public class Stage : DestroyableSingleton<Stage>
     [Header("Wave")]
     [SerializeField] TotalWaveInfoSO currWaveInfos;     // 해당 스테이지에 사용될 웨이브 정보.
     public int clearedWaveCount;
-    public bool isVictory => clearedWaveCount >= currWaveInfos.waves.Count;
+    public int totalWaveCount => currWaveInfos.waves.Count;
+    public bool isVictory => clearedWaveCount >= totalWaveCount;
     public bool isWavePlaying; 
     public float waveStartTime;
     public float wavePlayTime => Time.time - waveStartTime;
