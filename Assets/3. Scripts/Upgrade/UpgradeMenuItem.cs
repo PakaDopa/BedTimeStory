@@ -183,7 +183,7 @@ public class UpgradeMenuItem : MonoBehaviour
         );
         impactParticleImage.colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient2);
         impactParticleImage.Play();
-        
+        //DEbug.asdfdas
         ringParticleImage.colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient2);
         ringParticleImage.GetComponent<RectTransform>().localScale = data.ringSize;
 
