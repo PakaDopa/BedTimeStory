@@ -9,9 +9,10 @@ using UnityEngine.UI;
 
 public class PlayerStatusCheckUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text text;
-    [SerializeField] private TMP_Text reloadingText;
-    [SerializeField] Slider ammoSlide;
+    // [SerializeField] private TMP_Text text;
+    // [SerializeField] private TMP_Text reloadingText;
+    // [SerializeField] Slider ammoSlide;
+    [SerializeField] CrossHair crossHair;
     [SerializeField] private Image crosshair;
     [SerializeField] private Image crosshair2;
 
@@ -27,29 +28,16 @@ public class PlayerStatusCheckUI : MonoBehaviour
     private void ChangeArmoText(MEventType MEventType, Component Sender, EventArgs args = null)
     {
         TransformEventArgs tArgs = args as TransformEventArgs;
-        //text.transform.DOPunchScale(new Vector3(0.25f, 0.25f), 0.125f);
-        Transform t_text = text.transform;
-        
-        DOTween.Sequence()
-            .Append(t_text.DOScale(1.5f, 0.05f))
-            .Append(t_text.DOScale(0.8f, 0.05f))
-            .Append(t_text.DOScale(1f,0.05f))
-            .Play();
-
         int ammoRemain= (int)tArgs.value[0];
         int ammoMax = (int)tArgs.value[1];
-        text.text = $"{ammoRemain}";
-
-
-        ammoSlide.maxValue = ammoMax;
-        ammoSlide.value = ammoRemain;
+        crossHair.UpdateAmmoRemain( ammoRemain,ammoMax);
     }
     private void ReloadingText(MEventType MEventType, Component Sender, EventArgs args = null)
     {
         TransformEventArgs tArgs = args as TransformEventArgs;
-        bool value = bool.Parse(tArgs.value[0].ToString());
-
-        reloadingText.gameObject.SetActive(value);
+        bool isReload = bool.Parse(tArgs.value[0].ToString());
+        float duration = (float) tArgs.value[1];
+        crossHair.OnReload( isReload, duration );
     }
 
     private void HittedEffect(MEventType MEventType, Component Sender, EventArgs args = null)

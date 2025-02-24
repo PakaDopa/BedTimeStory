@@ -56,7 +56,7 @@ MonoBehaviour:
   totalWaves:
     array:
     - Key: 0
-      Value: {fileID: 11400000, guid: a48a5fc0898c507409cae3169ffb0ac2, type: 2}
+      Value: {fileID: 11400000, guid: 2519e8690d4ea254c97d6afb40a58407, type: 2}
     - Key: 1
       Value: {fileID: 11400000, guid: 559160ea25b50454aa4542fe3a354eeb, type: 2}
     - Key: 2
@@ -67,6 +67,7 @@ MonoBehaviour:
   cutSceneManager: {fileID: 0}
   victoryPanel: {fileID: 0}
   gameOverPanel: {fileID: 0}
+  initialized: 0
 --- !u!114 &3567085322995140672
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -119,12 +119,13 @@ public class Weapon : MonoBehaviour
     {
         isReloading = true;
         reloadParticleSystem.Play();
-        EventManager.Instance.PostNotification(MEventType.ReloadingArmo, this, new TransformEventArgs(transform, true));
-        yield return new WaitForSeconds(PlayerStats.Instance.ReloadSpeed);
+        float reloadDuration = PlayerStats.Instance.ReloadSpeed;
+        EventManager.Instance.PostNotification(MEventType.ReloadingArmo, this, new TransformEventArgs(transform, true, reloadDuration));
+        yield return new WaitForSeconds(reloadDuration);
         reloadParticleSystem.Stop();
         currAmmo = maxAmmo;
         isReloading = false;
-        EventManager.Instance.PostNotification(MEventType.ReloadingArmo, this, new TransformEventArgs(transform, false));
+        EventManager.Instance.PostNotification(MEventType.ReloadingArmo, this, new TransformEventArgs(transform, false, reloadDuration));
         EventManager.Instance.PostNotification(MEventType.ChangeArmo, this, new TransformEventArgs(transform, currAmmo, maxAmmo));
     }
 

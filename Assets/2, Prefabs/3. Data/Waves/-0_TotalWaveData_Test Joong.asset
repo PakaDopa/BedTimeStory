@@ -19,3 +19,5 @@ MonoBehaviour:
     spawnInfos:
     - enemyType: 3
       spawnCount: 1
+    - enemyType: 1
+      spawnCount: 100
