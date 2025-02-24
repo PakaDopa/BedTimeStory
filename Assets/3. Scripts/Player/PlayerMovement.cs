@@ -70,8 +70,9 @@ public class PlayerMovement : MonoBehaviour
         
 
         //첫대쉬 판정
-        if (Input.GetKeyDown(KeyCode.LeftShift) && GamePlayManager.isGamePlaying)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
             dashSoundSO.Raise();
+            
         GetDirectionAndMove();
         
     }
