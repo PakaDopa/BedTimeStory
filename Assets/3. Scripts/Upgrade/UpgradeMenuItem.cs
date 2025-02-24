@@ -1,18 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+using VFX_SO;
+using AssetKits.ParticleImage;
 
 public class UpgradeMenuItem : MonoBehaviour
 {
+    [Header("파티클 관련 컴포넌트")]
+    [SerializeField] ParticleImage lightParticleImage;
+    [SerializeField] ParticleImage ringParticleImage;
+    [SerializeField] ParticleImage starParticleImage;
+    [SerializeField] ParticleImage impactParticleImage;
+
+    [Header("텍스트 관련 컴포넌트")]
     [SerializeField] TextMeshProUGUI txt_grade;
     [SerializeField] TextMeshProUGUI txt_value;
+
+    [Header("버튼 관련 컴포넌트")]
     [SerializeField] Button LockButton;
 
+    [Header("이미지 관련 컴포넌트")]
     [SerializeField] Sprite lockedImage;
     [SerializeField] Sprite unlockedImage;
 
+    [Header("시스템 스크립트")]
     [SerializeField] UpgradeSystem upgradeSystem;
 
     private int type;
@@ -21,29 +33,47 @@ public class UpgradeMenuItem : MonoBehaviour
     private bool isLocked = false;
     public bool IsLocked=>isLocked;
 
+    private Sequence seq;
+
+    void Start()
+    {
+        seq = DOTween.Sequence();
+        seq
+            .SetAutoKill(false)
+            .Append(transform.DOPunchScale(new Vector3(0.125f, 0.125f, 0.125f), 0.25f))
+            .SetUpdate(true);
+    }
+
     void SetGradeTxt(int grade)
     {
-        
-
         switch(grade)
         {
-            case 0:
-                txt_grade.SetText("Legendary");
+            case 0: //sss
+                txt_grade.SetText("SSS");
                 break;
-            case 1:
-                txt_grade.SetText("Epic");
+            case 1: //ss
+                txt_grade.SetText("SS");
                 break;
-            case 2:
-                txt_grade.SetText("Unique");
+            case 2: //s
+                txt_grade.SetText("S");
                 break;
-            case 3:
-                txt_grade.SetText("Normal");
+            case 3: //a
+                txt_grade.SetText("A");
                 break;
-            case 4:
-                txt_grade.SetText("UnCommon");
+            case 4: //b
+                txt_grade.SetText("B");
                 break;
-            case 5:
-                txt_grade.SetText("Common");
+            case 5: //c
+                txt_grade.SetText("C");
+                break;
+            case 6: //d
+                txt_grade.SetText("D");
+                break;
+            case 7: //e
+                txt_grade.SetText("E");
+                break;
+            case 8: //f
+                txt_grade.SetText("F");
                 break;
         }
     }
@@ -63,13 +93,16 @@ public class UpgradeMenuItem : MonoBehaviour
         }
         if (type == 3)
         {
-            txt_value.SetText((value*10).ToString() + "%");
+            txt_value.SetText(value.ToString() + "sec");
         }
 
     }
 
     public void Construct(int type, int grade, int value)
     {
+        seq.Restart();
+        
+        Debug.Log("Construct!");
         this.type = type;
         this.value = value;
 
@@ -103,7 +136,6 @@ public class UpgradeMenuItem : MonoBehaviour
         if (type == 0)
         {
             PlayerStats.Instance.SetAttackPower(value);
-            
         }
         else if (type == 1)
         {
