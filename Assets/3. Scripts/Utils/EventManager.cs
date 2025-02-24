@@ -5,6 +5,7 @@ using UnityEngine;
 public enum MEventType
 {
     //Weapon
+    OnShoot,
     ChangeArmo,
     ReloadingArmo,
 
@@ -29,7 +30,7 @@ namespace Manager
     {
         protected EventManager() { }
 
-        // ´ë¸®ÀÚ ¼±¾ð
+        // ï¿½ë¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         public delegate void OnEvent(MEventType MEventType, Component Sender, EventArgs args = null);
         private Dictionary<MEventType, List<OnEvent>> Listeners = new Dictionary<MEventType, List<OnEvent>>();
 

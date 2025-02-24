@@ -17,7 +17,7 @@ public class PlayerStats : Singleton<PlayerStats>
         Dead,       //��� -> ���ӳ�
     }
     public Status playerStatus { get; set; }
-    private float maxHP = 100;
+    public float maxHP = 100;
     [SerializeField] public float currHP;
     private int currGold = 100000;
     public int CurrGold => currGold;
@@ -34,6 +34,9 @@ public class PlayerStats : Singleton<PlayerStats>
 
     public UnityEvent onGoldChanged = new();
 
+    public UnityEvent<float,float> onHpChanged = new();
+
+    //=============================================================================
     private void Awake()
     {
         playerStatus = Status.Idle;
@@ -49,13 +52,17 @@ public class PlayerStats : Singleton<PlayerStats>
         if (currHP <= 0)
         {
             Die();
-        }       
+        } 
+
+        onHpChanged.Invoke(currHP,maxHP);
     }
 
     public void Recover(float amount)
     {
         currHP = Mathf.Clamp(currHP + amount, 0, maxHP);
         GameManager.Instance.currGamePlayInfo.totalHealingDone +=amount; 
+
+        onHpChanged.Invoke(currHP,maxHP);
     }
 
     public void GetGold(int amount)
