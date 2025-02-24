@@ -118,4 +118,62 @@ public class UpgradeMenuItem : MonoBehaviour
             PlayerStats.Instance.SetSkillCooltime(value);
         }
     }
+    public void AdjustVfx(VFXData data)
+    {
+        //enable controll
+        EnableVfx(true);
+
+        //settings
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] {
+                new GradientColorKey(data.color, 0.0f),
+                new GradientColorKey(data.color, 1.0f)
+            },
+            new GradientAlphaKey[] {
+                new GradientAlphaKey(1.0f, 0.0f),  // 처음에는 불투명
+            }
+        );
+        
+        lightParticleImage.colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient);
+        lightParticleImage.GetComponent<RectTransform>().localScale = data.lightSize;
+
+        Gradient gradient2 = new Gradient();
+        gradient2.SetKeys(
+            new GradientColorKey[] {
+                new GradientColorKey(data.color, 0.0f),
+                new GradientColorKey(data.color, 1.0f)
+            },
+            new GradientAlphaKey[] {
+                new GradientAlphaKey(1.0f, 0.0f),  // 처음에는 불투명
+                new GradientAlphaKey(0.0f, 1.0f),
+            }
+        );
+        impactParticleImage.colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient2);
+        impactParticleImage.Play();
+        
+        ringParticleImage.colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient2);
+        ringParticleImage.GetComponent<RectTransform>().localScale = data.ringSize;
+
+        Gradient gradient3 = new Gradient();
+        gradient3.SetKeys(
+            new GradientColorKey[] {
+                new GradientColorKey(data.color, 0.0f),
+                new GradientColorKey(data.color, 1.0f)
+            },
+            new GradientAlphaKey[] {
+                new GradientAlphaKey(1.0f, 0.0f),  // 처음에는 불투명
+                new GradientAlphaKey(0.0f, 1.0f),
+            }
+        );
+
+        starParticleImage.colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient2);
+        starParticleImage.GetComponent<RectTransform>().localScale = data.starSize;
+    }
+    public void EnableVfx(bool enable)
+    {
+        lightParticleImage.enabled = enable;
+        ringParticleImage.enabled = enable;
+        starParticleImage.enabled = enable;
+    }
 }
