@@ -85,6 +85,10 @@ public class AimStatManager : MonoBehaviour
 
     void OnShoot(MEventType MEventType, Component Sender, System.EventArgs args = null)
     {
+        TransformEventArgs tArgs = args as TransformEventArgs;
+        float recoil_camera = (float)tArgs.value[0];
+        
+        
         float recoil_Y= 0.2f;
         float recoil_X= Random.Range(-0.2f,0.2f);
         float recoil_Z = -0.2f;
@@ -101,7 +105,7 @@ public class AimStatManager : MonoBehaviour
         // .Append( camFollowPos.DOMove( originPos,0.1f))
         // .Play();
 
-        float recoil_camera = 0.5f;
+        // float recoil_camera = 0.5f;
         float originFOV = vCam.m_Lens.FieldOfView;
         float targetFOV = originFOV + recoil_camera ;
 

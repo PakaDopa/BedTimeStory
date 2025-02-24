@@ -55,14 +55,7 @@ public class Weapon : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && currSkillCooltime == 0)
         {
-           Vector3 roketPrjDir = CalcDir();
-
-           GameObject rocketProj = Instantiate(rocketProjectilePrefab,
-               muzzle.position, Quaternion.Euler(roketPrjDir));
-
-           rocketProj.GetComponent<Rigidbody>().AddForce(roketPrjDir * rocketProjectileSpeed, ForceMode.Impulse);
-
-            currSkillCooltime = PlayerStats.Instance.SkillCooltime;
+           UseSkill();
         }
     }
     IEnumerator Shotting()
@@ -75,7 +68,7 @@ public class Weapon : MonoBehaviour
         {
             Shot();
             currAmmo--;
-            EventManager.Instance.PostNotification(MEventType.OnShoot, this, new TransformEventArgs(transform));
+            EventManager.Instance.PostNotification(MEventType.OnShoot, this, new TransformEventArgs(transform,0.5f));
             EventManager.Instance.PostNotification(MEventType.ChangeArmo, this, new TransformEventArgs(transform, currAmmo, maxAmmo));
             yield return new WaitForSeconds(delay);
         }
@@ -101,6 +94,19 @@ public class Weapon : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab,
             muzzle.position, Quaternion.Euler(projectileDir));
         projectile.GetComponent<Rigidbody>().AddForce(projectileDir * projectileSpeed, ForceMode.Impulse);
+    }
+
+    void UseSkill()
+    {
+        Vector3 roketPrjDir = CalcDir();
+
+           GameObject rocketProj = Instantiate(rocketProjectilePrefab, muzzle.position, Quaternion.Euler(roketPrjDir));
+
+           rocketProj.GetComponent<Rigidbody>().AddForce(roketPrjDir * rocketProjectileSpeed, ForceMode.Impulse);
+
+        currSkillCooltime = PlayerStats.Instance.SkillCooltime;
+
+        EventManager.Instance.PostNotification(MEventType.OnShoot, this, new TransformEventArgs(transform, 20f));
     }
 
     private void Reload()
