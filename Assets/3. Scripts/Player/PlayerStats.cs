@@ -25,7 +25,7 @@ public class PlayerStats : Singleton<PlayerStats>
     private float attackPower = 5;
     private float moveSpeed = 3;
     private float reloadSpeed = 3;
-    private float skillCooltime = 30;
+    private float skillCooltime = 10;
 
     public float AttackPower => attackPower;
     public float MoveSpeed => moveSpeed;
@@ -109,7 +109,7 @@ public class PlayerStats : Singleton<PlayerStats>
         attackPower = 5;
         moveSpeed = 3;
         reloadSpeed = 3;
-        skillCooltime = 30;
+        skillCooltime = 10;
     }
 
     void Die()
