@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
-  m_Name: UI_Coin01
+  m_Name: UI_Stairs00
   m_EditorClassIdentifier: 
-  hashCode: 943675657
-  material: {fileID: 5157177734873996198}
+  hashCode: 1988080525
+  material: {fileID: 1590452829756860137}
   materialHashCode: 0
   m_Version: 1.1.0
   m_FaceInfo:
@@ -38,7 +38,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: 19fb16b4895cc4a1fad476d737c5785d, type: 3}
+  spriteSheet: {fileID: 2800000, guid: 68335748a16f34dc29a36f79b4285017, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
@@ -51,8 +51,8 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 128
       m_Height: 128
-      m_HorizontalBearingX: -6.8
-      m_HorizontalBearingY: 110
+      m_HorizontalBearingX: -64
+      m_HorizontalBearingY: 100
       m_HorizontalAdvance: 128
     m_GlyphRect:
       m_X: 0
@@ -62,10 +62,10 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: 21300000, guid: 19fb16b4895cc4a1fad476d737c5785d, type: 3}
+    sprite: {fileID: 21300000, guid: 68335748a16f34dc29a36f79b4285017, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
---- !u!21 &5157177734873996198
+--- !u!21 &1590452829756860137
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 1
@@ -89,7 +89,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 19fb16b4895cc4a1fad476d737c5785d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 68335748a16f34dc29a36f79b4285017, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
