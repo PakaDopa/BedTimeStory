@@ -1,5 +1,6 @@
 using Cinemachine;
 using DG.Tweening;
+// using System;
 using System.Collections;
 using UnityEngine;
 
@@ -17,7 +18,12 @@ public class AimStatManager : MonoBehaviour
     [SerializeField] Transform camFollowPosRunTarget;
     [SerializeField] Transform camFollowPosAimTarget;
 
+    public float mouseSense_min => 0.01f;
+    public float mouseSense_max => 2f;
+
+
     [SerializeField] float mouseSense;
+    public float currMouseSense => mouseSense;
 
     [Header(" ?  ? ")]
     // [SerializeField] RectTransform crosshairImg;
@@ -33,6 +39,8 @@ public class AimStatManager : MonoBehaviour
 
 
         Manager.EventManager.Instance.AddListener(MEventType.OnShoot, OnShoot);
+
+        mouseSense  = LocalDataManager.GetMouseSense();
     }
     // Update is called once per frame
     void Update()
@@ -50,6 +58,16 @@ public class AimStatManager : MonoBehaviour
         yAxis.Value -= Input.GetAxisRaw("Mouse Y") * mouseSense;
         yAxis.Value = Mathf.Clamp(yAxis.Value, yAxis.m_MinValue, yAxis.m_MaxValue);
     }
+
+    public void SetMouseSense(float value)
+    {
+        mouseSense = Mathf.Clamp(value, mouseSense_min, mouseSense_max);
+        mouseSense = (float)System.Math.Round(mouseSense,2);
+
+        LocalDataManager.SetSense( mouseSense );
+    }
+
+
     private void LateUpdate()
     {
         camFollowPos.localEulerAngles = new Vector3(yAxis.Value, camFollowPos.localEulerAngles.y, camFollowPos.localEulerAngles.z);

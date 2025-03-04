@@ -7,8 +7,10 @@ using System.Linq;
 
 
 
-public class LocalDataManager : MonoBehaviour
+public static class LocalDataManager
 {
+    #region RankingData
+    
     #if UNITY_EDITOR
     static readonly string path_dataRoot = Path.Combine(Application.dataPath, "99_SavedData");
     #else 
@@ -157,5 +159,73 @@ public class LocalDataManager : MonoBehaviour
     }
 
 
+    #endregion
 
+
+
+    //========================================================================================
+    #region PlayerPrefs
+
+    static readonly float defualtVolume  = 8f;
+    static readonly float defualtSense  = 1f;
+    static readonly string fieldName_master = "master"; 
+    static readonly string fieldName_bgm = "bgm";
+    static readonly string fieldName_sfx = "sfx";
+    static readonly string fieldName_mouseSense = "mouseSense";
+    
+
+    // Get
+    public static float GetMaster()
+    {
+        float ret = PlayerPrefs.GetFloat(fieldName_master, defualtVolume);
+
+        return ret;
+    }
+    public static float GetBgm()
+    {
+        float ret = PlayerPrefs.GetFloat(fieldName_bgm, defualtVolume);
+
+        return ret;
+    }
+
+    public static float GetSfx()
+    {
+        float ret = PlayerPrefs.GetFloat(fieldName_sfx, defualtVolume);
+
+        return ret;
+    }
+
+    public static float GetMouseSense()
+    {
+        float ret = PlayerPrefs.GetFloat(fieldName_mouseSense, 1f);
+
+        return ret;
+    }
+    
+    public static void SetMaster(float value)
+    {
+        PlayerPrefs.SetFloat(fieldName_master, value);
+        PlayerPrefs.Save();
+    }
+
+    public static void SetBgm(float value)
+    {
+        PlayerPrefs.SetFloat(fieldName_bgm, value);
+        PlayerPrefs.Save();
+    }
+
+    public static void SetSfx(float value)
+    {
+        PlayerPrefs.SetFloat(fieldName_sfx, value);
+        PlayerPrefs.Save();
+    }
+
+    public static void SetSense(float value)
+    {
+        PlayerPrefs.SetFloat(fieldName_mouseSense, value);
+        PlayerPrefs.Save();
+    }
+
+
+    #endregion
 }

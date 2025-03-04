@@ -3,21 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class SoundManager : Singleton<SoundManager>
+public class SoundManager : MonoBehaviour
 {
+    #region 싱글톤 세팅 
+    
+    private static SoundManager  instance;
+    public static SoundManager  Instance
+    {
+        get
+        {
+            if (instance == null) 
+            {
+                instance = FindObjectOfType<SoundManager> ();
+            }
+            return instance;
+        }
+    }
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
     void Awake()
     {
-        Init();
+        DontDestroyOnLoad (gameObject);
+        if (instance == null ) 
+        {
+            instance = this;
+            Init();
+        } 
+        else 
+        {
+            if (instance != this) 
+            {
+                Destroy (gameObject);
+            }
+        }
     }
-    
 
 
-    public override void Init()
+    public void Init()
     {
         InitSoundSetting();
     }
 
-
+    #endregion
 
     //===================================================================================================================
     #region 사운드 세팅 
@@ -44,10 +73,18 @@ public class SoundManager : Singleton<SoundManager>
     //====================================
     void InitSoundSetting()
     {
-        // soundSetting = GameManager.Instance.playerData.soundSetting;
-        mixer?.GetFloat(nameof(master), out master);
-        mixer?.GetFloat(nameof(bgm), out bgm);
-        mixer?.GetFloat(nameof(sfx), out sfx);
+        master = ChangeToMixerValue(LocalDataManager.GetMaster());        
+        bgm = ChangeToMixerValue(LocalDataManager.GetBgm());    
+        sfx = ChangeToMixerValue(LocalDataManager.GetSfx());    
+
+        mixer?.SetFloat(nameof(master), master);
+        mixer?.SetFloat(nameof(bgm), bgm);
+        mixer?.SetFloat(nameof(sfx), sfx);
+        
+    
+        // mixer?.GetFloat(nameof(master), out master);
+        // mixer?.GetFloat(nameof(bgm), out bgm);
+        // mixer?.GetFloat(nameof(sfx), out sfx);
     }
 
 
@@ -59,6 +96,8 @@ public class SoundManager : Singleton<SoundManager>
         
         master = mixerValue;
         mixer?.SetFloat(nameof(master), master);
+
+        LocalDataManager.SetMaster(settingValue);
     }
 
     public void SetBGM(float settingValue)
@@ -69,6 +108,8 @@ public class SoundManager : Singleton<SoundManager>
 
         bgm = mixerValue;
         mixer?.SetFloat(nameof(bgm), bgm);
+
+        LocalDataManager.SetBgm(settingValue);
     }
 
     public void SetSFX(float settingValue)
@@ -79,6 +120,9 @@ public class SoundManager : Singleton<SoundManager>
 
         sfx = mixerValue;
         mixer?.SetFloat(nameof(sfx), sfx);
+
+
+        LocalDataManager.SetSfx(settingValue);
     }
 
     public float GetSettingValue_Master()

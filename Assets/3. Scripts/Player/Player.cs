@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : DestroyableSingleton<Player>
 {
+    public AimStatManager aimStat;
+    
     public Collider playerCollider;
     public Transform T;
 
@@ -14,5 +16,7 @@ public class Player : DestroyableSingleton<Player>
         T=transform;
         T.position = Stage.Instance.playerInitPos;      // 스테이지에 설정된 위치에서 시작
         
+
+        aimStat = GetComponent<AimStatManager>();
     }
 }

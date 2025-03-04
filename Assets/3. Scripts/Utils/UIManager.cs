@@ -2,14 +2,21 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+
+
+
+
+public  enum PanelState
+{
+    Option,     //옵션 열려있는 상태
+    Upgrade,    //업그레이드 열려있는 상태
+    None        //열려 있는게 없는 상태
+}
+
 public class UIManager : DestroyableSingleton<UIManager>
 {
-    private enum PanelState
-    {
-        Option,     //옵션 열려있는 상태
-        Upgrade,    //업그레이드 열려있는 상태
-        None        //열려 있는게 없는 상태
-    }
+
 
     [SerializeField] GameObject upgradePanel;
     [SerializeField] GameObject optionPanel;
@@ -28,41 +35,39 @@ public class UIManager : DestroyableSingleton<UIManager>
             case PanelState.None:
                 if(Input.GetKeyDown(upgradePanelOpenKey))
                 {
-                    EnablePanel(upgradePanel, true);
-                    panelState = PanelState.Upgrade;
+                    EnablePanel(upgradePanel, true, PanelState.Upgrade);
                 }
                 else if(Input.GetKeyDown(optionPanelOpenKey))
                 {
-                    EnablePanel(optionPanel, true);
-                    panelState = PanelState.Option;
+                    EnablePanel(optionPanel, true, PanelState.Option);
                 }
                 break;
             case PanelState.Option:
                 //옵션 닫기
                 if(Input.GetKeyDown(closePanelKey))
                 {
-                    EnablePanel(optionPanel, false);
-                    panelState = PanelState.None;
+                    EnablePanel(optionPanel, false, PanelState.None);
                 }
                 break;
             case PanelState.Upgrade:
                 //업그레이드 닫기
-                if (Input.GetKeyDown(closePanelKey))
+                if (Input.GetKeyDown(closePanelKey) || Input.GetKeyDown(upgradePanelOpenKey))
                 {
-                    EnablePanel(upgradePanel, false);
-                    panelState = PanelState.None;
+                    EnablePanel(upgradePanel, false, PanelState.None);
                 }
                 break;
             default:
                 break;
         }
     }
-    private void EnablePanel(GameObject panel, bool enable)
+    public void EnablePanel(GameObject panel, bool enable, PanelState targetPanelState)
     {
         panel.SetActive(enable);
-
+        
         if (panel.activeSelf)
         {
+            panelState = targetPanelState;
+
             Cursor.visible = true;
             GamePlayManager.isGamePlaying = false;
             Cursor.lockState = CursorLockMode.None;
@@ -70,6 +75,8 @@ public class UIManager : DestroyableSingleton<UIManager>
         }
         else
         {
+            panelState = PanelState.None;
+
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             GamePlayManager.isGamePlaying = true;
