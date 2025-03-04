@@ -49,13 +49,13 @@ public class PlayerMovement : MonoBehaviour
         else if(IsRun())
         {
             isWalking = true;
-            PlayerStats.Instance.playerStatus = PlayerStats.Status.Walk;
+            PlayerStats.Instance.playerStatus = PlayerStats.Status.Run;
             controller.Move(dir * (moveSpeed * 2f) * Time.deltaTime);
         }
         else
         {
             isWalking = true;
-            PlayerStats.Instance.playerStatus = PlayerStats.Status.Run;
+            PlayerStats.Instance.playerStatus = PlayerStats.Status.Walk;
             controller.Move(dir * moveSpeed * Time.deltaTime);
         }
     }
@@ -101,11 +101,11 @@ public class PlayerMovement : MonoBehaviour
         if (soundEventSOs.Length <= soundIndex)
             soundIndex = 0;
 
-        if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
+        if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Walk)
         {
             yield return new WaitForSeconds(0.5f);
         }
-        else if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Walk)
+        else if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
         {
             yield return new WaitForSeconds(0.25f);
         }

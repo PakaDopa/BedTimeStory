@@ -111,7 +111,7 @@ public class Weapon : MonoBehaviour
 
     private void Reload()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R) || (isShotting && currAmmo<=0 ))
         {
             if(currAmmo < maxAmmo && !isReloading)
             {

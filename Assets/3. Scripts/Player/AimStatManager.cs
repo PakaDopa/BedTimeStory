@@ -92,7 +92,7 @@ public class AimStatManager : MonoBehaviour
             OnAim(true);
             return;
         }
-        else if(Input.GetKey(KeyCode.LeftShift))
+        else if(PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
             camFollowPos.DOLocalMove(camFollowPosRunTarget.localPosition, 0.25f, false);
         else
             camFollowPos.DOLocalMove(camFollowPosTarget.localPosition, 0.25f, false).SetEase(Ease.OutCubic);
