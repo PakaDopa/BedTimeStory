@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] public float moveSpeed = 3f;
+    // [SerializeField] public float moveSpeed = 3f;
     [HideInInspector] public Vector3 dir;
     float hInput, vInput;
     CharacterController controller;
@@ -50,13 +50,17 @@ public class PlayerMovement : MonoBehaviour
         {
             isWalking = true;
             PlayerStats.Instance.playerStatus = PlayerStats.Status.Run;
-            controller.Move(dir * (moveSpeed * 2f) * Time.deltaTime);
+
+            float movementSpeed = PlayerStats.Instance.MoveSpeed;
+            controller.Move(dir * (movementSpeed * 2f) * Time.deltaTime);
         }
         else
         {
             isWalking = true;
             PlayerStats.Instance.playerStatus = PlayerStats.Status.Walk;
-            controller.Move(dir * moveSpeed * Time.deltaTime);
+
+            float movementSpeed = PlayerStats.Instance.MoveSpeed;
+            controller.Move(dir * movementSpeed* Time.deltaTime);
         }
     }
     // Update is called once per frame

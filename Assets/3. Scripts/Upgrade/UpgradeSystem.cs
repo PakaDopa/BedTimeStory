@@ -30,18 +30,25 @@ public class UpgradeSystem : MonoBehaviour
     int hpRecoverCost = 100;
     int rerollCost = 0; 
 
-    private void Awake()
+
+    public void Init()
     {
+        
         //데이터베이스 불러오기
         dataset = CSVReader.Read("3. Database/UpgradeSystem");
         foreach(Transform child in upgradeMenu)
         {
             upgradeMenuItems.Add(child.GetComponent<UpgradeMenuItem>());
         }
-    }
 
-    private void Start()
-    {
+        rerollButton.onClick.AddListener(Roll);
+
+
+
+
+
+
+        // 원래 start에 있던거
         onItemLocked.AddListener(ChangeRerollCost);
 
         for (int i = 0; i < upgradeMenuItems.Count; i++)
@@ -66,6 +73,7 @@ public class UpgradeSystem : MonoBehaviour
         ChangeRerollCost();
         SetRecoverButtonText();
     }
+
     private void Roll()
     {
         PlayerStats.Instance.UseGold(rerollCost);

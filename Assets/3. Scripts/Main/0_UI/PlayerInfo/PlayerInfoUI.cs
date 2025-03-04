@@ -10,8 +10,10 @@ public class PlayerInfoUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI text_hp;
     
     //===========================================================================================
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitUntil(()=>Player.Instance.initialized);
+        
         PlayerStats.Instance.onHpChanged.AddListener( UpdateHpValue ); 
         
         float currHp = PlayerStats.Instance.currHP;

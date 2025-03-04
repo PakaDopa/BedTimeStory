@@ -18,8 +18,10 @@ public class Text_GoldIncrement : MonoBehaviour
         text_increment.color = defaultColor;
     }
 
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitUntil(()=> Player.Instance.initialized);
+        
         PlayerStats.Instance.onGoldChanged.AddListener(onGoldChanged);
         gameObject.SetActive(false);
     }

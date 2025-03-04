@@ -198,7 +198,7 @@ MonoBehaviour:
   LockButton: {fileID: 5333850901082724078}
   lockedImage: {fileID: 21300000, guid: d7e068001411d0444b9478888fe63168, type: 3}
   unlockedImage: {fileID: 21300000, guid: f4c99e84ee9c2b144abfb4bbc7489958, type: 3}
-  upgradeSystem: {fileID: 6803737841663240983}
+  upgradeSystem: {fileID: 0}
 --- !u!1 &688698024822235969
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 6174608687867323345}
   - component: {fileID: 3103739318938127690}
   - component: {fileID: 7692197542810490816}
+  - component: {fileID: 7398835568509000394}
   m_Layer: 5
   m_Name: UpgradePanel 1
   m_TagString: Untagged
@@ -275,6 +276,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7398835568509000394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688698024822235969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a1123ad5175224ab4e308caee7dbee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closeButton: {fileID: 7989202419405507402}
+  rerollButton: {fileID: 4704378579475663080}
+  hpRecoverButton: {fileID: 5499360473496039183}
+  upgradeMenu: {fileID: 3277379131560573074}
+  vfxDatas:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  onItemLocked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &762823382533796420
 GameObject:
   m_ObjectHideFlags: 0
@@ -10528,7 +10553,7 @@ MonoBehaviour:
   LockButton: {fileID: 9031997374318582081}
   lockedImage: {fileID: 21300000, guid: d7e068001411d0444b9478888fe63168, type: 3}
   unlockedImage: {fileID: 21300000, guid: f4c99e84ee9c2b144abfb4bbc7489958, type: 3}
-  upgradeSystem: {fileID: 6803737841663240983}
+  upgradeSystem: {fileID: 0}
 --- !u!1 &3768142098712689188
 GameObject:
   m_ObjectHideFlags: 0
@@ -10729,7 +10754,7 @@ MonoBehaviour:
   LockButton: {fileID: 8752067068294838631}
   lockedImage: {fileID: 21300000, guid: d7e068001411d0444b9478888fe63168, type: 3}
   unlockedImage: {fileID: 21300000, guid: f4c99e84ee9c2b144abfb4bbc7489958, type: 3}
-  upgradeSystem: {fileID: 6803737841663240983}
+  upgradeSystem: {fileID: 0}
 --- !u!1 &4169198109903198618
 GameObject:
   m_ObjectHideFlags: 0
@@ -13031,7 +13056,6 @@ GameObject:
   - component: {fileID: 9046496763856847507}
   - component: {fileID: 7804773295119036750}
   - component: {fileID: 1860827228828454691}
-  - component: {fileID: 6803737841663240983}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -13101,26 +13125,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6803737841663240983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6189868438587677603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3a1123ad5175224ab4e308caee7dbee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  closeButton: {fileID: 7989202419405507402}
-  rerollButton: {fileID: 4704378579475663080}
-  hpRecoverButton: {fileID: 5499360473496039183}
-  upgradeMenu: {fileID: 3277379131560573074}
-  vfxDatas: []
-  onItemLocked:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &6237202961732352268
 GameObject:
   m_ObjectHideFlags: 0
@@ -13185,7 +13189,7 @@ MonoBehaviour:
   LockButton: {fileID: 1796112860081926586}
   lockedImage: {fileID: 21300000, guid: d7e068001411d0444b9478888fe63168, type: 3}
   unlockedImage: {fileID: 21300000, guid: f4c99e84ee9c2b144abfb4bbc7489958, type: 3}
-  upgradeSystem: {fileID: 6803737841663240983}
+  upgradeSystem: {fileID: 0}
 --- !u!1 &6566969933682043647
 GameObject:
   m_ObjectHideFlags: 0
@@ -13383,7 +13387,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6803737841663240983}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UpgradeSystem, Assembly-CSharp
         m_MethodName: OnRerollButtonPressed
         m_Mode: 1
@@ -18200,7 +18204,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6803737841663240983}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UpgradeSystem, Assembly-CSharp
         m_MethodName: OnRecoverButtonPressed
         m_Mode: 1
@@ -20937,7 +20941,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 1
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0

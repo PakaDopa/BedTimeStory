@@ -18,7 +18,7 @@ public class UIManager : DestroyableSingleton<UIManager>
 {
 
 
-    [SerializeField] GameObject upgradePanel;
+    [SerializeField] UpgradeSystem upgradePanel;
     [SerializeField] GameObject optionPanel;
 
     [SerializeField] KeyCode upgradePanelOpenKey;
@@ -26,6 +26,13 @@ public class UIManager : DestroyableSingleton<UIManager>
     [SerializeField] KeyCode closePanelKey;
 
     private PanelState panelState = PanelState.None;
+
+    IEnumerator Start()
+    {
+        yield return new WaitUntil(()=> Player.Instance.initialized);
+        
+        upgradePanel.Init();
+    }
 
     private void Update()
     {
@@ -35,7 +42,7 @@ public class UIManager : DestroyableSingleton<UIManager>
             case PanelState.None:
                 if(Input.GetKeyDown(upgradePanelOpenKey))
                 {
-                    EnablePanel(upgradePanel, true, PanelState.Upgrade);
+                    EnablePanel(upgradePanel.gameObject, true, PanelState.Upgrade);
                 }
                 else if(Input.GetKeyDown(optionPanelOpenKey))
                 {
@@ -53,7 +60,7 @@ public class UIManager : DestroyableSingleton<UIManager>
                 //업그레이드 닫기
                 if (Input.GetKeyDown(closePanelKey) || Input.GetKeyDown(upgradePanelOpenKey))
                 {
-                    EnablePanel(upgradePanel, false, PanelState.None);
+                    EnablePanel(upgradePanel.gameObject, false, PanelState.None);
                 }
                 break;
             default:

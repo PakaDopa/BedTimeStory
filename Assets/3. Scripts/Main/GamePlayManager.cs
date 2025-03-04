@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class GamePlayManager : DestroyableSingleton<GamePlayManager>
@@ -33,12 +34,14 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     //=====================
 
     public static bool isGamePlaying;
+    public static bool gameFinished;
     public bool initialized;
 
     //
     void Start()
     {
         // testWaveStartBtn.onClick.AddListener(  StartWave );
+        gameFinished = false;
         bgm.Raise();
         // StartGame();
         if(GameManager.Instance.currGamePlayInfo == null)
@@ -120,27 +123,40 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     public void GameOver()
     {
+        if( gameFinished )
+        {
+            return;
+        }
+        
+        
         gameOver.Raise();
 
         isGamePlaying = false;
         GameManager.Instance.LockCursor(false);
-
         gameOverPanel.Open();
+
+        gameFinished = true;
     }
 
     public void Victory()
     {
+        if( gameFinished )
+        {
+            return;
+        }
+        
+        
         // 통계 기록. 
         GameManager.Instance.currGamePlayInfo.OnVictory();
         //
         Debug.Log("승리!");
         
         isGamePlaying = false;
-        
         GameManager.Instance.LockCursor(false);
-
         victoryPanel.Open();
-        
+
+
+        gameFinished = true;
     }
 
     public void EnablePanel(bool enable)
@@ -148,5 +164,22 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         isGamePlaying = enable;
         GameManager.Instance.LockCursor(enable);
     }
+
+
+
+
+
+    public void Debug_GetGold()
+    {
+        int value = 10000;
+        PlayerStats.Instance.GetGold( value );
+    }
+
+    public void Debug_Recover()
+    {
+        int value = 100;
+        PlayerStats.Instance.Recover(value);
+    }   
+
     
 }

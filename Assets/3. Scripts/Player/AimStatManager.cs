@@ -35,7 +35,8 @@ public class AimStatManager : MonoBehaviour
 
     [SerializeField] float originFOV{get;set;} 
 
-    private void Start()
+
+    public void Init()
     {
         //setting default position
         camFollowPos.position = camFollowPosTarget.position;
@@ -47,6 +48,8 @@ public class AimStatManager : MonoBehaviour
 
         originFOV = vCam.m_Lens.FieldOfView;
     }
+
+
     // Update is called once per frame
     void Update()
     {

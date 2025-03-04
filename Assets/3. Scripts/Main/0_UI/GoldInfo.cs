@@ -5,8 +5,10 @@ using TMPro;
 
 public class GoldInfo : MonoBehaviour
 {
-    private void Start()
+    IEnumerator Start()
     {
+        yield return new WaitUntil(()=> Player.Instance.initialized);
+        
         PlayerStats.Instance.onGoldChanged.AddListener(ChangeGoldUI);
         ChangeGoldUI(0,0,PlayerStats.Instance.CurrGold);
     }
