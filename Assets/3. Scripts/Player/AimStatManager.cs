@@ -32,6 +32,9 @@ public class AimStatManager : MonoBehaviour
     Sequence seq_shoot;
     [SerializeField] CinemachineVirtualCamera vCam;
 
+
+    [SerializeField] float originFOV{get;set;} 
+
     private void Start()
     {
         //setting default position
@@ -41,6 +44,8 @@ public class AimStatManager : MonoBehaviour
         Manager.EventManager.Instance.AddListener(MEventType.OnShoot, OnShoot);
 
         mouseSense  = LocalDataManager.GetMouseSense();
+
+        originFOV = vCam.m_Lens.FieldOfView;
     }
     // Update is called once per frame
     void Update()
@@ -124,7 +129,7 @@ public class AimStatManager : MonoBehaviour
         // .Play();
 
         // float recoil_camera = 0.5f;
-        float originFOV = vCam.m_Lens.FieldOfView;
+        
         float targetFOV = originFOV + recoil_camera ;
 
         // vCam.m_Lens.FieldOfView = targetFOV;
