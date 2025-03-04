@@ -15,6 +15,11 @@ public class Lobby : DestroyableSingleton<Lobby>
     [SerializeField] GuidePanel guidePanel;
 
 
+    [Header("Setting")]
+    [SerializeField] Button btn_setting;
+    [SerializeField] SettingPanel_Lobby settingPanel;
+
+
     
     // Start is called before the first frame update
     void Start()
@@ -28,8 +33,9 @@ public class Lobby : DestroyableSingleton<Lobby>
     {
         GameManager.Instance.PauseGamePlay(false);
     
-        btn_dashboard.onClick.AddListener(dashboardPanel.Open);
-        btn_guide.onClick.AddListener(guidePanel.Open);
+        btn_dashboard?.onClick.AddListener(()=>dashboardPanel?.Open());
+        btn_guide?.onClick.AddListener(()=>guidePanel?.Open());
+        btn_setting?.onClick.AddListener(()=>settingPanel?.Open());
     
     
     }
