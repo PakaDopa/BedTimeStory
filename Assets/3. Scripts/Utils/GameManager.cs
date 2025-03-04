@@ -5,6 +5,8 @@ using UnityEngine;
 
 using DG.Tweening;
 using System;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 
 public enum Difficulty
@@ -41,14 +43,14 @@ public class CurrGamePlayInfo
     public CurrGamePlayInfo(Difficulty targetDifficulty)
     {
         currDifficulty = targetDifficulty;
-        startDate = DateTime.Now.ToString("yyyyMMddHHmmss");
+        startDate = DateTime.Now.ToString("yyyy.MM.dd_HH:mm:ss");
     }
 
 
     public void OnVictory()
     {
         cleared   = true;
-        clearDate = DateTime.Now.ToString("yyyyMMddHHmmss");
+        clearDate = DateTime.Now.ToString("yyyy.MM.dd_HH:mm:ss");
         towerHp   = Tower.Instance.hp;
 
         LocalDataManager.SaveClearedGamePlayInfo(this);
@@ -58,10 +60,81 @@ public class CurrGamePlayInfo
 [Serializable]
 public class RankingData
 {
+    public string systemId;
     public List<CurrGamePlayInfo> list_easy;
     public List<CurrGamePlayInfo> list_normal;
     public List<CurrGamePlayInfo> list_hard;
-}
+
+
+    public bool needInitialization => string.IsNullOrEmpty(systemId) ||  systemId.Equals( SystemInfo.deviceUniqueIdentifier ) == false; 
+
+    public void CheckIntegrity()
+    {
+        if( needInitialization )
+        {
+            list_easy.Clear();
+            list_normal.Clear();
+            list_hard.Clear();
+
+            string newId =SystemInfo.deviceUniqueIdentifier; 
+            Debug.LogWarning($" 랭킹 데이터 초기화 필요! before : {systemId} / after : {newId}");
+            systemId = newId;   
+            
+            LocalDataManager.SaveRankingData(this);
+        }
+
+        //
+        bool a = CheckIntegrity_RightDateFormat(list_easy);
+        bool b =CheckIntegrity_RightDateFormat(list_normal);
+        bool c =CheckIntegrity_RightDateFormat(list_hard);
+
+        bool somethingFixed = !(a&b&c); 
+        if (somethingFixed)
+        {
+            LocalDataManager.SaveRankingData(this);
+        }
+    }
+
+    bool CheckIntegrity_RightDateFormat(List<CurrGamePlayInfo> list)
+    {  
+        bool ok = true;
+        
+        //
+        for(int i=list.Count-1;i>=0;i--)
+        {
+            CurrGamePlayInfo row = list[i];
+            
+            string dateString = row.clearDate;
+
+            
+            // 1. 현재 문자열이 원하는 형식인지 확인
+            string targetFormat = "yyyy.MM.dd_HH:mm:ss"; 
+            bool isAlreadyFormatted = DateTime.TryParseExact(dateString, targetFormat , null, System.Globalization.DateTimeStyles.None, out _);
+
+
+            // 올바른 형식이 아닐때
+            if (isAlreadyFormatted == false)
+            {
+                ok = false;
+                
+                if (DateTime.TryParseExact(dateString, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
+                {
+                    string formattedDate = parsedDate.ToString( targetFormat );
+                    row.clearDate = formattedDate;  //데이터 변경. 
+                }
+                else
+                {
+                    Debug.Log($"잘못된 날짜 형식 {dateString}");
+                    list.RemoveAt(i);   // 제거하기
+                }
+            }
+        }
+
+
+        //
+        return ok;
+    }
+}   
 
 
 /// <summary>

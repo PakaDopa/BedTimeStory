@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using System;
+
 public class Lobby : DestroyableSingleton<Lobby>
 {
     [Header("Dashboard")]

@@ -102,7 +102,11 @@ public static class LocalDataManager
     //=====================================================================================
     public static RankingData LoadRankingData()
     {
-        return LoadJson<RankingData>(path_rankingData);
+        RankingData rankingData =LoadJson<RankingData>(path_rankingData); 
+        rankingData.CheckIntegrity();
+
+
+        return rankingData;
     }
     
     
@@ -152,12 +156,17 @@ public static class LocalDataManager
         }
 
 
-    
-    
-        string json = JsonUtility.ToJson(currRankingData, true); // true는 들여쓰기(Pretty Print)
-        SaveJson(path_rankingData, json);
+
+        SaveRankingData(currRankingData);
     }
 
+    public static void SaveRankingData(RankingData rankingData)
+    {
+        
+        
+        string json = JsonUtility.ToJson(rankingData, true); // true는 들여쓰기(Pretty Print)
+        SaveJson(path_rankingData, json);
+    }
 
     #endregion
 
