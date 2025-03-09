@@ -17,6 +17,13 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
         Dead,       //��� -> ���ӳ�
     }
 
+    public enum AimState
+    {
+        None,
+        Aim
+    }
+
+
     [Header("InitValue")]
     public float maxHP = 100;
 
@@ -24,6 +31,8 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
 
     public Status playerStatus { get; set; }
+    public AimState aimState {get;set;}
+
 
     [SerializeField] public float currHP;
     private int currGold = 100000;
