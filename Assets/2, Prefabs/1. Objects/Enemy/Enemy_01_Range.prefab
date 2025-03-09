@@ -214,6 +214,8 @@ MonoBehaviour:
   canRotate: 0
   isCasting: 0
   angleWithTarget: 0
+  dissolveMat: {fileID: 2100000, guid: a4c8129b15b2e884fa13b92523bacbbd, type: 2}
+  fadeTime: 1.9
   attackAnimationEvent: {fileID: 8357377910498526248}
   t_muzzle: {fileID: 7306656126985376843}
 --- !u!1001 &822959217761678742
@@ -264,6 +266,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -522307681084052697, guid: 672c50ff05d4cc549845802c3a3103ae, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a4c8129b15b2e884fa13b92523bacbbd, type: 2}
     - target: {fileID: 919132149155446097, guid: 672c50ff05d4cc549845802c3a3103ae, type: 3}
       propertyPath: m_Name
       value: Gentle_Diffuse@Idle
