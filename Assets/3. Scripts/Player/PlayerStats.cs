@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -83,6 +84,18 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
         onGoldChanged.Invoke(amount, origin, currGold);
         GameManager.Instance.currGamePlayInfo.totalGold += amount;
+    }
+
+    public bool CanUseGold(int amount)
+    {
+        if (currGold >= amount)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void UseGold(int amount)

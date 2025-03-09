@@ -18,6 +18,8 @@ public class UpgradeSystem : MonoBehaviour
     [SerializeField] Button hpRecoverButton;
     [SerializeField] Transform upgradeMenu;
 
+    [SerializeField] NotEnoughMoneyUI notEnoughMoneyUI;
+
     // 구현해야함.
     [SerializeField] VFXData[] vfxDatas;
 
@@ -25,6 +27,8 @@ public class UpgradeSystem : MonoBehaviour
     List<Dictionary<string, object>> dataset;
 
     [HideInInspector] public UnityEvent onItemLocked;
+
+    
 
     float hpRecoverRate = 100;
     int hpRecoverCost = 100;
@@ -70,12 +74,23 @@ public class UpgradeSystem : MonoBehaviour
             upgradeMenuItem.OnSelected();
         }
 
+        notEnoughMoneyUI = GetComponentInChildren<NotEnoughMoneyUI>();
+        notEnoughMoneyUI.Init();
+
+
         ChangeRerollCost();
         SetRecoverButtonText();
     }
 
     private void Roll()
     {
+        if ( PlayerStats.Instance.CanUseGold( rerollCost) == false)
+        {
+            notEnoughMoneyUI.OnInsufficientGold();
+            return;
+        }
+
+        
         PlayerStats.Instance.UseGold(rerollCost);
 
         for (int i = 0; i < upgradeMenuItems.Count; i++)
