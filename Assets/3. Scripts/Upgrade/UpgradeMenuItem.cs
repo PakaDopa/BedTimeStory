@@ -11,7 +11,8 @@ public class UpgradeMenuItem : MonoBehaviour
     [SerializeField] ParticleImage lightParticleImage;
     [SerializeField] ParticleImage ringParticleImage;
     [SerializeField] ParticleImage starParticleImage;
-    [SerializeField] ParticleImage impactParticleImage;
+    //[SerializeField] ParticleImage impactParticleImage;
+    [SerializeField] ShineEffectTest shineEffect;
 
     [Header("텍스트 관련 컴포넌트")]
     [SerializeField] TextMeshProUGUI txt_grade;
@@ -181,8 +182,8 @@ public class UpgradeMenuItem : MonoBehaviour
                 new GradientAlphaKey(0.0f, 1.0f),
             }
         );
-        impactParticleImage.colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient2);
-        impactParticleImage.Play();
+        //impactParticleImage.colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient2);
+        //impactParticleImage.Play();
         
         ringParticleImage.colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient2);
         ringParticleImage.GetComponent<RectTransform>().localScale = data.ringSize;
@@ -201,6 +202,8 @@ public class UpgradeMenuItem : MonoBehaviour
 
         starParticleImage.colorOverLifetime = new ParticleSystem.MinMaxGradient(gradient2);
         starParticleImage.GetComponent<RectTransform>().localScale = data.starSize;
+
+        shineEffect.EnableEffect();
     }
     public void EnableVfx(bool enable)
     {
