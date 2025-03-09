@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameUtil;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -74,6 +76,8 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
         
         onHpChanged.Invoke(currHP,maxHP);
         GameManager.Instance.currGamePlayInfo.totalHealingDone +=amount; 
+
+        EffectPoolManager.Instance.GetHealAmountText(transform.position.WithPlayerHeadHeight(), amount );
     }
 
     public void GetGold(int amount)
@@ -83,6 +87,18 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
         onGoldChanged.Invoke(amount, origin, currGold);
         GameManager.Instance.currGamePlayInfo.totalGold += amount;
+    }
+
+    public bool CanUseGold(int amount)
+    {
+        if (currGold >= amount)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void UseGold(int amount)

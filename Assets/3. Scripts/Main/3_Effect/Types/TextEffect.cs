@@ -8,7 +8,7 @@ using UnityEngine;
 public enum TextEffectType
 {
     NormalDamage,
-    CriticalDamage
+    PlayerRecover
 }
 
 
@@ -49,9 +49,9 @@ public class TextEffect : Effect
         {
             PlayAnim_NormalDamage();
         }
-        else if ( type == TextEffectType.CriticalDamage)
+        else if ( type == TextEffectType.PlayerRecover)
         {
-            PlayAnim_CriticalDamage();
+            PlayAnim_PlayerRecover();
         }
     }
 
@@ -96,9 +96,22 @@ public class TextEffect : Effect
         .Play();
     }
 
-    void PlayAnim_CriticalDamage()
+    void PlayAnim_PlayerRecover()
     {
+        text.color = new Color(0,1,0.1f,1);    // 약간 노란색
         
+        // float deltaY = 0.5f;
+        float interval = lifeTime * 0.3f;
+        float duration = (lifeTime - interval)* 0.95f;
+
+        Sequence sequence  = DOTween.Sequence()
+        //
+        .Append( t_text.DOScale(2f,interval*0.5f))
+        .Append( t_text.DOScale(1f,interval*0.5f))
+        .AppendInterval(0.5f)
+        // .Append(t_text.DOMoveY(t_text.position.y + deltaY, duration ))
+        .Join( text.DOFade(0,duration * 0.8f ).SetDelay(duration * 0.2f) )
+        .Play();
     }
 
 }
