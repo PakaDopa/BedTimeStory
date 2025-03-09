@@ -1,68 +1,19 @@
 {
-    "systemId": "8e4f10d532dbbf9d267e1cfb095eaba85490b3b0",
-    "list_easy": [
+    "systemId": "cdd6754ee0088e2ce7ba2364d72090bed90e8e5f",
+    "list_easy": [],
+    "list_normal": [
         {
             "id": "",
-            "currDifficulty": 0,
-            "startDate": "2025.03.05_03:27:24",
-            "killCount": 90,
-            "totalGold": 143000,
+            "currDifficulty": 1,
+            "startDate": "2025.03.09_15:59:36",
+            "killCount": 1,
+            "totalGold": 30,
             "totalDamageTaken": 0.0,
-            "totalHealingDone": 30.0,
+            "totalHealingDone": 0.0,
             "cleared": true,
-            "clearDate": "2025.03.05_03:32:53",
-            "towerHp": 870.0
+            "clearDate": "2025.03.09_16:00:08",
+            "towerHp": 970.0
         }
     ],
-    "list_normal": [],
-    "list_hard": [
-        {
-            "id": "",
-            "currDifficulty": 2,
-            "startDate": "2025.03.05_03:48:40",
-            "killCount": 0,
-            "totalGold": 0,
-            "totalDamageTaken": 20.0,
-            "totalHealingDone": 0.0,
-            "cleared": true,
-            "clearDate": "2025.03.05_03:49:00",
-            "towerHp": 1000.0
-        },
-        {
-            "id": "",
-            "currDifficulty": 2,
-            "startDate": "2025.03.05_03:40:15",
-            "killCount": 0,
-            "totalGold": 0,
-            "totalDamageTaken": 20.0,
-            "totalHealingDone": 0.0,
-            "cleared": true,
-            "clearDate": "2025.03.05_03:40:37",
-            "towerHp": 1000.0
-        },
-        {
-            "id": "",
-            "currDifficulty": 2,
-            "startDate": "20250304221934",
-            "killCount": 0,
-            "totalGold": 0,
-            "totalDamageTaken": 0.0,
-            "totalHealingDone": 0.0,
-            "cleared": true,
-            "clearDate": "2025.03.04_22:20:02",
-            "towerHp": 1000.0
-        },
-        {
-            "id": "",
-            "currDifficulty": 2,
-            "startDate": "2025.03.04_22:23:29",
-            "killCount": 0,
-            "totalGold": 0,
-            "totalDamageTaken": 0.0,
-            "totalHealingDone": 0.0,
-            "cleared": true,
-            "clearDate": "2025.03.04_22:23:52",
-            "towerHp": 990.0
-        }
-    ]
+    "list_hard": []
 }

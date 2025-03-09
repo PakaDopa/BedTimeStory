@@ -62,8 +62,16 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
 
     public abstract AreaIndicator GetAttackAreaIndicator( Vector3 targetPos);
 
+    // Dissolve Effect
+    Renderer _renderer;
+    [SerializeField] private float fadeTime = 1.9f;
 
     //========================================================================================
+    void Start()
+    {
+        _renderer = GetComponentInChildren<Renderer>();
+    }
+
     void Update()
     {
         if (isAlive == false || GamePlayManager.isGamePlaying == false )
@@ -204,6 +212,16 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
     //     SetStopped(duration);   // 
     // }
 
+    void SetDissolveValue(float value)
+    {
+        _renderer.material.SetFloat("_Split_Value", value);
+    }
+
+    void PlayDissolveEffect()
+    {
+        DOVirtual.Float(1.0f, 0.0f, fadeTime, SetDissolveValue).Play();
+    }
+
     void Die()
     {
         _collider.enabled = false;
@@ -219,7 +237,10 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
 
     IEnumerator DestroyRoutine()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
+        PlayDissolveEffect();
+
+        yield return new WaitForSeconds(2f);
 
         EnemyPoolManager.Instance.ReturnEnemy(this);
     }
