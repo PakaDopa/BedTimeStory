@@ -61,8 +61,9 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
         currHP = Mathf.Clamp(currHP - amount, 0, maxHP);
 
         onHpChanged.Invoke(currHP,maxHP);
+        
         GameManager.Instance.currGamePlayInfo.totalDamageTaken +=amount; 
-        GameEventManager.Instance.onPlayerGetDamage.Invoke();
+        SoundManager.Instance.OnPlayerDamaged(Player.Instance.T.position);
         
         if (currHP <= 0)
         {

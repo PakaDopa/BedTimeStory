@@ -21,6 +21,11 @@ public class SfxObject : MonoBehaviour, IPoolObject
 
     public void Play(SoundEventSO  soundData, Vector3 initPos)
     {
+        if(soundData==null)
+        {
+            return;
+        }
+        
         // 세팅
         myTransform.position = initPos;
         // audioSource.priority = defaultPriority + soundData.rank;

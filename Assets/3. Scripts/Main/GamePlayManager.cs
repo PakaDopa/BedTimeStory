@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -145,7 +146,9 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         }
         
         
-        gameOver.Raise();
+        // gameOver.Raise();
+        SoundManager.Instance.Play(gameOver,transform.position);
+
 
         isGamePlaying = false;
         GameManager.Instance.LockCursor(false);
@@ -163,6 +166,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         
         
         // 통계 기록. 
+        SoundManager.Instance.Play(gameWin,transform.position);
         GameManager.Instance.currGamePlayInfo.OnVictory();
         //
         Debug.Log("승리!");

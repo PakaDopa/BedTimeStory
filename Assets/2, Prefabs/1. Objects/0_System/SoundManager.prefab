@@ -56,4 +56,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0da8aa0c07ee10f4ba5b611ec88c5971, type: 2}
   - {fileID: 11400000, guid: 8115d7745d206bf4f966c98974050e17, type: 2}
   - {fileID: 11400000, guid: 3705a14799a429b49804f997be110349, type: 2}
+  sfxs_enemyDeath:
+  - {fileID: 11400000, guid: 016bc1ec63b2a094a98e4367025b560a, type: 2}
+  - {fileID: 11400000, guid: 22eb705af37676242aba110fa6958aeb, type: 2}
+  - {fileID: 11400000, guid: 370950af45451be4dbae47f2cc0641ec, type: 2}
+  - {fileID: 11400000, guid: 8ce5b4a2e3564544385604611ba3a382, type: 2}
+  sfxs_towerHit:
+  - {fileID: 11400000, guid: 443c94d4fde5020459d6072a86219e5a, type: 2}
+  - {fileID: 11400000, guid: 020c4d0dd3d41eb43a43ae85a7241a30, type: 2}
+  - {fileID: 11400000, guid: 39ba56f1722e9b149acd53fba947d279, type: 2}
+  sfxs_playerHit:
+  - {fileID: 11400000, guid: 9d85314be07aab44e87806deeb690e67, type: 2}
+  - {fileID: 11400000, guid: 52391df8c02e6284f99e11ff92d0c951, type: 2}
+  - {fileID: 11400000, guid: 16c6251a8cf0164489078af5005e4aa6, type: 2}
+  sfx_hover: {fileID: 11400000, guid: e0e849aa89d8f004eaef85efd236a4ab, type: 2}
+  sfx_click: {fileID: 11400000, guid: 58e3eca953412c74c8a71cc7c447cb07, type: 2}
   prfab_sfx: {fileID: 4341298447458854453, guid: a236b807d8718664a941446e860d23c8, type: 3}

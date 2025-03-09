@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using Unity.VisualScripting;
 using DG.Tweening;
 using VFX_SO;
+using System.Security.Cryptography;
 
 public class UpgradeSystem : MonoBehaviour
 {
@@ -28,12 +29,33 @@ public class UpgradeSystem : MonoBehaviour
 
     [HideInInspector] public UnityEvent onItemLocked;
 
+
+
+
     
 
     float hpRecoverRate = 100;
     int hpRecoverCost = 100;
     int rerollCost = 0; 
 
+
+    [Header("Sound")]
+    [SerializeField] SoundEventSO sfx_open;
+    [SerializeField] SoundEventSO sfx_close;
+    [SerializeField] SoundEventSO sfx_reroll;
+    [SerializeField] SoundEventSO sfx_notEnoughGold;
+    [SerializeField] SoundEventSO sfx_lock;
+    [SerializeField] SoundEventSO[] sfxs_grade;
+    
+    void OnEnable()
+    {
+        SoundManager.Instance?.Play(sfx_open,transform.position);
+    }
+
+    void OnDisable()
+    {
+        SoundManager.Instance?.Play(sfx_close,transform.position);
+    }
 
     public void Init()
     {
@@ -53,7 +75,7 @@ public class UpgradeSystem : MonoBehaviour
 
 
         // 원래 start에 있던거
-        onItemLocked.AddListener(ChangeRerollCost);
+        onItemLocked.AddListener(OnItemLocked);
 
         for (int i = 0; i < upgradeMenuItems.Count; i++)
         {
@@ -74,25 +96,27 @@ public class UpgradeSystem : MonoBehaviour
             upgradeMenuItem.OnSelected();
         }
 
-        //notEnoughMoneyUI = GetComponentInChildren<NotEnoughMoneyUI>();
-        //notEnoughMoneyUI.Init();
+        // notEnoughMoneyUI = GetComponentInChildren<NotEnoughMoneyUI>();
+        // notEnoughMoneyUI.Init();
 
 
         ChangeRerollCost();
-        SetRecoverButtonText();
+        // SetRecoverButtonText();
     }
 
     private void Roll()
     {
         if ( PlayerStats.Instance.CanUseGold( rerollCost) == false)
         {
+            SoundManager.Instance.Play(sfx_notEnoughGold,transform.position);
             notEnoughMoneyUI.OnInsufficientGold();
             return;
         }
 
-        
+        SoundManager.Instance.Play(sfx_reroll,transform.position);
         PlayerStats.Instance.UseGold(rerollCost);
 
+        int min_gradeOffset = 987654321;
         for (int i = 0; i < upgradeMenuItems.Count; i++)
         {
 
@@ -125,6 +149,8 @@ public class UpgradeSystem : MonoBehaviour
             else                        //f
                 gradeOffset = 8;
 
+            min_gradeOffset = (int)MathF.Min(gradeOffset, min_gradeOffset);
+
             var row = dataset[typeOffset + gradeOffset];
             int grade = Convert.ToInt32(row["Grade"]);
             int value = Convert.ToInt32(row["Value"]);
@@ -136,55 +162,63 @@ public class UpgradeSystem : MonoBehaviour
             upgradeMenuItem.OnSelected();
         }
 
+        //
+        if (min_gradeOffset<sfxs_grade.Length)
+        {
+            var sfx = sfxs_grade[min_gradeOffset];
+            SoundManager.Instance.Play(sfx,transform.position);
+        }
+
+
         ChangeRerollCost();
     }
 
-    private void SetRecoverButtonText()
-    {
-        hpRecoverButton.GetComponentInChildren<TextMeshProUGUI>().
-            SetText($"HP {hpRecoverRate} recover : {hpRecoverCost}");
-    }
+    // private void SetRecoverButtonText()
+    // {
+    //     hpRecoverButton.GetComponentInChildren<TextMeshProUGUI>().
+    //         SetText($"HP {hpRecoverRate} recover : {hpRecoverCost}");
+    // }
 
-    public void OnRecoverButtonPressed()
-    {
-        PlayerStats.Instance.UseGold(hpRecoverCost);
-        PlayerStats.Instance.Recover(hpRecoverRate);
+    // public void OnRecoverButtonPressed()
+    // {
+    //     PlayerStats.Instance.UseGold(hpRecoverCost);
+    //     PlayerStats.Instance.Recover(hpRecoverRate);
 
-        hpRecoverCost *= 2;
+    //     hpRecoverCost *= 2;
 
-        SetRecoverButtonText();
-        SetButtonsInteractable();
-    }
+    //     SetRecoverButtonText();
+    //     SetButtonsInteractable();
+    // }
 
-    public void OnRerollButtonPressed()
-    {
-        Roll();
+    // public void OnRerollButtonPressed()
+    // {
+    //     Roll();
 
-        SetButtonsInteractable();
-    }
+    //     SetButtonsInteractable();
+    // }
 
-    private void SetButtonsInteractable()
-    {
-        Debug.Log("button check");
+    // private void SetButtonsInteractable()
+    // {
+    //     Debug.Log("button check");
 
-        if(PlayerStats.Instance.CurrGold >= hpRecoverCost)
-        {
-            hpRecoverButton.interactable = true;
-        }
-        else
-        {
-            hpRecoverButton.interactable = false;
-        }
+    //     if(PlayerStats.Instance.CurrGold >= hpRecoverCost)
+    //     {
+    //         hpRecoverButton.interactable = true;
+    //     }
+    //     else
+    //     {
+    //         hpRecoverButton.interactable = false;
+    //     }
 
-        if (PlayerStats.Instance.CurrGold >= rerollCost)
-        {
-            rerollButton.interactable = true;
-        }
-        else
-        {
-            rerollButton.interactable = false;
-        }
-    }
+    //     if (PlayerStats.Instance.CurrGold >= rerollCost)
+    //     {
+    //         rerollButton.interactable = true;
+    //     }
+    //     else
+    //     {
+    //         rerollButton.interactable = false;
+    //     }
+    // }
 
     private void ChangeRerollCost()
     {
@@ -224,5 +258,11 @@ public class UpgradeSystem : MonoBehaviour
         }
 
         rerollButton.GetComponentInChildren<TextMeshProUGUI>().SetText($"<sprite name=\"0\">{rerollCost}");
+    }
+    
+    void OnItemLocked()
+    {
+        SoundManager.Instance.Play(sfx_lock,transform.position);
+        ChangeRerollCost();
     }
 }

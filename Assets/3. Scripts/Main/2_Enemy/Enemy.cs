@@ -165,7 +165,7 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
     {
         // float nockbackPower = 5;
         // GetKnockback(nockbackPower, lastHitPoint);
-        
+        SoundManager.Instance.OnEnemyDamaged(lastHitPoint);
         //
         currHp -= damage;
         if (currHp <= 0)
@@ -173,7 +173,7 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
             Die();
         }
 
-        SoundManager.Instance.OnEnemyHit(lastHitPoint);
+        
         // Debug.Log($"앗 {currHp}/ {maxHp}");
         // ui
         // enemyState?.OnUpdateEnemyHp();
@@ -234,6 +234,7 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         animator.SetTrigger(hash_die);
 
         GameManager.Instance.currGamePlayInfo.killCount ++;
+        SoundManager.Instance.OnEnemyDeath(t.position);
         StartCoroutine(DestroyRoutine());
     }
 

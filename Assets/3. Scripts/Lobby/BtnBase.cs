@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class BtnBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
- 
-
+    Button btn; 
     [SerializeField] float originScale =1f;
     [SerializeField] float targetScale = 1.2f;
 
     public bool isMouseOver;
     
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitUntil(()=>SoundManager.Instance.initialized);
 
+        btn = GetComponent<Button>();
+        btn.onClick.AddListener(SoundManager.Instance.OnBtnClick);
     }
 
 
@@ -37,6 +40,7 @@ public class BtnBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
 
         isMouseOver = true;
+        SoundManager.Instance.OnBtnHover();
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -44,6 +48,8 @@ public class BtnBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
    
         isMouseOver = false;
     }
+
+
 }
     
 

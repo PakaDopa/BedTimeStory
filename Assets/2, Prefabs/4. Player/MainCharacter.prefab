@@ -1256,11 +1256,13 @@ MonoBehaviour:
     m_Bits: 0
   gravity: -9.81
   soundEventSOs:
-  - {fileID: 11400000, guid: 49640b57c92db0249b1625cf603f39ea, type: 2}
-  - {fileID: 11400000, guid: d971d5b29a3dec24bac20a33421f6ca6, type: 2}
-  - {fileID: 11400000, guid: 4b992f2d33ce0ff4b9cfd42d5cf26529, type: 2}
-  - {fileID: 11400000, guid: 6f7b1da9924ad9847aa752953dfe39fa, type: 2}
-  dashSoundSO: {fileID: 11400000, guid: c55114ab8e37478449ed40ca0ae761f2, type: 2}
+  - {fileID: 11400000, guid: cd5e2c7042fcfca46ae5382d81c7045a, type: 2}
+  - {fileID: 11400000, guid: d4d10d31111cab54b85a1646be736931, type: 2}
+  - {fileID: 11400000, guid: 9eb68fdc1b1844941a98d68137541246, type: 2}
+  - {fileID: 11400000, guid: bc540065e0d9f6b4c85aa33c7a0a7228, type: 2}
+  - {fileID: 11400000, guid: 1d1032ae2c8e0424ab35a67a33b77f9e, type: 2}
+  - {fileID: 11400000, guid: 7c3eeca3076677b4daad4e9a5df757d6, type: 2}
+  dashSoundSO: {fileID: 11400000, guid: 729ba3bd7f61b2d4fb75a19e97aef6e2, type: 2}
 --- !u!114 &8477205786826750492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1317,6 +1319,7 @@ MonoBehaviour:
   mouseSense: 1
   crossHairUI: {fileID: 0}
   vCam: {fileID: 0}
+  aimSfx: {fileID: 11400000, guid: 283cf7e2e9eb78941af1172d56fbf903, type: 2}
 --- !u!136 &4812748691583265961
 CapsuleCollider:
   m_ObjectHideFlags: 0

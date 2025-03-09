@@ -12,6 +12,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject prefab_shoot;
     public GameObject hitPrefab;
     public List<GameObject> trails;
+    [SerializeField] SoundEventSO explosionSfx;
+
     private void Start()
     {
         if( prefab_shoot !=null)
@@ -33,7 +35,7 @@ public class Projectile : MonoBehaviour
     {
         // Vector3 offset = (Player.Instance.T.position - transform.position).normalized * 2;
         var hitVFX = Instantiate(hitPrefab, hitPoint, Quaternion.identity);
-
+        SoundManager.Instance.Play(explosionSfx, transform.position);
         Destroy(gameObject);
     }
 

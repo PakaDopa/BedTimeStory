@@ -16,6 +16,8 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private SoundEventSO[] attackEventSOs;
     [SerializeField] private SoundEventSO reloadEventSo;
+
+    [SerializeField] SoundEventSO skillUseSfx;
     bool isAiming = false;
     bool isShotting = false;
     bool isReloading = false;
@@ -116,6 +118,7 @@ public class Weapon : MonoBehaviour
         currSkillCooltime = PlayerStats.Instance.SkillCooltime;
 
         EventManager.Instance.PostNotification(MEventType.OnShoot, this, new TransformEventArgs(transform, 20f));
+        SoundManager.Instance.Play(skillUseSfx, Player.Instance.T.position);
     }
 
     private void Reload()
@@ -124,7 +127,7 @@ public class Weapon : MonoBehaviour
         {
             if(currAmmo < maxAmmo && !isReloading)
             {
-                reloadEventSo.Raise();
+                SoundManager.Instance.Play(reloadEventSo, Player.Instance.T.position);
                 StartCoroutine(ReloadCoroutine());
             }
         }

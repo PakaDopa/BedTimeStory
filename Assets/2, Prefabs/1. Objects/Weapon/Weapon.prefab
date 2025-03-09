@@ -86,7 +86,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 10d715a026b89d64a9b04a575ec60346, type: 2}
   - {fileID: 11400000, guid: a53717d54fe9bfc4c8a26c9960abfb59, type: 2}
   - {fileID: 11400000, guid: 3f4720d17794657479b8bc1352235a1d, type: 2}
-  reloadEventSo: {fileID: 11400000, guid: dec4c8d7364cfe64fba62643b699027d, type: 2}
+  reloadEventSo: {fileID: 11400000, guid: 49796a070898b3549a9a2b7d2dd3bfaa, type: 2}
+  skillUseSfx: {fileID: 11400000, guid: ce62b08c107901144b96bbb9781d612d, type: 2}
 --- !u!1 &9126711894665870018
 GameObject:
   m_ObjectHideFlags: 0

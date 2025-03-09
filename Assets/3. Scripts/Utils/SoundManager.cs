@@ -200,11 +200,48 @@ public class SoundManager : MonoBehaviour
     
     // 적
     [SerializeField] SoundEventSO[] sfxs_enemyHit;
-    public void OnEnemyHit( Vector3 initPos )
+    public void OnEnemyDamaged( Vector3 initPos )
     {
         PlayRandomSFX(sfxs_enemyHit, initPos);
     }
 
+    [SerializeField] SoundEventSO[] sfxs_enemyDeath;
+    public void OnEnemyDeath( Vector3 initPos )
+    {
+        PlayRandomSFX(sfxs_enemyDeath, initPos);
+    }
+
+    // 타워
+    [SerializeField] SoundEventSO[] sfxs_towerHit;
+
+    public void OnTowerDamaged(Vector3 initPos)
+    {
+        PlayRandomSFX(sfxs_towerHit, initPos);
+    }
+
+    //플레이어 피격
+    [SerializeField] SoundEventSO[] sfxs_playerHit;
+    public void OnPlayerDamaged(Vector3 initPos)
+    {
+        PlayRandomSFX(sfxs_playerHit, initPos);
+    }
+
+
+
+    //UI
+    [SerializeField] SoundEventSO sfx_hover;
+    [SerializeField] SoundEventSO sfx_click;
+
+
+    public void OnBtnClick()
+    {
+        Play(sfx_click,transform.position);
+    }
+
+    public void OnBtnHover()
+    {
+        Play(sfx_hover,transform.position);
+    }
 
 
 
@@ -219,7 +256,7 @@ public class SoundManager : MonoBehaviour
     [Header("Pool Setting")]
     [SerializeField] SfxObject prfab_sfx;
     Transform t;
-    [SerializeField] Pool<SfxObject> sfxPools;     // 풀
+    [SerializeField] Pool<SfxObject> sfxPools;     // 풀 
 
     void InitPool()
     {

@@ -173,9 +173,9 @@ RectTransform:
   - {fileID: 2751792886819706269}
   m_Father: {fileID: 3277379131560573074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 660, y: -375}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2669381291587268730
@@ -302,6 +302,16 @@ MonoBehaviour:
   onItemLocked:
     m_PersistentCalls:
       m_Calls: []
+  sfx_open: {fileID: 11400000, guid: 308b341d8929b924eb88f0b861219fb9, type: 2}
+  sfx_close: {fileID: 11400000, guid: dcdb7b3493acde147b5667512a96fac5, type: 2}
+  sfx_reroll: {fileID: 11400000, guid: 7ea314e193af63145b09ca0d17d81918, type: 2}
+  sfx_notEnoughGold: {fileID: 11400000, guid: dcdb7b3493acde147b5667512a96fac5, type: 2}
+  sfx_lock: {fileID: 11400000, guid: 1533cdfab9ddca94d96195cb1f3e9693, type: 2}
+  sfxs_grade:
+  - {fileID: 11400000, guid: 3cc4717998ff3aa48ba6133026297d5a, type: 2}
+  - {fileID: 11400000, guid: 975203fe02d488a46a90da81467313ca, type: 2}
+  - {fileID: 11400000, guid: f491789b8159d9a4d95bbd097cba3e74, type: 2}
+  - {fileID: 11400000, guid: 179ac97ac8cccc94d8aff9ce17d87334, type: 2}
 --- !u!1 &762823382533796420
 GameObject:
   m_ObjectHideFlags: 0
@@ -14940,9 +14950,9 @@ RectTransform:
   - {fileID: 7598954029499248561}
   m_Father: {fileID: 3277379131560573074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1060, y: -375}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1321297159324843989
@@ -15142,9 +15152,9 @@ RectTransform:
   - {fileID: 7882021442129256965}
   m_Father: {fileID: 3277379131560573074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260, y: -375}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1620099214494441459
@@ -17685,9 +17695,9 @@ RectTransform:
   - {fileID: 7370554702017800989}
   m_Father: {fileID: 3277379131560573074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1460, y: -375}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8638812451510327086
@@ -18000,19 +18010,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3523628984218966897}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UpgradeSystem, Assembly-CSharp
-        m_MethodName: OnRerollButtonPressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6849727911404456665
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,15 +12,20 @@ public class PlayerHitEffect : MonoBehaviour
     Sequence seq_playerHit;
     
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
-        GameEventManager.Instance.onPlayerGetDamage.AddListener( OnPlayerGetDamage );
-
-        Tower.Instance.onHpChanged.AddListener((float a,float b)=> OnPlayerGetDamage());
+        yield return new WaitUntil(()=>Player.Instance.initialized);
+        PlayerStats.Instance.onHpChanged.AddListener(OnPlayerGetDamage );
+        Tower.Instance.onHpChanged.AddListener( OnPlayerGetDamage );
     }
 
-    void OnPlayerGetDamage()
+    void OnPlayerGetDamage(float from, float to)
     {   
+        if ( to>= from )
+        {
+            return;
+        }
+
         if (seq_playerHit !=null && seq_playerHit.IsActive())
         {
             seq_playerHit.Kill();

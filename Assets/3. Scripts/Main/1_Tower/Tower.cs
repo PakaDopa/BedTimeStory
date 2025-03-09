@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class Tower : DestroyableSingleton<Tower>
 {
+    public Transform t;
+    
     public bool initialized {get;private set; }
     [SerializeField] private SoundEventSO soundSO;
 
@@ -21,6 +23,8 @@ public class Tower : DestroyableSingleton<Tower>
 
     public void Init()
     {
+        t = transform;
+        
         hp = maxHp;
         towerCollider = GetComponent<Collider>();
 
@@ -32,14 +36,13 @@ public class Tower : DestroyableSingleton<Tower>
     {
         hp -= dmg;
 
-        GameEventManager.Instance.onChange_towerHp.Invoke();
-
         if (hp<= 0)
         {
             DestroyTower();
         }
 
         onHpChanged.Invoke(hp, maxHp);
+        SoundManager.Instance.OnTowerDamaged(t.position);
     }   
 
 

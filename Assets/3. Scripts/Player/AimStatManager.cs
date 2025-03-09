@@ -36,6 +36,8 @@ public class AimStatManager : MonoBehaviour
     [SerializeField] float originFOV{get;set;} 
 
 
+    [SerializeField] SoundEventSO aimSfx;
+
     public void Init()
     {
         //setting default position
@@ -84,6 +86,10 @@ public class AimStatManager : MonoBehaviour
     private void AimMode()
     {
         // ???? ??? ????
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            SoundManager.Instance.Play(aimSfx, Player.Instance.T.position);
+        }
         if (Input.GetKey(KeyCode.Mouse1))
         {
             
