@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
     bool isReloading = false;
 
     float projectileSpeed = 100f;
-    float rocketProjectileSpeed = 50f;
+    float rocketProjectileSpeed = 25f;
 
     float currSkillCooltime = 0f;
     public float CurrSkillCooltime => currSkillCooltime;
