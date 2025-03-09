@@ -15,10 +15,11 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     [SerializeField] SerializableDictionary<Difficulty, GameObject> prefabs_stage= new();
     [SerializeField] SerializableDictionary<Difficulty, TotalWaveInfoSO> totalWaves =new(); //난이도에 따른 웨이브 정보.
+    [SerializeField] SerializableDictionary<Difficulty, SoundEventSO> bgms= new();
 
     
     [Header("Sound Events")]
-    [SerializeField] SoundEventSO bgm;
+    // [SerializeField] SoundEventSO bgm;
     [SerializeField] SoundEventSO gameOver;
     [SerializeField] SoundEventSO gameWin;
 
@@ -48,7 +49,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         skipCutScene = GetComponent<SkipCutScene>();
         // testWaveStartBtn.onClick.AddListener(  StartWave );
         gameFinished = false;
-        bgm.Raise();
+        // bgm.Raise();
         // StartGame();
         if(GameManager.Instance.currGamePlayInfo == null)
         {
@@ -118,8 +119,14 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         GameObject prefab_stage = prefabs_stage[currDifficulty];
         TotalWaveInfoSO waves = totalWaves[currDifficulty];
 
+
         Stage stage = Instantiate(prefab_stage, Vector3.zero, Quaternion.identity ).GetComponent<Stage>();
         stage.Init(waves);
+
+        
+        // 브금도 재생
+        var bgm = bgms[currDifficulty];
+        bgm.Raise();
     }
 
     

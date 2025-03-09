@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
 {
     #region 싱글톤 세팅 
     
+    public bool initialized; 
     private static SoundManager  instance;
     public static SoundManager  Instance
     {
@@ -43,7 +44,11 @@ public class SoundManager : MonoBehaviour
 
     public void Init()
     {
+        t=transform;
+        initialized = true;
+        
         InitSoundSetting();
+        InitPool();
     }
 
     #endregion
@@ -165,6 +170,77 @@ public class SoundManager : MonoBehaviour
     }
 
 
+
+
+
+    #endregion
+
+
+
+
+    #region sound 재생 관련
+    
+
+    [SerializeField] SoundEventSO[] sfxs_enemyHit;
+    public void OnEnemyHit( Vector3 initPos )
+    {
+        if ( sfxs_enemyHit.Length <=0)
+        {
+            return;
+        }
+        int  randIdx = Random.Range(0, sfxs_enemyHit.Length);
+
+        SoundEventSO soundEvent = sfxs_enemyHit[randIdx];
+
+        var sfx = Get();
+        sfx?.Play(soundEvent, initPos);
+
+    }
+
+
+
+
+    #endregion 
+
+
+
+
+
+
+    #region Pool
+    [Header("Pool Setting")]
+    [SerializeField] SfxObject prfab_sfx;
+    Transform t;
+    [SerializeField] Pool<SfxObject> sfxPools;     // 풀
+
+    void InitPool()
+    {
+
+        PoolData poolData = new();
+        poolData._name = $"sfx";
+        poolData._component = prfab_sfx;
+        
+        var pool = Pool<SfxObject>.Create( (SfxObject)poolData.Component, poolData.Count, t);
+        sfxPools  = pool;
+
+        if (poolData.NonLazy)
+        {
+            pool.NonLazy();
+        }
+    }
+
+    SfxObject Get()
+    {   
+        var sfx = sfxPools.Get();
+        return sfx;
+    }
+
+
+    public void Return(SfxObject sfx)
+    {
+        var pool = sfxPools;
+        sfxPools.Take(sfx);
+    }
 
 
 
