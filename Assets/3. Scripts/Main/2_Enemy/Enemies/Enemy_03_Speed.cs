@@ -37,7 +37,7 @@ public class Enemy_03_Speed : Enemy
     {
         // float duration = enemyData.attackAnimationDuration - enemyData.castDelay * 0.8f;
         float duration  = 1.5f;     // 직접 이렇게 찍는 게 자연스러움. 
-        Debug.Log(duration);
+        // Debug.Log(duration);
         Vector3 startPos= t.position;
         Vector3 dir = (targetPos - startPos).WithFloorHeight().normalized;
         Vector3 endPos = startPos + dir * enemyData.attackRange;  
