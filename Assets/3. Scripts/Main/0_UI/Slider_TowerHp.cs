@@ -9,9 +9,13 @@ public class Slider_TowerHp : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text_hpRatio; 
 
-    [SerializeField]Slider slider_hp;
+    [SerializeField] Slider slider_hp;
 
     [SerializeField] Transform t_handle;
+
+    [SerializeField] List<Sprite> img_sliderHandles;
+    [SerializeField] Image img_currHandle;
+
     Sequence seq_hpChanged;
     
     //
@@ -26,9 +30,32 @@ public class Slider_TowerHp : MonoBehaviour
         float currValue = Tower.Instance.hp;
         float maxValue = Tower.Instance.maxHp;
         OnUpdateTowerHp(currValue,maxValue);
+
+        if(img_sliderHandles.Count != 4)
+        {
+            Debug.LogError("Invalid Count of TowerHP Slider Handle Images");
+        }
     }
 
-
+    void UpdateHandleImage(float currValue, float maxValue)
+    {
+        if (currValue >= maxValue / 4 * 3)
+        {
+            img_currHandle.sprite = img_sliderHandles[0];
+        }
+        else if(currValue >= maxValue / 4 * 2)
+        {
+            img_currHandle.sprite = img_sliderHandles[1];
+        }
+        else if (currValue >= maxValue / 4 * 1)
+        {
+            img_currHandle.sprite = img_sliderHandles[2];
+        }
+        else
+        {
+            img_currHandle.sprite = img_sliderHandles[3];
+        }
+    }
 
 
     void OnUpdateTowerHp(float currValue, float maxValue)
@@ -53,6 +80,7 @@ public class Slider_TowerHp : MonoBehaviour
         .Append( t_handle.DOScale(originScale,0.2f))
         .Play();
 
+        UpdateHandleImage(currValue, maxValue);
     }
 
 
