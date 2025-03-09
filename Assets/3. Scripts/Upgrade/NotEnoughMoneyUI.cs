@@ -49,7 +49,7 @@ public class NotEnoughMoneyUI : MonoBehaviour
         .AppendInterval(0.5f)
         .Append( text.DOFade(0f,0.5f))
         .Join(img.DOFade(0f,0.5f))
-        .AppendCallback(()=>gameObject.SetActive(false))
+        .AppendCallback(()=>gameObject.SetActive(false))    
         .SetUpdate(true)
         .Play();
         

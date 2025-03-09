@@ -132,6 +132,13 @@ public class EffectPoolManager : DestroyableSingleton<EffectPoolManager>
         effect.Init(initPos, lifeTime, $"{value:0}");
     }
     
+    public void GetHealAmountText(Vector3 initPos, float value)
+    {
+        float lifeTime = 0.6f;
+        TextEffect effect = (TextEffect)GetEffect(EffectEvent.Text);
+        effect.Init(initPos, lifeTime, $"{value:0}", TextEffectType.PlayerRecover);
+    }
+
     #endregion
 
 
