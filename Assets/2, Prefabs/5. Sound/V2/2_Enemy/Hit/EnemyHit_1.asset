@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52c35d3f80089b4ea209a009294bf28, type: 3}
   m_Name: EnemyHit_1
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: d8e7558f2e24daf45b26d2bc49adf36a, type: 3}
+  clip: {fileID: 8300000, guid: d2b7c29cdd8fe00429ee25596b2570f9, type: 3}
   soundType: 1

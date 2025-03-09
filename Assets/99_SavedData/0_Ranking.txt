@@ -15,5 +15,18 @@
         }
     ],
     "list_normal": [],
-    "list_hard": []
+    "list_hard": [
+        {
+            "id": "",
+            "currDifficulty": 2,
+            "startDate": "2025.03.10_03:05:55",
+            "killCount": 48,
+            "totalGold": 23040,
+            "totalDamageTaken": 210.0,
+            "totalHealingDone": 630.0,
+            "cleared": true,
+            "clearDate": "2025.03.10_03:09:15",
+            "towerHp": 315.0
+        }
+    ]
 }

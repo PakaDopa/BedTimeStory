@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52c35d3f80089b4ea209a009294bf28, type: 3}
   m_Name: Rank_SS
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 041be66ecc2ca3b449b7957d2473cc9c, type: 3}
+  clip: {fileID: 8300000, guid: 45face13e9ad49b4f8225005d3c20799, type: 3}
   soundType: 1

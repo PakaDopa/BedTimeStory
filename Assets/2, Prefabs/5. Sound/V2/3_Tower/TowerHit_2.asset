@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52c35d3f80089b4ea209a009294bf28, type: 3}
   m_Name: TowerHit_2
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 06c4c6dcbca35f54b9384888291d711e, type: 3}
+  clip: {fileID: 8300000, guid: 128763eceb324f5449487389d4df9a41, type: 3}
   soundType: 1

@@ -226,6 +226,19 @@ public class SoundManager : MonoBehaviour
         PlayRandomSFX(sfxs_playerHit, initPos);
     }
 
+    // 아이템
+    [SerializeField] SoundEventSO sfx_coin;
+    [SerializeField] SoundEventSO sfx_heart;
+    public void OnPickupCoin(Vector3 initPos)
+    {
+        Play(sfx_coin,initPos);
+    }
+
+    public void OnPickupHeart(Vector3 initPos)
+    {
+        Play(sfx_heart,initPos);
+    }
+
 
 
     //UI
@@ -255,6 +268,7 @@ public class SoundManager : MonoBehaviour
     #region Pool
     [Header("Pool Setting")]
     [SerializeField] SfxObject prfab_sfx;
+    [SerializeField] SfxObject prfab_bgm;
     Transform t;
     [SerializeField] Pool<SfxObject> sfxPools;     // 풀 
 
@@ -278,6 +292,14 @@ public class SoundManager : MonoBehaviour
     {
         var sfx = Get();
         sfx?.Play(soundData, initPos);
+    }
+
+    public void PlayBgm(SoundEventSO soundData)
+    {
+        AudioSource bgmSource = Instantiate(prfab_bgm).GetComponent<AudioSource>();
+        bgmSource.clip = soundData.clip;
+        bgmSource.loop = true;
+        bgmSource.Play();
     }
 
 

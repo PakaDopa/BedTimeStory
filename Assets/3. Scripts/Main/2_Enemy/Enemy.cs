@@ -255,13 +255,13 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
 
         PlayerStats.Instance.GetGold(30);
         int rand = UnityEngine.Random.Range(0, 100);
-        if ( 95<= rand)
+        if ( 90<= rand)
         // if ( 66<= rand)
         {
             // str+="골드주머니 ";
             DropItemManager.Instance.GetItem_Pouch(t.position);
         }
-        else if ( 90 <=rand )
+        else if ( 95 <=rand )
         {
             // str+="소형 포션 ";
             DropItemManager.Instance.GetItem_Potion(t.position);

@@ -69,6 +69,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9d85314be07aab44e87806deeb690e67, type: 2}
   - {fileID: 11400000, guid: 52391df8c02e6284f99e11ff92d0c951, type: 2}
   - {fileID: 11400000, guid: 16c6251a8cf0164489078af5005e4aa6, type: 2}
+  sfx_coin: {fileID: 11400000, guid: 1cf1fd480cebf9442956823f07782296, type: 2}
+  sfx_heart: {fileID: 11400000, guid: fa674e07c12b3a04cb95691146bb33a7, type: 2}
   sfx_hover: {fileID: 11400000, guid: e0e849aa89d8f004eaef85efd236a4ab, type: 2}
   sfx_click: {fileID: 11400000, guid: 58e3eca953412c74c8a71cc7c447cb07, type: 2}
   prfab_sfx: {fileID: 4341298447458854453, guid: a236b807d8718664a941446e860d23c8, type: 3}
+  prfab_bgm: {fileID: 4341298447458854453, guid: 5d11a87885273934382fd244136aab21, type: 3}

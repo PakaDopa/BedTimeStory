@@ -45,8 +45,10 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     public bool initialized;
 
     //
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitUntil(()=>SoundManager.Instance.initialized);
+        
         skipCutScene = GetComponent<SkipCutScene>();
         // testWaveStartBtn.onClick.AddListener(  StartWave );
         gameFinished = false;
@@ -127,7 +129,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         
         // 브금도 재생
         var bgm = bgms[currDifficulty];
-        bgm.Raise();
+        SoundManager.Instance.PlayBgm(bgm);
     }
 
     

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52c35d3f80089b4ea209a009294bf28, type: 3}
   m_Name: FootStep_0
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 281ea8e1a32781b4f8b8febfd02b10bd, type: 3}
+  clip: {fileID: 8300000, guid: d5192691616c1d94d9c0f146b339140f, type: 3}
   soundType: 1

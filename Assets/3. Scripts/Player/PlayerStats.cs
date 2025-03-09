@@ -40,6 +40,8 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
     private int currGold = 100000;
     public int CurrGold => currGold;
 
+    public bool isAlive => currHP>0;
+
     private float attackPower = 5;
     private float moveSpeed = 3;
     private float reloadSpeed = 3;
@@ -58,6 +60,11 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
     public void TakeDamage(float amount)
     {
+        if( isAlive == false)
+        {
+            return;
+        }
+        
         currHP = Mathf.Clamp(currHP - amount, 0, maxHP);
 
         onHpChanged.Invoke(currHP,maxHP);

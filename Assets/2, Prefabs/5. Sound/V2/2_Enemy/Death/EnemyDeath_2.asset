@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52c35d3f80089b4ea209a009294bf28, type: 3}
   m_Name: EnemyDeath_2
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 3ec0878c1e31fa6498d14e615425f3c3, type: 3}
+  clip: {fileID: 8300000, guid: 2420b5b982b856940a987323b1761aee, type: 3}
   soundType: 1

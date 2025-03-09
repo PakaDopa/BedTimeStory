@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52c35d3f80089b4ea209a009294bf28, type: 3}
   m_Name: Defeated
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 5bea7dffa31577344a6c3b716656ac62, type: 3}
+  clip: {fileID: 8300000, guid: 20b3b475fe3e24d41896c54033e33fd4, type: 3}
   soundType: 1

@@ -22,10 +22,14 @@ public class Lobby : DestroyableSingleton<Lobby>
     [SerializeField] SettingPanel_Lobby settingPanel;
 
 
+    [Header("BGM")]
+    [SerializeField] SoundEventSO bgm;
+
     
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitUntil(()=>SoundManager.Instance.initialized);
         Init();
                 
     }
@@ -39,7 +43,7 @@ public class Lobby : DestroyableSingleton<Lobby>
         btn_guide?.onClick.AddListener(()=>guidePanel?.Open());
         btn_setting?.onClick.AddListener(()=>settingPanel?.Open());
     
-    
+        SoundManager.Instance.PlayBgm(bgm);
     }
 
 
