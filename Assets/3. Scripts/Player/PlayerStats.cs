@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class PlayerStats : Singleton<PlayerStats>
+public class PlayerStats : DestroyableSingleton<PlayerStats>
 {
     public enum Status
     {
@@ -16,8 +16,15 @@ public class PlayerStats : Singleton<PlayerStats>
         Hitted,     //�ǰݻ���
         Dead,       //��� -> ���ӳ�
     }
+
+    [Header("InitValue")]
+    public float maxHP = 100;
+
+
+
+
     public Status playerStatus { get; set; }
-    private float maxHP = 100;
+
     [SerializeField] public float currHP;
     private int currGold = 100000;
     public int CurrGold => currGold;
@@ -25,57 +32,62 @@ public class PlayerStats : Singleton<PlayerStats>
     private float attackPower = 5;
     private float moveSpeed = 3;
     private float reloadSpeed = 3;
-    private float skillCooltime = 10;
+    private float skillCooltime = 30;
 
     public float AttackPower => attackPower;
     public float MoveSpeed => moveSpeed;
     public float ReloadSpeed => reloadSpeed;
     public float SkillCooltime => skillCooltime;
 
-    public UnityEvent onGoldChanged = new();
+    [HideInInspector] public UnityEvent<int,int,int> onGoldChanged = new();   //p0 : amount , p1: before, p2: after
 
-    private void Awake()
-    {
-        playerStatus = Status.Idle;
-        currHP = maxHP;
-    }
+    [HideInInspector] public UnityEvent<float,float> onHpChanged = new();
+
+    //=============================================================================
 
     public void TakeDamage(float amount)
     {
         currHP = Mathf.Clamp(currHP - amount, 0, maxHP);
 
+        onHpChanged.Invoke(currHP,maxHP);
         GameManager.Instance.currGamePlayInfo.totalDamageTaken +=amount; 
         GameEventManager.Instance.onPlayerGetDamage.Invoke();
+        
         if (currHP <= 0)
         {
             Die();
-        }       
+        } 
     }
 
     public void Recover(float amount)
     {
         currHP = Mathf.Clamp(currHP + amount, 0, maxHP);
+        
+        onHpChanged.Invoke(currHP,maxHP);
         GameManager.Instance.currGamePlayInfo.totalHealingDone +=amount; 
     }
 
     public void GetGold(int amount)
     {
+        int origin = currGold;
         currGold += amount;
 
-        onGoldChanged.Invoke();
-
-
+        onGoldChanged.Invoke(amount, origin, currGold);
         GameManager.Instance.currGamePlayInfo.totalGold += amount;
     }
 
     public void UseGold(int amount)
     {
+        int origin = currGold;
         if (currGold >= amount)
+        {
             currGold -= amount;
+            onGoldChanged.Invoke(amount, origin, currGold);
+        }
         else
             throw new System.Exception("invalid use of gold!");
 
-        onGoldChanged.Invoke();
+        
 
         //Debug.Log("Currgold : " + currGold);
     }
@@ -98,23 +110,25 @@ public class PlayerStats : Singleton<PlayerStats>
         skillCooltime = value;
     }
 
-    public override void Init()
+    public void Init()
     {
         ResetInfo();
     }
     void ResetInfo()
     {
+        playerStatus = Status.Idle;
+
         currHP = maxHP;
         currGold = 0;
-        attackPower = 5;
-        moveSpeed = 3;
-        reloadSpeed = 3;
-        skillCooltime = 10;
+        // attackPower = 5;        //  UpgradeSystem에 의해 세팅
+        // moveSpeed = 3;          //  UpgradeSystem에 의해 세팅
+        // reloadSpeed = 3;        //  UpgradeSystem에 의해 세팅
+        // skillCooltime = 30;     //  UpgradeSystem에 의해 세팅
     }
 
     void Die()
     {
-        ResetInfo();
+        Player.Instance.playerCollider.enabled = false;
         GamePlayManager.Instance.GameOver();
     }
 }

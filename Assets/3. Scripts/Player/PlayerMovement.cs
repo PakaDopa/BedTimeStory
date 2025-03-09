@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] public float moveSpeed = 3f;
+    // [SerializeField] public float moveSpeed = 3f;
     [HideInInspector] public Vector3 dir;
     float hInput, vInput;
     CharacterController controller;
@@ -49,14 +49,18 @@ public class PlayerMovement : MonoBehaviour
         else if(IsRun())
         {
             isWalking = true;
-            PlayerStats.Instance.playerStatus = PlayerStats.Status.Walk;
-            controller.Move(dir * (moveSpeed * 2f) * Time.deltaTime);
+            PlayerStats.Instance.playerStatus = PlayerStats.Status.Run;
+
+            float movementSpeed = PlayerStats.Instance.MoveSpeed;
+            controller.Move(dir * (movementSpeed * 2f) * Time.deltaTime);
         }
         else
         {
             isWalking = true;
-            PlayerStats.Instance.playerStatus = PlayerStats.Status.Run;
-            controller.Move(dir * moveSpeed * Time.deltaTime);
+            PlayerStats.Instance.playerStatus = PlayerStats.Status.Walk;
+
+            float movementSpeed = PlayerStats.Instance.MoveSpeed;
+            controller.Move(dir * movementSpeed* Time.deltaTime);
         }
     }
     // Update is called once per frame
@@ -70,8 +74,9 @@ public class PlayerMovement : MonoBehaviour
         
 
         //첫대쉬 판정
-        if (Input.GetKeyDown(KeyCode.LeftShift) && GamePlayManager.isGamePlaying)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
             dashSoundSO.Raise();
+            
         GetDirectionAndMove();
         
     }
@@ -100,11 +105,11 @@ public class PlayerMovement : MonoBehaviour
         if (soundEventSOs.Length <= soundIndex)
             soundIndex = 0;
 
-        if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
+        if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Walk)
         {
             yield return new WaitForSeconds(0.5f);
         }
-        else if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Walk)
+        else if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
         {
             yield return new WaitForSeconds(0.25f);
         }

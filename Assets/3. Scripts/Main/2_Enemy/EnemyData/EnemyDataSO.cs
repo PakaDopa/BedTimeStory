@@ -34,5 +34,15 @@ public abstract class EnemyDataSO : ScriptableObject
     public float inc_dmg = 3;
 
 
-    public abstract void Attack(Enemy enemy, Vector3 targetPos);
+    public float castDelay;
+    public float attackAnimationDuration=>attackAnimClip?attackAnimClip.length:0;
+    public float offsetWeight = 1f;
+
+
+    public EnemyProjectile prefab_enemyProjectile;
+
+    [SerializeField]AnimationClip attackAnimClip;
+    // public abstract IEnumerator CastRoutine(Enemy enemy, Vector3 targetPos);
+    // public abstract void Attack(Enemy enemy, Vector3 targetPos);
+    // public abstract AreaIndicator GetAttackAreaIndicator(Enemy enemy, Vector3 targetPos);
 }

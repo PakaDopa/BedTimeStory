@@ -24,18 +24,9 @@ public class EnemyData_01_Range : EnemyDataSO
         inc_maxHp = 10;
         inc_movementSpeed = 0.3f;
         inc_dmg = 3;
+
+
+        castDelay = 1.5f;
+        offsetWeight = 0.5f;
     }
-    
-    
-    [SerializeField] GameObject prefab_enemyProjectile;
-
-    
-
-    public override void Attack(Enemy enemy, Vector3 targetPos)
-    {
-        Debug.Log("빵야");
-        
-        var ep = Instantiate(prefab_enemyProjectile).GetComponent<EnemyProjectile>();
-        ep.Init(dmg, enemy.t.position, targetPos);
-    }   
 }

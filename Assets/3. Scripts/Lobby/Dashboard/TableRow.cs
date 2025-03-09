@@ -30,7 +30,7 @@ public class TableRow : MonoBehaviour
         //
         if ( isEmptyData==false )
         {
-            text_rank.SetText($"{idx+1}.");
+            text_rank.SetText($"{idx+1}");
             text_date.SetText($"{currGamePlayInfo.clearDate}");
             text_towerHp.SetText($"{currGamePlayInfo.towerHp}");
             text_killCount.SetText($"{currGamePlayInfo.killCount}");

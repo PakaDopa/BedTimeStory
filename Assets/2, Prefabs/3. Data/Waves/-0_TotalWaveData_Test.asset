@@ -15,20 +15,27 @@ MonoBehaviour:
   difficulty: 0
   waves:
   - waveNum: 1
+<<<<<<< HEAD
     waveDuration: 20
+=======
+    waveDuration: 60
+>>>>>>> 96d8206586fa2676d7002be1995d62c6c780fd15
     spawnInfos:
     - enemyType: 0
       spawnCount: 1
   - waveNum: 2
+<<<<<<< HEAD
     waveDuration: 20
     spawnInfos:
     - enemyType: 0
       spawnCount: 1
+=======
+    waveDuration: 60
+    spawnInfos: []
+>>>>>>> 96d8206586fa2676d7002be1995d62c6c780fd15
   - waveNum: 3
-    waveDuration: 4
-    spawnInfos:
-    - enemyType: 0
-      spawnCount: 1
+    waveDuration: 60
+    spawnInfos: []
   - waveNum: 4
     waveDuration: 4
     spawnInfos:

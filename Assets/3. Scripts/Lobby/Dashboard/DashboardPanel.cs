@@ -62,7 +62,15 @@ public class DashboardPanel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
+    }
 
+    
     //============================================================
     void OnClick_difficultyBtn(Difficulty targetDifficulty)
     {

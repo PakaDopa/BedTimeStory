@@ -9,12 +9,14 @@ using UnityEngine.UI;
 
 public class PlayerStatusCheckUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text text;
-    [SerializeField] private TMP_Text reloadingText;
+    // [SerializeField] private TMP_Text text;
+    // [SerializeField] private TMP_Text reloadingText;
+    // [SerializeField] Slider ammoSlide;
+    [SerializeField] CrossHair crossHair;
     [SerializeField] private Image crosshair;
     [SerializeField] private Image crosshair2;
 
-    [SerializeField] private TMP_Text hpText;
+    // [SerializeField] private TMP_Text hpText;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,25 +28,18 @@ public class PlayerStatusCheckUI : MonoBehaviour
     private void ChangeArmoText(MEventType MEventType, Component Sender, EventArgs args = null)
     {
         TransformEventArgs tArgs = args as TransformEventArgs;
-        //text.transform.DOPunchScale(new Vector3(0.25f, 0.25f), 0.125f);
-        DOTween.Sequence().
-            Append(text.transform.DOScale(1.1f, 0.05f)).
-            Append(text.transform.DOScale(0.9f, 0.05f)).
-            Play();
-
-        text.text = string.Format("{0}/{1}",tArgs.value[0].ToString(),tArgs.value[1].ToString());
+        int ammoRemain= (int)tArgs.value[0];
+        int ammoMax = (int)tArgs.value[1];
+        crossHair.UpdateAmmoRemain( ammoRemain,ammoMax);
     }
     private void ReloadingText(MEventType MEventType, Component Sender, EventArgs args = null)
     {
         TransformEventArgs tArgs = args as TransformEventArgs;
-        bool value = bool.Parse(tArgs.value[0].ToString());
+        bool isReload = bool.Parse(tArgs.value[0].ToString());
+        float duration = (float) tArgs.value[1];
+        crossHair.OnReload( isReload, duration );
+    }
 
-        reloadingText.gameObject.SetActive(value);
-    }
-    private void Update()
-    {
-        hpText.text = string.Format("HP:{0}", PlayerStats.Instance.currHP);
-    }
     private void HittedEffect(MEventType MEventType, Component Sender, EventArgs args = null)
     {
         TransformEventArgs tArgs = args as TransformEventArgs;
@@ -54,8 +49,8 @@ public class PlayerStatusCheckUI : MonoBehaviour
             .OnStart(() =>
             {
                 crosshair2.gameObject.SetActive(true);
-                crosshair.transform.localScale = new Vector3(2f, 2f, 2f);
-                crosshair2.transform.localScale = new Vector3(2.25f, 2.25f, 2.25f);
+                crosshair.transform.localScale = new Vector3(1,1,1);
+                crosshair2.transform.localScale = new Vector3(1,1,1);
             })
             .Join(crosshair.transform.DOPunchScale(new Vector3(0.4f, 0.4f, 0f), 0.125f))
             .Join(crosshair.DOColor(new Color(1,0,0), 0.125f))
@@ -68,4 +63,7 @@ public class PlayerStatusCheckUI : MonoBehaviour
                 crosshair2.color = new Color(1, 1, 1);
             });
     }
+
+
+
 }

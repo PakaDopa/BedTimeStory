@@ -7,11 +7,18 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    
     [SerializeField] SoundEventSO[] soundSO;
+    [SerializeField] GameObject prefab_shoot;
     public GameObject hitPrefab;
     public List<GameObject> trails;
     private void Start()
     {
+        if( prefab_shoot !=null)
+        {
+            var shootVFX = Instantiate(prefab_shoot, transform.position, Quaternion.identity);
+        }
+        
         StartCoroutine(DestroyCoroutine());
     }
 
@@ -19,13 +26,13 @@ public class Projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
 
-        Explode();
+        Explode(transform.position);
     }
 
-    protected void Explode()
+    protected void Explode(Vector3 hitPoint)
     {
-        var hitVFX = Instantiate(hitPrefab, transform.position, Quaternion.identity) as GameObject;
-        hitVFX.transform.position = transform.position;
+        // Vector3 offset = (Player.Instance.T.position - transform.position).normalized * 2;
+        var hitVFX = Instantiate(hitPrefab, hitPoint, Quaternion.identity);
 
         Destroy(gameObject);
     }
@@ -43,9 +50,12 @@ public class Projectile : MonoBehaviour
             EffectPoolManager.Instance.GetNormalDamageText(damageEffectPos, damage);
 
 
+
+
+
             EventManager.Instance.PostNotification(MEventType.EnemyHitted, this, new TransformEventArgs(transform, true));
             soundSO[Random.Range(0, soundSO.Length)].Raise();
-            Explode();
+            Explode(hitPoint);            
         }
         //StartCoroutine(DestroyParticle(0f));
     }

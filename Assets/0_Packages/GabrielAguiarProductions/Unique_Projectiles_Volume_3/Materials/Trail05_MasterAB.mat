@@ -21,13 +21,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Trail05_MasterAB
-  m_Shader: {fileID: 4800000, guid: 94ef3a397bbca924fa1dad65e7b51be4, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 9dea9f38fbc08924b8762933cc52d55b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _DISTORTMAINTEXTURE_ON
-  - _EMISSION
+  m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -38,6 +36,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - MainTex_:
+        m_Texture: {fileID: 2800000, guid: bc90b57cd1187b64f8d31503d1b4e40c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_7FCC054E:
         m_Texture: {fileID: 2800000, guid: 796e59370ca01564fbf1d9ed6f1a4a66, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -124,8 +126,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - AlphaClip_: 0.01
     - Vector1_8B5B67D: 20
     - Vector1_8F22EE36: 0.01
+    - Vector1_AE769210: 20
     - Vector1_C1728026: 1.5
     - Vector1_D1034171: 0
     - _BUILTIN_QueueControl: 0
@@ -166,6 +170,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
+    - Color_: {r: 1, g: 1, b: 1, a: 1}
     - Color_34BEEA07: {r: 1, g: 1, b: 1, a: 1}
     - Color_DB555ADA: {r: 25.688938, g: 25.688938, b: 25.688938, a: 1}
     - Vector2_781FB8A4: {r: 0.5, g: 0.5, b: 0, a: 0}

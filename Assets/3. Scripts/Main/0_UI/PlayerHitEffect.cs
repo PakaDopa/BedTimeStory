@@ -15,6 +15,8 @@ public class PlayerHitEffect : MonoBehaviour
     void Start()
     {
         GameEventManager.Instance.onPlayerGetDamage.AddListener( OnPlayerGetDamage );
+
+        Tower.Instance.onHpChanged.AddListener((float a,float b)=> OnPlayerGetDamage());
     }
 
     void OnPlayerGetDamage()
