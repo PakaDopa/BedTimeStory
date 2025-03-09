@@ -74,8 +74,8 @@ public class UpgradeSystem : MonoBehaviour
             upgradeMenuItem.OnSelected();
         }
 
-        notEnoughMoneyUI = GetComponentInChildren<NotEnoughMoneyUI>();
-        notEnoughMoneyUI.Init();
+        //notEnoughMoneyUI = GetComponentInChildren<NotEnoughMoneyUI>();
+        //notEnoughMoneyUI.Init();
 
 
         ChangeRerollCost();
