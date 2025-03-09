@@ -193,7 +193,7 @@ MonoBehaviour:
   lightParticleImage: {fileID: 6877952044968941181}
   ringParticleImage: {fileID: 6524217203829154321}
   starParticleImage: {fileID: 934678323992422310}
-  impactParticleImage: {fileID: 3366648570142096510}
+  shineEffect: {fileID: 6869255141451406537}
   txt_grade: {fileID: 6772799525134493030}
   txt_value: {fileID: 6656736532961217776}
   LockButton: {fileID: 5333850901082724078}
@@ -3981,6 +3981,8 @@ GameObject:
   - component: {fileID: 6978094261855697491}
   - component: {fileID: 3864484974002839650}
   - component: {fileID: 7425481415175103626}
+  - component: {fileID: 6869255141451406537}
+  - component: {fileID: 4375725576361982579}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -4045,6 +4047,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6869255141451406537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206803031155992967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c3753df00304c44bf18c41b8a05ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4375725576361982579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206803031155992967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderTypes: 0
+  normalStrength: 5
+  normalSmoothing: 1
+  computingNormal: 0
 --- !u!1 &2263462273494424512
 GameObject:
   m_ObjectHideFlags: 0
@@ -7047,7 +7077,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7882021442129256965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8269,7 +8299,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 14
-    used: 0
+    used: 1
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
@@ -8621,7 +8651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7598954029499248561
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10055,6 +10085,8 @@ GameObject:
   - component: {fileID: 6308020400914855420}
   - component: {fileID: 215280509975916493}
   - component: {fileID: 5787443146932431653}
+  - component: {fileID: 7938664082855779193}
+  - component: {fileID: 1368185404856848969}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -10119,6 +10151,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7938664082855779193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3025749666955601448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c3753df00304c44bf18c41b8a05ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1368185404856848969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3025749666955601448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderTypes: 0
+  normalStrength: 5
+  normalSmoothing: 1
+  computingNormal: 0
 --- !u!1 &3035125252754331386
 GameObject:
   m_ObjectHideFlags: 0
@@ -10270,7 +10330,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2751792886819706269
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11838,6 +11898,8 @@ GameObject:
   - component: {fileID: 6027813292987962842}
   - component: {fileID: 491273998377897963}
   - component: {fileID: 6087933777604217603}
+  - component: {fileID: 2069930163499567619}
+  - component: {fileID: 8886462263162510519}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -11902,6 +11964,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2069930163499567619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3301156293174855182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderTypes: 0
+  normalStrength: 5
+  normalSmoothing: 1
+  computingNormal: 0
+--- !u!114 &8886462263162510519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3301156293174855182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c3753df00304c44bf18c41b8a05ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3329111429275186908
 GameObject:
   m_ObjectHideFlags: 0
@@ -14870,7 +14960,7 @@ MonoBehaviour:
   lightParticleImage: {fileID: 3706106172982827210}
   ringParticleImage: {fileID: 509352522549230230}
   starParticleImage: {fileID: 9114814878361334043}
-  impactParticleImage: {fileID: 40674250078410823}
+  shineEffect: {fileID: 7938664082855779193}
   txt_grade: {fileID: 7683261535064992457}
   txt_value: {fileID: 7727269295699198815}
   LockButton: {fileID: 9031997374318582081}
@@ -15072,7 +15162,7 @@ MonoBehaviour:
   lightParticleImage: {fileID: 6019226438343014518}
   ringParticleImage: {fileID: 4341117044566747736}
   starParticleImage: {fileID: 3703580515953301463}
-  impactParticleImage: {fileID: 3277629297600566683}
+  shineEffect: {fileID: 8886462263162510519}
   txt_grade: {fileID: 7966272674800732911}
   txt_value: {fileID: 8003258385500840825}
   LockButton: {fileID: 8752067068294838631}
@@ -15582,6 +15672,8 @@ GameObject:
   - component: {fileID: 3620786078979906823}
   - component: {fileID: 7442724607265163062}
   - component: {fileID: 3883274968650843102}
+  - component: {fileID: 6130749665461356777}
+  - component: {fileID: 147668239671020395}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -15646,6 +15738,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6130749665461356777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5496807898607619795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c3753df00304c44bf18c41b8a05ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &147668239671020395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5496807898607619795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderTypes: 0
+  normalStrength: 5
+  normalSmoothing: 1
+  computingNormal: 0
 --- !u!1 &5740933617229102593
 GameObject:
   m_ObjectHideFlags: 0
@@ -17585,7 +17705,7 @@ MonoBehaviour:
   lightParticleImage: {fileID: 2771439776575000185}
   ringParticleImage: {fileID: 2094382697220693379}
   starParticleImage: {fileID: 1825585866152971482}
-  impactParticleImage: {fileID: 5479828190929980395}
+  shineEffect: {fileID: 6130749665461356777}
   txt_grade: {fileID: 1086888461141279282}
   txt_value: {fileID: 1047593344246197156}
   LockButton: {fileID: 1796112860081926586}
@@ -17686,7 +17806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2982306184453759454
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20909,7 +21029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7370554702017800989
 RectTransform:
   m_ObjectHideFlags: 0
