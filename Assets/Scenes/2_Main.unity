@@ -193,7 +193,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60.000004
+  field of view: 40
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -219,8 +219,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169728189}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5008931, y: -0.49908853, z: 0.49700862, w: 0.5029903}
-  m_LocalPosition: {x: 79.4418, y: 33.963028, z: 33.121025}
+  m_LocalRotation: {x: 0, y: 0, z: -9.313226e-10, w: 1}
+  m_LocalPosition: {x: 46.45, y: 2.6299999, z: 41.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2188,6 +2188,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361545968}
   m_CullTransparentMesh: 1
+--- !u!223 &1391496080 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3875231757615591948, guid: 0b427e8748d32fc4084f30880447534d, type: 3}
+  m_PrefabInstance: {fileID: 706403387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1470846380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3182,6 +3187,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7821283571367289115, guid: 76061be73d04b334f81157b6c135e467, type: 3}
   m_PrefabInstance: {fileID: 1972937212}
   m_PrefabAsset: {fileID: 0}
+--- !u!320 &1972937215 stripped
+PlayableDirector:
+  m_CorrespondingSourceObject: {fileID: 1448149792560241797, guid: 76061be73d04b334f81157b6c135e467, type: 3}
+  m_PrefabInstance: {fileID: 1972937212}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1986644476
 GameObject:
   m_ObjectHideFlags: 0
@@ -3532,6 +3542,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1551806264656179801, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
+      propertyPath: mainUICanvas
+      value: 
+      objectReference: {fileID: 1391496080}
+    - target: {fileID: 1551806264656179801, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
       propertyPath: victoryPanel
       value: 
       objectReference: {fileID: 1006872657}
@@ -3539,6 +3553,10 @@ PrefabInstance:
       propertyPath: gameOverPanel
       value: 
       objectReference: {fileID: 391147966}
+    - target: {fileID: 1551806264656179801, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
+      propertyPath: inGameCutScene
+      value: 
+      objectReference: {fileID: 1972937215}
     - target: {fileID: 1551806264656179801, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
       propertyPath: cutSceneManager
       value: 
@@ -3587,6 +3605,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6202421399281562623, guid: 887769c39653b0d47a0dc60d06a2317d, type: 3}
+      propertyPath: cutScene
+      value: 
+      objectReference: {fileID: 1972937215}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3724,7 +3746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3298420326411300256, guid: df0082c804f876844985899cab5ac493, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4833362230867226620, guid: df0082c804f876844985899cab5ac493, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3831,9 +3853,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3786300037787085106, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6924027808003867705, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6924027808003867705, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

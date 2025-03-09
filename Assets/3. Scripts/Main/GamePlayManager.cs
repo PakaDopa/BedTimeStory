@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
@@ -23,10 +24,14 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     // [SerializeField] Button testWaveStartBtn;
     [SerializeField] CutSceneManager cutSceneManager;
+    [SerializeField] bool inGameCutSceneEnable = true;
+    [SerializeField] PlayableDirector inGameCutScene;
+    SkipCutScene skipCutScene;
 
 
     //======= UI ==========
     [Header("UI")]
+    [SerializeField] Canvas mainUICanvas;
     [SerializeField] VictoryPanel victoryPanel;
     [SerializeField] GameOverPanel gameOverPanel;
 
@@ -40,6 +45,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     //
     void Start()
     {
+        skipCutScene = GetComponent<SkipCutScene>();
         // testWaveStartBtn.onClick.AddListener(  StartWave );
         gameFinished = false;
         bgm.Raise();
@@ -78,27 +84,30 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         SetStage();
         Tower.Instance.Init();              // 
         Player.Instance.Init();             // 
-
+        mainUICanvas.enabled = false; 
 
         //
         GameEventManager.Instance.onGameStart.Invoke();
         
-        // 컷씬대기
+        // 컷씬대기, 지금은 컷신 비 활성하임.
         if( CutSceneManager.isCutSceneEnabled )
         {
             StartCoroutine(cutSceneManager.PlayCutScene());
             yield return new WaitUntil( ()=>cutSceneManager.gameObject.activeSelf == false);
         }
+        
+        if(inGameCutSceneEnable == true)
+        {
+            inGameCutScene.Play();
+            yield return new WaitUntil( () => inGameCutScene.state != PlayState.Playing);
+        }
 
         initialized =  true;
-
-
-
-        
         // 게임 플레이 시작
         isGamePlaying = true;
         Time.timeScale = 1;
         StartWave();
+        mainUICanvas.enabled = true;
     }
 
     void SetStage()
@@ -181,5 +190,4 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         PlayerStats.Instance.Recover(value);
     }   
 
-    
 }

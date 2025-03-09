@@ -57,13 +57,13 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: -8384307673307116128}
-    m_Duration: 0.5
+    m_Duration: 1.0166666666666666
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4500833213514031932}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0.5
+    m_BlendOutDuration: 1.0166666666666666
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -123,16 +123,16 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: '[Cine] vim01'
   - m_Version: 1
-    m_Start: 0.5
+    m_Start: 0
     m_ClipIn: 0
-    m_Asset: {fileID: -6729685651319365851}
-    m_Duration: 1.5166666666666666
+    m_Asset: {fileID: 7272980991878278868}
+    m_Duration: 3.4166666666666665
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4500833213514031932}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.7833333333333334
-    m_BlendOutDuration: 0.7333333333333332
+    m_BlendInDuration: 1.0166666666666666
+    m_BlendOutDuration: 2.3833333333333333
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -190,36 +190,36 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: '[Cine] vim01 (2)'
+    m_DisplayName: '[Cine] vim01 (1)'
   - m_Version: 1
-    m_Start: 1.2833333333333334
+    m_Start: 5.166666666666667
     m_ClipIn: 0
-    m_Asset: {fileID: 5202716557399792069}
-    m_Duration: 2.3499999999999996
+    m_Asset: {fileID: 5322530173638887503}
+    m_Duration: 3.1500000000000004
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4500833213514031932}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.7333333333333332
-    m_BlendOutDuration: 1.6166666666666663
+    m_BlendInDuration: 1.6166666666666663
+    m_BlendOutDuration: 1.5333333333333323
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 34
+        inSlope: -0
+        outSlope: -0
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 34
+        inSlope: -0
+        outSlope: -0
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0
@@ -250,8 +250,8 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_BlendInCurveMode: 1
-    m_BlendOutCurveMode: 1
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
     m_ExposedParameterNames: []
     m_AnimationCurves: {fileID: 0}
     m_Recordable: 0
@@ -259,17 +259,17 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: '[Cine] vim01 (3)'
+    m_DisplayName: '[Cine] vim01 (4)'
   - m_Version: 1
-    m_Start: 3.6333333333333333
+    m_Start: 6.783333333333334
     m_ClipIn: 0
     m_Asset: {fileID: 7269877282145646977}
-    m_Duration: 1.5500000000000003
+    m_Duration: 2.749999999999999
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4500833213514031932}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 1.059858608804642
+    m_BlendInDuration: 1.5333333333333323
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -330,16 +330,16 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: '[Cine] vim01 (5)'
   - m_Version: 1
-    m_Start: 0
+    m_Start: 1.0333333333333332
     m_ClipIn: 0
-    m_Asset: {fileID: 7272980991878278868}
-    m_Duration: 1.2833333333333334
+    m_Asset: {fileID: -6729685651319365851}
+    m_Duration: 4.133333333333333
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4500833213514031932}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.5
-    m_BlendOutDuration: 0.7833333333333334
+    m_BlendInDuration: 2.3833333333333333
+    m_BlendOutDuration: 1.7499999999999996
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -397,36 +397,36 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: '[Cine] vim01 (1)'
+    m_DisplayName: '[Cine] vim01 (2)'
   - m_Version: 1
-    m_Start: 2.0166666666666666
+    m_Start: 3.4166666666666665
     m_ClipIn: 0
-    m_Asset: {fileID: 5322530173638887503}
-    m_Duration: 2.6765252754713087
+    m_Asset: {fileID: 5202716557399792069}
+    m_Duration: 3.366666666666667
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4500833213514031932}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 1.6166666666666663
-    m_BlendOutDuration: 1.059858608804642
+    m_BlendInDuration: 1.7499999999999996
+    m_BlendOutDuration: 1.6166666666666663
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: -0
-        outSlope: -0
-        tangentMode: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: -0
-        outSlope: -0
-        tangentMode: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
@@ -457,8 +457,8 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
+    m_BlendInCurveMode: 1
+    m_BlendOutCurveMode: 1
     m_ExposedParameterNames: []
     m_AnimationCurves: {fileID: 0}
     m_Recordable: 0
@@ -466,7 +466,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: '[Cine] vim01 (4)'
+    m_DisplayName: '[Cine] vim01 (3)'
   m_Markers:
     m_Objects: []
 --- !u!114 &11400000
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_Version: 0
   m_Tracks:
   - {fileID: -4500833213514031932}
-  m_FixedDuration: 0
+  m_FixedDuration: 4.716666666666667
   m_EditorSettings:
     m_Framerate: 60
     m_ScenePreview: 1
