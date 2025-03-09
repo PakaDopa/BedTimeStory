@@ -172,6 +172,8 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         {
             Die();
         }
+
+        SoundManager.Instance.OnEnemyHit(lastHitPoint);
         // Debug.Log($"앗 {currHp}/ {maxHp}");
         // ui
         // enemyState?.OnUpdateEnemyHp();

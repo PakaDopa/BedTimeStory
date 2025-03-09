@@ -23,11 +23,10 @@ public class SfxObject : MonoBehaviour, IPoolObject
     {
         // 세팅
         myTransform.position = initPos;
-        audioSource.clip = soundData.clip;
         // audioSource.priority = defaultPriority + soundData.rank;
 
         //After Setting
-        audioSource.Play();
+        audioSource.PlayOneShot(soundData.clip);
         StartCoroutine( DelayedDestroy( soundData.clip.length+ 0.1f)); 
     }
 

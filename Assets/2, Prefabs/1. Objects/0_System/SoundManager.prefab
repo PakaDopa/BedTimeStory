@@ -44,9 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8be05f3dd930e94a804c154019ece85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialized: 0
   mixer: {fileID: 24100000, guid: f88c408be5c2f8240b2e609d2205dc58, type: 2}
   maxSettingValue: 10
   minSettingValue: 0
   master: 0
   bgm: 0
   sfx: 0
+  sfxs_enemyHit:
+  - {fileID: 11400000, guid: 87b5718b30245d84198a21b8032ceddc, type: 2}
+  - {fileID: 11400000, guid: 0da8aa0c07ee10f4ba5b611ec88c5971, type: 2}
+  - {fileID: 11400000, guid: 8115d7745d206bf4f966c98974050e17, type: 2}
+  - {fileID: 11400000, guid: 3705a14799a429b49804f997be110349, type: 2}
+  prfab_sfx: {fileID: 4341298447458854453, guid: a236b807d8718664a941446e860d23c8, type: 3}

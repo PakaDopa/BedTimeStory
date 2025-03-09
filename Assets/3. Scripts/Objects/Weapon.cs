@@ -87,9 +87,18 @@ public class Weapon : MonoBehaviour
     private void IsShot() => isShotting = Input.GetKey(KeyCode.Mouse0);
     private void Shot()
     {
-        attackEventSOs[attackIndex++].Raise();
+        // attackEventSOs[attackIndex++].Raise();
+        var soundData = attackEventSOs[attackIndex++];
+        SoundManager.Instance.Play(soundData, Player.Instance.T.position);
+
+        attackIndex++;
         if (attackIndex >= attackEventSOs.Length)
             attackIndex = 0;
+
+
+
+
+
         Vector3 projectileDir = CalcDir();
         GameObject projectile = Instantiate(projectilePrefab,
             muzzle.position, Quaternion.Euler(projectileDir));

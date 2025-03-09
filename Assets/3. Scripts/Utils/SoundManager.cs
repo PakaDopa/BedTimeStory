@@ -179,22 +179,30 @@ public class SoundManager : MonoBehaviour
 
 
     #region sound 재생 관련
-    
 
-    [SerializeField] SoundEventSO[] sfxs_enemyHit;
-    public void OnEnemyHit( Vector3 initPos )
+    void PlayRandomSFX(SoundEventSO[] targetArr, Vector3 initPos)
     {
-        if ( sfxs_enemyHit.Length <=0)
+        if (targetArr.Length<=0)
         {
-            return;
+            return ;
         }
-        int  randIdx = Random.Range(0, sfxs_enemyHit.Length);
+        int  randIdx = Random.Range(0, targetArr.Length);
 
-        SoundEventSO soundEvent = sfxs_enemyHit[randIdx];
+        SoundEventSO soundEvent = targetArr[randIdx];
 
         var sfx = Get();
         sfx?.Play(soundEvent, initPos);
 
+        return ;
+    }
+
+
+    
+    // 적
+    [SerializeField] SoundEventSO[] sfxs_enemyHit;
+    public void OnEnemyHit( Vector3 initPos )
+    {
+        PlayRandomSFX(sfxs_enemyHit, initPos);
     }
 
 
@@ -228,6 +236,13 @@ public class SoundManager : MonoBehaviour
             pool.NonLazy();
         }
     }
+
+    public void Play( SoundEventSO soundData, Vector3 initPos)
+    {
+        var sfx = Get();
+        sfx?.Play(soundData, initPos);
+    }
+
 
     SfxObject Get()
     {   
