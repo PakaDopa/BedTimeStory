@@ -105,6 +105,7 @@ public class AimStatManager : MonoBehaviour
 
     void OnAim(bool isOn)
     {
+        PlayerStats.Instance.aimState = isOn? PlayerStats.AimState.Aim : PlayerStats.AimState.None ;
         crossHairUI.SetActive(isOn);
     }
 

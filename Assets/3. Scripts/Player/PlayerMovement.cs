@@ -25,6 +25,13 @@ public class PlayerMovement : MonoBehaviour
     private int soundIndex = 0;
     private bool isWalking = false;
 
+
+    const float defaultMovementSpeed = 2f;
+    float aimWeight => PlayerStats.Instance.aimState == PlayerStats.AimState.Aim ? 0.5f : 1f;
+    float dashWeight => PlayerStats.Instance.playerStatus == PlayerStats.Status.Walk? 1f: 2f;
+    float fixedMovementSpeed => PlayerStats.Instance.MoveSpeed * aimWeight * dashWeight;
+    public float behaivourSpeedMultiplier => defaultMovementSpeed / fixedMovementSpeed ;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         controller = GetComponent<CharacterController>();
-        walkSoundCoroutine = StartCoroutine(PlayerWalkSound());
+        // walkSoundCoroutine = StartCoroutine(PlayerWalkSound());
     }
     private void GetDirectionAndMove()
     {
@@ -41,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         
         dir = transform.forward * vInput + transform.right * hInput;
         
+
         if(hInput == 0 && vInput == 0)
         {
             isWalking = false;
@@ -51,15 +59,17 @@ public class PlayerMovement : MonoBehaviour
             isWalking = true;
             PlayerStats.Instance.playerStatus = PlayerStats.Status.Run;
 
-            float movementSpeed = PlayerStats.Instance.MoveSpeed;
+
+
+            float movementSpeed =  fixedMovementSpeed;
             controller.Move(dir * (movementSpeed * 2f) * Time.deltaTime);
         }
         else
-        {
+        {                                                                                                                                                                         
             isWalking = true;
             PlayerStats.Instance.playerStatus = PlayerStats.Status.Walk;
 
-            float movementSpeed = PlayerStats.Instance.MoveSpeed;
+            float movementSpeed =  fixedMovementSpeed;
             controller.Move(dir * movementSpeed* Time.deltaTime);
         }
     }
@@ -104,18 +114,29 @@ public class PlayerMovement : MonoBehaviour
         soundEventSOs[soundIndex++].Raise();
         if (soundEventSOs.Length <= soundIndex)
             soundIndex = 0;
+    
+        float defaultDelay = 0.5f;
+        float targetDelay = defaultDelay * behaivourSpeedMultiplier;                  // 딜레이 감소 
 
         if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Walk)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(targetDelay );
         }
         else if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
         {
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(targetDelay  * 0.5f);
         }
         else
             yield return null;
 
         StartCoroutine(PlayerWalkSound());
+    }
+
+
+    public void PlayerFootStepSound()
+    {
+        soundEventSOs[soundIndex++].Raise();
+        if (soundEventSOs.Length <= soundIndex)
+            soundIndex = 0;
     }
 }
