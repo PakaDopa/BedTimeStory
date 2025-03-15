@@ -2829,6 +2829,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[Cine] CutSceen by Woosung'
       objectReference: {fileID: 0}
+    - target: {fileID: 1450380641836828589, guid: 76061be73d04b334f81157b6c135e467, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7821283571367289115, guid: 76061be73d04b334f81157b6c135e467, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45.881798
@@ -8170,7 +8174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1482141931824618128, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1643525053506711760, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
       propertyPath: m_LocalPosition.x

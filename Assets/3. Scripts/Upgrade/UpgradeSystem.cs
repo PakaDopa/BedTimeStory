@@ -129,25 +129,25 @@ public class UpgradeSystem : MonoBehaviour
 
             int gradeOffset;
             float randomNumber = UnityEngine.Random.Range(0, 100);
-            // 확률
-            if (randomNumber < 1) //sss
-                gradeOffset = 0;
-            else if (randomNumber < 3) //ss
-                gradeOffset = 1;
-            else if (randomNumber < 6) //s
-                gradeOffset = 2;
-            else if (randomNumber < 16) //a
-                gradeOffset = 3;
-            else if (randomNumber < 41) //b
-                gradeOffset = 4;
-            else if (randomNumber < 66) //c
-                gradeOffset = 5;
-            else if (randomNumber < 81) //d
-                gradeOffset = 6;
-            else if (randomNumber < 91) //e
-                gradeOffset = 7;
-            else                        //f
-                gradeOffset = 8;
+            // 확률 개선
+if (randomNumber < 0.5) // SSS (0.5%)
+    gradeOffset = 0;
+else if (randomNumber < 2) // SS (1.5% 추가, 총 2%)
+    gradeOffset = 1;
+else if (randomNumber < 5) // S (3% 추가, 총 5%)
+    gradeOffset = 2;
+else if (randomNumber < 15) // A (10% 추가, 총 15%)
+    gradeOffset = 3;
+else if (randomNumber < 40) // B (25% 추가, 총 40%)
+    gradeOffset = 4;
+else if (randomNumber < 65) // C (25% 추가, 총 65%)
+    gradeOffset = 5;
+else if (randomNumber < 80) // D (15% 추가, 총 80%)
+    gradeOffset = 6;
+else if (randomNumber < 90) // E (10% 추가, 총 90%)
+    gradeOffset = 7;
+else  // F (10% 추가, 총 100%)
+    gradeOffset = 8;
 
             min_gradeOffset = (int)MathF.Min(gradeOffset, min_gradeOffset);
 

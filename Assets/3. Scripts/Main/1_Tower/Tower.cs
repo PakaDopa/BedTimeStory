@@ -15,7 +15,7 @@ public class Tower : DestroyableSingleton<Tower>
 
 
     public float hp;
-    public float maxHp = 500;
+    public float maxHp = 5000;
 
 
     public UnityEvent<float,float> onHpChanged = new();

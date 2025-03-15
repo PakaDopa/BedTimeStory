@@ -253,7 +253,7 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
     {        
         // string str = "돈1원 ";
 
-        PlayerStats.Instance.GetGold(30);
+        PlayerStats.Instance.GetGold(10);
         int rand = UnityEngine.Random.Range(0, 100);
         if ( 90<= rand)
         // if ( 66<= rand)

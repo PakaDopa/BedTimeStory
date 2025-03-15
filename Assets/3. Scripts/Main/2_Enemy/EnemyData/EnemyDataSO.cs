@@ -19,7 +19,7 @@ public abstract class EnemyDataSO : ScriptableObject
 
     public abstract EnemyType type { get;}
     
-    public float maxHp = 100;
+    public float maxHp = 10;
     
     public float movementSpeed = 4;
     public float attackSpeed = 2;    
