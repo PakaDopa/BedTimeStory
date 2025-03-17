@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -43,6 +44,11 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     public static bool isGamePlaying;
     public static bool gameFinished;
     public bool initialized;
+
+
+    [Header("Events")]
+    public Action onGamePlayStart;
+
 
     //
     IEnumerator Start()
@@ -85,15 +91,15 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         isGamePlaying = false;
         
         //
-        SetStage();
-        Tower.Instance.Init();              // 
-        Player.Instance.Init();             // 
+        SetStage();                         // 스테이지 초기화 
+        Tower.Instance.Init();              // 타워 초기화
+        Player.Instance.Init();             // 플레이어 초기화
         mainUICanvas.enabled = false; 
 
         //
-        GameEventManager.Instance.onGameStart.Invoke();
+        onGamePlayStart?.Invoke();          // 게임 초기화 알림. : UI 초기작업
         
-        // 컷씬대기, 지금은 컷신 비 활성하임.
+        // 컷씬대기, 디버그할 땐 플래그 false 해놓기
         if( CutSceneManager.isCutSceneEnabled )
         {
             StartCoroutine(cutSceneManager.PlayCutScene());
@@ -106,12 +112,14 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
             yield return new WaitUntil( () => inGameCutScene.state != PlayState.Playing);
         }
 
-        initialized =  true;
         // 게임 플레이 시작
         isGamePlaying = true;
         Time.timeScale = 1;
-        StartWave();
+        initialized =  true;
+
         mainUICanvas.enabled = true;
+        yield return null;
+        StartWave();        
     }
 
     void SetStage()

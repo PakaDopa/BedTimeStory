@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameUtil;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class PlayerStats : DestroyableSingleton<PlayerStats>
@@ -28,7 +30,15 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
     [Header("InitValue")]
     public float maxHP = 100;
+    public float currHP {get;private set;}
+    public float maxStamina = 100;
+    public float currStamina {get;private set;}
+    [SerializeField] float sps = 33;    // 초당 stamina 사용량
+    float lastRunTime;
+    [SerializeField] float staminaRegenWaitingTime = 1.5f;  // stamina 충전 대기시간
+    [SerializeField] float staminaRegenPerSeconds = 20f; // 스테미나 초당 충전량.
 
+    bool canRegenStamina => currStamina < maxStamina && Time.time >= lastRunTime + staminaRegenWaitingTime ;
 
 
 
@@ -36,7 +46,7 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
     public AimState aimState {get;set;}
 
 
-    [SerializeField] public float currHP;
+    
     private int currGold = 100000;
     public int CurrGold => currGold;
 
@@ -54,9 +64,61 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
     [HideInInspector] public UnityEvent<int,int,int> onGoldChanged = new();   //p0 : amount , p1: before, p2: after
 
-    [HideInInspector] public UnityEvent<float,float> onHpChanged = new();
+    [HideInInspector] public UnityEvent<float,float, float> onHpChanged = new();    // p0: before, p1 :after, p2 max
+    [HideInInspector] public UnityEvent<float,float, float> onRpChanged = new();    // p0: before, p1 :after, p2 max
 
     //=============================================================================
+
+    public bool CanRun()
+    {
+        if (currStamina >= sps * Time.deltaTime)
+        {
+            return true;
+        }
+
+        //
+        return false;
+    }
+
+    public void SetRun()
+    {
+        playerStatus = Status.Run;
+        lastRunTime = Time.time;
+    }
+
+    IEnumerator StaminaRoutine()
+    {
+        WaitForFixedUpdate wffu = new();
+        yield return new WaitUntil(()=>isAlive);
+        while( GamePlayManager.gameFinished ==false)
+        {
+            // 달리기 상태일때는 스태미나 감소
+            if( playerStatus == Status.Run)
+            {
+                UpdateStamina(-sps * Time.fixedDeltaTime);
+            }
+            // 휴식하면 게이지 참
+            else
+            {
+                //
+                if ( canRegenStamina )
+                {
+                    UpdateStamina(staminaRegenPerSeconds * Time.fixedDeltaTime);
+                }
+            }
+
+            yield return wffu;
+        }
+    }
+
+    void UpdateStamina(float amount)
+    {
+        float oldValue = currStamina;
+        currStamina = Mathf.Clamp( currStamina +=  amount, 0, maxStamina);
+        onRpChanged.Invoke(oldValue, currStamina, maxStamina);
+    }
+
+
 
     public void TakeDamage(float amount)
     {
@@ -64,11 +126,10 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
         {
             return;
         }
-        
-        currHP = Mathf.Clamp(currHP - amount, 0, maxHP);
+        float newValue = Mathf.Clamp(currHP - amount, 0, maxHP);
+        onHpChanged.Invoke(currHP,newValue,maxHP);
+        currHP = newValue;
 
-        onHpChanged.Invoke(currHP,maxHP);
-        
         GameManager.Instance.currGamePlayInfo.totalDamageTaken +=amount; 
         SoundManager.Instance.OnPlayerDamaged(Player.Instance.T.position);
         
@@ -80,11 +141,11 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
     public void Recover(float amount)
     {
-        currHP = Mathf.Clamp(currHP + amount, 0, maxHP);
+        float newValue  = Mathf.Clamp(currHP + amount, 0, maxHP);
+        onHpChanged.Invoke(currHP,newValue,maxHP);
+        currHP = newValue;
         
-        onHpChanged.Invoke(currHP,maxHP);
         GameManager.Instance.currGamePlayInfo.totalHealingDone +=amount; 
-
         EffectPoolManager.Instance.GetHealAmountText(transform.position.WithPlayerHeadHeight(), amount );
     }
 
@@ -152,11 +213,14 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
         playerStatus = Status.Idle;
 
         currHP = maxHP;
+        currStamina = maxStamina;
         currGold = 0;
         // attackPower = 5;        //  UpgradeSystem에 의해 세팅
         // moveSpeed = 3;          //  UpgradeSystem에 의해 세팅
         // reloadSpeed = 3;        //  UpgradeSystem에 의해 세팅
         // skillCooltime = 30;     //  UpgradeSystem에 의해 세팅
+
+        StartCoroutine(StaminaRoutine());
     }
 
     void Die()

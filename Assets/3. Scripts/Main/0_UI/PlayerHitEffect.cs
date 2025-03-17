@@ -19,7 +19,7 @@ public class PlayerHitEffect : MonoBehaviour
         Tower.Instance.onHpChanged.AddListener( OnPlayerGetDamage );
     }
 
-    void OnPlayerGetDamage(float from, float to)
+    void OnPlayerGetDamage(float from, float to, float MaxValue)
     {   
         if ( to>= from )
         {
@@ -31,17 +31,13 @@ public class PlayerHitEffect : MonoBehaviour
             seq_playerHit.Kill();
         }
         
-        img_playerHitEffect.color = new Color(1,1,1,0f);
+        img_playerHitEffect.color =new Color(1,1,1,0f); 
 
         seq_playerHit = DOTween.Sequence()
-        .OnKill(()=>img_playerHitEffect.color = new Color(1,1,1,0f) )
-
+        //
         .Append( img_playerHitEffect.DOFade(1f,0.1f))
         .Append( img_playerHitEffect.DOFade(0f,0.1f))
-
-        .Append( img_playerHitEffect.DOFade(1f,0.1f))
-        .Append( img_playerHitEffect.DOFade(0f,0.1f))
-
+        .SetLoops(2)
         .Play();
     }
 

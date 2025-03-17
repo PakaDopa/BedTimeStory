@@ -15,9 +15,112 @@ MonoBehaviour:
   difficulty: 0
   waves:
   - waveNum: 1
-    waveDuration: 150
+    waveDuration: 200
+    spawnInfos:
+    - enemyType: 3
+      spawnCount: 100
+    - enemyType: 1
+      spawnCount: 100
+    - enemyType: 0
+      spawnCount: 100
+    - enemyType: 2
+      spawnCount: 100
+  - waveNum: 2
+    waveDuration: 60
     spawnInfos:
     - enemyType: 3
       spawnCount: 1
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 100
+  - waveNum: 3
+    waveDuration: 60
+    spawnInfos:
+    - enemyType: 3
+      spawnCount: 1
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 100
+  - waveNum: 4
+    waveDuration: 60
+    spawnInfos:
+    - enemyType: 3
+      spawnCount: 1
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 100
+  - waveNum: 5
+    waveDuration: 60
+    spawnInfos:
+    - enemyType: 3
+      spawnCount: 1
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 100
+  - waveNum: 6
+    waveDuration: 60
+    spawnInfos:
+    - enemyType: 3
+      spawnCount: 1
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 100
+  - waveNum: 7
+    waveDuration: 60
+    spawnInfos:
+    - enemyType: 3
+      spawnCount: 1
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 100
+  - waveNum: 8
+    waveDuration: 60
+    spawnInfos:
+    - enemyType: 3
+      spawnCount: 1
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 100
+  - waveNum: 9
+    waveDuration: 60
+    spawnInfos:
+    - enemyType: 3
+      spawnCount: 1
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 100
+  - waveNum: 10
+    waveDuration: 60
+    spawnInfos:
+    - enemyType: 3
+      spawnCount: 1
+    - enemyType: 1
+      spawnCount: 10
+    - enemyType: 1
+      spawnCount: 10
     - enemyType: 1
       spawnCount: 100

@@ -12,6 +12,12 @@ using UnityEditor.Playables;
 [RequireComponent(typeof(EnemyAI), typeof(Collider), typeof(Rigidbody) )]
 public abstract class Enemy : MonoBehaviour, IPoolObject
 {
+    public abstract IEnumerator CastRoutine(Vector3 targetPos);
+    public abstract void Attack(Vector3 targetPos);
+    public abstract AreaIndicator GetAttackAreaIndicator( Vector3 targetPos);
+    
+    
+    
     [SerializeField] Animator animator;
 
     public Transform t;
@@ -55,12 +61,7 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
     Vector3 currTargetPosOffset;
     // Slider_EnemyHp enemyState;
     //===================================
-    public abstract IEnumerator CastRoutine(Vector3 targetPos);
-    
-    public abstract void Attack(Vector3 targetPos);
 
-
-    public abstract AreaIndicator GetAttackAreaIndicator( Vector3 targetPos);
 
     // Dissolve Effect
     Renderer _renderer;

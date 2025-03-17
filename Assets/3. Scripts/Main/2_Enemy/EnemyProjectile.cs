@@ -9,6 +9,10 @@ using UnityEditor.Rendering;
 
 public abstract class EnemyProjectile : MonoBehaviour,IPoolObject
 {
+    protected abstract void Init_Custom();
+    protected abstract IEnumerator DestroyCondition();
+    
+    
     public bool activated;
     
     protected Enemy enemy;
@@ -65,7 +69,7 @@ public abstract class EnemyProjectile : MonoBehaviour,IPoolObject
         StartCoroutine(DestroyRoutine());
     }
 
-    protected abstract void Init_Custom();
+    
 
     IEnumerator DestroyRoutine()
     {
@@ -74,6 +78,6 @@ public abstract class EnemyProjectile : MonoBehaviour,IPoolObject
         Destroy(gameObject);
     }
 
-    protected abstract IEnumerator DestroyCondition();
+    
     
 }

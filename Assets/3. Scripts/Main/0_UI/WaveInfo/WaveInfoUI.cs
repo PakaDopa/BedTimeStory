@@ -16,16 +16,13 @@ public class WaveInfoUI : MonoBehaviour
     
 
 
-    //
-    void Awake()
-    {
-        GameEventManager.Instance.onGameStart.AddListener(InitUI);
-        GameEventManager.Instance.onWaveStart.AddListener(OnWaveStart);
-    }
-
+    
     IEnumerator Start()
     {
         yield return new WaitUntil(()=>GamePlayManager.Instance.initialized);
+        Stage.Instance.onWaveStart += OnWaveStart; 
+        InitUI();
+        
         StartCoroutine( UpdateRoutine());
     }
 
@@ -37,7 +34,7 @@ public class WaveInfoUI : MonoBehaviour
 
     void OnWaveStart()
     {
-        text_waveNum.SetText($"<sprite name=\"0\">{Stage.Instance.clearedWaveCount + 1:00}/{Stage.Instance.totalWaveCount}");
+        text_waveNum.SetText($"<sprite name=\"0\">{Stage.Instance.clearedWaveCount + 1:00}/{Stage.Instance.totalWaveCount:00}");
 
         toastMessage.OnWaveStart();// 토스트 메시지도 업데이트 
     }

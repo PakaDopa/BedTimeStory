@@ -41,7 +41,7 @@ public class TowerStateToast : MonoBehaviour
 
     //
 
-    void OnUpdateTowerHp(float currValue, float maxValue)
+    void OnUpdateTowerHp(float from, float currValue, float maxValue)
     {
         float ratio = currValue / maxValue * 100f;
 

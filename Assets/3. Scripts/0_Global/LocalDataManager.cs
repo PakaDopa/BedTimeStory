@@ -19,7 +19,7 @@ public static class LocalDataManager
     static readonly string path_rankingData = Path.Combine(path_dataRoot, "0_Ranking.txt");
 
     //==========================
-    // 저장된 캐시를 불러와 T타입의 데이터로 변환한다. - 나중에는 csv파일이나 json으로 옮길예정
+    // 저장된 캐시를 불러와 T타입의 데이터로 변환한다.
     //=========================
     public static T LoadJson<T>(string path)
     {
@@ -32,9 +32,7 @@ public static class LocalDataManager
             if (!string.IsNullOrEmpty(data))
             {
                 ret = JsonUtility.FromJson<T>(data);
-                // Debug.LogWarning($"{path}로부터 데이터 읽음");
                 Debug.LogWarning($" 길이:{data.Length }, 내용:{data}");
-
             }
             else
             {
@@ -45,10 +43,7 @@ public static class LocalDataManager
         {
             Debug.LogError($"JSON 파일 로드 중 오류 발생: {e.Message}\n{e.StackTrace}");
         }
-
         return ret;
-
-
     }
 
     //===========================

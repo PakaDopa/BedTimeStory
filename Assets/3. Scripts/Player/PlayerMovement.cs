@@ -54,12 +54,10 @@ public class PlayerMovement : MonoBehaviour
             isWalking = false;
             PlayerStats.Instance.playerStatus = PlayerStats.Status.Idle;
         }
-        else if(IsRun())
+        else if(IsRun() && PlayerStats.Instance.CanRun())
         {
             isWalking = true;
-            PlayerStats.Instance.playerStatus = PlayerStats.Status.Run;
-
-
+            PlayerStats.Instance.SetRun();
 
             float movementSpeed =  fixedMovementSpeed;
             controller.Move(dir * (movementSpeed * 2f) * Time.deltaTime);

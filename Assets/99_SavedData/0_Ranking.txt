@@ -4,6 +4,18 @@
         {
             "id": "",
             "currDifficulty": 0,
+            "startDate": "2025.03.18_02:38:03",
+            "killCount": 0,
+            "totalGold": 0,
+            "totalDamageTaken": 0.0,
+            "totalHealingDone": 0.0,
+            "cleared": true,
+            "clearDate": "2025.03.18_02:38:23",
+            "towerHp": 995.0
+        },
+        {
+            "id": "",
+            "currDifficulty": 0,
             "startDate": "2025.03.10_02:15:57",
             "killCount": 91,
             "totalGold": 12830,

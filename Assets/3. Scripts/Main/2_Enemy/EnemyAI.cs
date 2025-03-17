@@ -44,9 +44,12 @@ public class EnemyAI : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 인공지능 업데이트 : 성공시 true
+    /// </summary>
     public bool OnUpdate()
     {        
-        //
+        // 
         if( canReact ==false || enemy.isCasting )
         {
             return false;

@@ -29,7 +29,7 @@ public class Slider_TowerHp : MonoBehaviour
         text_hpRatio = GetComponentInChildren<TextMeshProUGUI>();
         float currValue = Tower.Instance.hp;
         float maxValue = Tower.Instance.maxHp;
-        OnUpdateTowerHp(currValue,maxValue);
+        OnUpdateTowerHp(0,currValue,maxValue);
 
         if(img_sliderHandles.Count != 4)
         {
@@ -58,7 +58,7 @@ public class Slider_TowerHp : MonoBehaviour
     }
 
 
-    void OnUpdateTowerHp(float currValue, float maxValue)
+    void OnUpdateTowerHp(float from, float currValue, float maxValue)
     {
         slider_hp.maxValue = maxValue;
         slider_hp.value = currValue;

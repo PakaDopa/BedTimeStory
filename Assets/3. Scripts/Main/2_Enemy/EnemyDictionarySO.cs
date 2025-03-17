@@ -19,7 +19,7 @@ public class EnemyDictionarySO : ScriptableObject
     [SerializeField] SerializableDictionary<EnemyType, GameObject> shapes_hard;
 
 
-    [Space(100)]
+    [Space(30)]
     [Header("Enemy Data")]
     [SerializeField] SerializableDictionary<EnemyType, EnemyDataSO> data_easy;
     [SerializeField] SerializableDictionary<EnemyType, EnemyDataSO> data_normal;

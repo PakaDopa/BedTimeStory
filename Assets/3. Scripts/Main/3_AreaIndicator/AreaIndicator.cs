@@ -5,9 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class AreaIndicator : MonoBehaviour
+public abstract class AreaIndicator : MonoBehaviour, IPoolObject
 {
-    
+    protected abstract void GenerateSectorMesh(Mesh targetMesh, float progress);      // 매쉬 모양 생성 등. 
+    protected abstract void DrawOutline();
+
     
     [Header("Default Setting")]   
     Enemy enemy;
@@ -182,6 +184,18 @@ public abstract class AreaIndicator : MonoBehaviour
     }
 
 
-    protected abstract void GenerateSectorMesh(Mesh targetMesh, float progress);      // 매쉬 모양 생성 등. 
-    protected abstract void DrawOutline();
+
+
+
+
+
+    public void OnCreatedInPool()
+    {
+        
+    }
+
+    public void OnGettingFromPool()
+    {
+        
+    }
 }

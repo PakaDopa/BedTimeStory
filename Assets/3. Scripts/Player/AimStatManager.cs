@@ -121,34 +121,15 @@ public class AimStatManager : MonoBehaviour
         TransformEventArgs tArgs = args as TransformEventArgs;
         float recoil_camera = (float)tArgs.value[0];
         
-        
-        float recoil_Y= 0.2f;
-        float recoil_X= Random.Range(-0.2f,0.2f);
-        float recoil_Z = -0.2f;
-        
-        Vector3 originPos = camFollowPos.position;
-        Vector3 targetPos =  originPos + new Vector3( recoil_X,recoil_Y,recoil_Z);
-
         if(seq_shoot !=null && seq_shoot.IsActive())
         {
             seq_shoot.Kill();
         }
-        // Sequence seq = DOTween.Sequence()
-        // .Append( camFollowPos.DOMove( targetPos,0.1f))
-        // .Append( camFollowPos.DOMove( originPos,0.1f))
-        // .Play();
-
-        // float recoil_camera = 0.5f;
-        
         float targetFOV = originFOV + recoil_camera ;
-
-        // vCam.m_Lens.FieldOfView = targetFOV;
 
         Sequence seq = DOTween.Sequence()
         .Append(DOTween.To(() => vCam.m_Lens.FieldOfView, x =>vCam.m_Lens.FieldOfView= x, targetFOV, 0.05f))
-        // .Join( camFollowPos.DOMove( targetPos,0.1f))
         .Append(DOTween.To(() => vCam.m_Lens.FieldOfView, x =>vCam.m_Lens.FieldOfView= x, originFOV, 0.05f))
-        // .Join( camFollowPos.DOMove( originPos,0.1f))
         .Play();
 
         seq_shoot = seq;
