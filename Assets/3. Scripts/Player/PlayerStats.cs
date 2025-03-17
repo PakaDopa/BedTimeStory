@@ -89,9 +89,17 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
     IEnumerator StaminaRoutine()
     {
         WaitForFixedUpdate wffu = new();
+        WaitUntil wu = new(()=>GamePlayManager.isGamePlaying);
+
         yield return new WaitUntil(()=>isAlive);
         while( GamePlayManager.gameFinished ==false)
         {
+            //
+            if(GamePlayManager.isGamePlaying ==false)
+            {
+                yield return wu;
+            }
+            
             // 달리기 상태일때는 스태미나 감소
             if( playerStatus == Status.Run)
             {

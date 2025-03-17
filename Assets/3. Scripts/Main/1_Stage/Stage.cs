@@ -140,6 +140,7 @@ public class Stage : DestroyableSingleton<Stage>
         while( wavePlayTime < waveDuration )
         {
             Vector3 spawnPos =  GetRandomSpawnPoint();
+            // Vector3 spawnPos = Vector3.zero;
             EnemyPoolManager.Instance.GetEnemy(enemyType, spawnPos, clearedWaveCount ); 
             yield return wfs;
         }

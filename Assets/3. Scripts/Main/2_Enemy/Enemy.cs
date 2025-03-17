@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using System;
 
@@ -66,12 +65,11 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
     // Dissolve Effect
     Renderer _renderer;
     [SerializeField] private float fadeTime = 1.9f;
+    MaterialPropertyBlock propertyBlock;
+    const float dissolveInitValue = 1f;
+    const float dissolveEndValue = 0;
 
     //========================================================================================
-    void Start()
-    {
-        _renderer = GetComponentInChildren<Renderer>();
-    }
 
     void Update()
     {
@@ -112,6 +110,10 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         _rb = GetComponent<Rigidbody>();
         animator= GetComponentInChildren<Animator>();
 
+        _renderer = GetComponentInChildren<Renderer>();
+
+        propertyBlock = new MaterialPropertyBlock();
+        _renderer.GetPropertyBlock(propertyBlock);
 
         attackAnimationEvent = GetComponentInChildren<EnemyAnimationEvent_Attack>();
     }
@@ -121,8 +123,8 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         // animator.applyRootMotion = false; 
         // animator.transform.localPosition = Vector3.zero;
         // animator.transform.rotation = Quaternion.identity;
-
-
+        propertyBlock.SetFloat("_Split_Value", dissolveInitValue );
+        _renderer.SetPropertyBlock(propertyBlock);
 
         isCasting = false;
         canRotate = true;
@@ -215,14 +217,24 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
     //     SetStopped(duration);   // 
     // }
 
-    void SetDissolveValue(float value)
+    Tweener PlayDissolveEffect()
     {
-        _renderer.material.SetFloat("_Split_Value", value);
-    }
-
-    void PlayDissolveEffect()
-    {
-        DOVirtual.Float(1.0f, 0.0f, fadeTime, SetDissolveValue).Play();
+        //
+        Tweener tweener = DOTween.To(
+            () => dissolveInitValue ,
+            value => 
+            {
+                propertyBlock.SetFloat("_Split_Value", value);
+                _renderer.SetPropertyBlock(propertyBlock);
+            },
+            dissolveEndValue ,        
+            fadeTime  
+        ).Play();
+        
+    
+        // _renderer.material.SetFloat("_Split_Value", value);
+        // Tweener tweener = DOVirtual.Float(1.0f, 0.0f, fadeTime, SetDissolveValue).Play();  
+        return tweener;
     }
 
     void Die()
@@ -242,9 +254,7 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
     IEnumerator DestroyRoutine()
     {
         yield return new WaitForSeconds(3f);
-        PlayDissolveEffect();
-
-        yield return new WaitForSeconds(2f);
+        yield return PlayDissolveEffect().WaitForCompletion();
 
         EnemyPoolManager.Instance.ReturnEnemy(this);
     }
