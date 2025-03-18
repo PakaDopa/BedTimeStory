@@ -173,7 +173,6 @@ public class OptionPanel : MonoBehaviour
 
     public void Retry()
     {
-        // SceneLoadManager.Instance.Load_MainScene();
-        throw new(" 난이도 정보도 포함시켜야함.");
+        GameManager.Instance.ReTryThisGame();
     }
 }

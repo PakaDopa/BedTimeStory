@@ -9,6 +9,13 @@ using UnityEngine.Playables;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
+public enum GamePlayState
+{
+    WaitForInitialized,
+    IsPlaying,
+    IsFinished
+}
+
 public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 {
     [Header("Stage Setting")]
@@ -41,8 +48,8 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     //=====================
 
-    public static bool isGamePlaying;
-    public static bool gameFinished;
+    public static bool isGamePlaying;   //
+    public static bool gameActiavated;  // 게임 활성화 
     public bool initialized;
 
 
@@ -57,7 +64,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         
         skipCutScene = GetComponent<SkipCutScene>();
         // testWaveStartBtn.onClick.AddListener(  StartWave );
-        gameFinished = false;
+        gameActiavated = false;
         // bgm.Raise();
         // StartGame();
         if(GameManager.Instance.currGamePlayInfo == null)
@@ -71,11 +78,12 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     void Update()
     {
+#if UNITY_EDITOR
         if( Input.GetKeyDown( KeyCode.Alpha0))
         {
             Stage.Instance.FinishWave();
         }
-
+#endif
     }
 
 
@@ -88,6 +96,9 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     IEnumerator GameStartRoutine()
     {
+        
+        GameManager.Instance.PauseGamePlay(false);
+
         isGamePlaying = false;
         
         //
@@ -113,6 +124,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         }
 
         // 게임 플레이 시작
+        gameActiavated = true;
         isGamePlaying = true;
         Time.timeScale = 1;
         initialized =  true;
@@ -150,7 +162,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
     public void GameOver()
     {
-        if( gameFinished )
+        if( gameActiavated ==false)
         {
             return;
         }
@@ -160,16 +172,17 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         SoundManager.Instance.Play(gameOver,transform.position);
 
 
-        isGamePlaying = false;
+        
         GameManager.Instance.LockCursor(false);
         gameOverPanel.Open();
 
-        gameFinished = true;
+        isGamePlaying = false;
+        gameActiavated = false;
     }
 
     public void Victory()
     {
-        if( gameFinished )
+        if( gameActiavated == false)
         {
             return;
         }
@@ -181,12 +194,12 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         //
         Debug.Log("승리!");
         
-        isGamePlaying = false;
+        
         GameManager.Instance.LockCursor(false);
         victoryPanel.Open();
 
-
-        gameFinished = true;
+        isGamePlaying = false;
+        gameActiavated = false;
     }
 
     public void EnablePanel(bool enable)

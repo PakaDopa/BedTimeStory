@@ -36,6 +36,11 @@ public class UIManager : DestroyableSingleton<UIManager>
 
     private void Update()
     {
+        if( GamePlayManager.gameActiavated == false)
+        {
+            return;
+        }
+        
         //패널 키 조작
         switch(panelState)
         {

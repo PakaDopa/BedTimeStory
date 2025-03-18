@@ -89,10 +89,10 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
     IEnumerator StaminaRoutine()
     {
         WaitForFixedUpdate wffu = new();
-        WaitUntil wu = new(()=>GamePlayManager.isGamePlaying);
+        WaitUntil wu = new(()=>GamePlayManager.isGamePlaying );
 
-        yield return new WaitUntil(()=>isAlive);
-        while( GamePlayManager.gameFinished ==false)
+        yield return new WaitUntil(()=>isAlive && GamePlayManager.gameActiavated );
+        while( GamePlayManager.gameActiavated == true)
         {
             //
             if(GamePlayManager.isGamePlaying ==false)

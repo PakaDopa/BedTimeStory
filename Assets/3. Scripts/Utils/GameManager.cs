@@ -158,7 +158,12 @@ public class GameManager : Singleton<GameManager>
         currGamePlayInfo = new(targetDifficulty);
         SceneLoadManager.Instance.Load_MainScene();
     }
-
+    
+    public void ReTryThisGame()
+    {
+        Difficulty difficulty = currGamePlayInfo.currDifficulty;
+        StartNewGame(difficulty);
+    }
 
 
     /// <summary>

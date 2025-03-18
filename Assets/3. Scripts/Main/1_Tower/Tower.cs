@@ -34,7 +34,7 @@ public class Tower : DestroyableSingleton<Tower>
 
     public void GetDamaged(float dmg)
     {
-        if( GamePlayManager.isGamePlaying==false)
+        if( GamePlayManager.gameActiavated==false)
         {
             return;
         }

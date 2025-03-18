@@ -14,7 +14,6 @@ public class DropItemManager : DestroyableSingleton<DropItemManager>
     public DropItem GetItem_Pouch(Vector3 pos)
     {
         pos = new Vector3 (pos.x, yHeight, pos.z);
-        
         return Instantiate( prefab_pouch, pos ,Quaternion.identity).GetComponent<DropItem>();
     }
 
