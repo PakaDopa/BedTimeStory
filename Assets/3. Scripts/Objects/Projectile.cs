@@ -7,12 +7,25 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    
+    protected Transform t;
+    protected Rigidbody rb;
+
+    [SerializeField] protected float lifeTime = 2;
+
+
     [SerializeField] SoundEventSO[] soundSO;
     [SerializeField] GameObject prefab_shoot;
     public GameObject hitPrefab;
     public List<GameObject> trails;
     [SerializeField] SoundEventSO explosionSfx;
+
+    void Awake()
+    {
+        t = transform;
+        rb = GetComponent<Rigidbody>();
+    }
+
+
 
     private void Start()
     {
@@ -26,7 +39,7 @@ public class Projectile : MonoBehaviour
 
     IEnumerator DestroyCoroutine()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(lifeTime);
 
         Explode(transform.position);
     }

@@ -19746,7 +19746,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -19784,6 +19784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd930a5fd8f14742ab5e3bbd3ccf10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTime: 2
   soundSO: []
   prefab_shoot: {fileID: 6394855951143000011, guid: 5a67e9f7ac8f279438b6529b6203941c, type: 3}
   hitPrefab: {fileID: 6394855951143000011, guid: 2db29b3b6b1a8b6468716e5eb23adb30, type: 3}
@@ -19791,6 +19792,8 @@ MonoBehaviour:
   - {fileID: 3767454946084226347}
   explosionSfx: {fileID: 11400000, guid: 3dbb264ddb57c1743916aa3cfb1418f5, type: 2}
   explosionRadius: 6
+  rocketProjectileSpeed: 25
+  heightOffset: 1
 --- !u!1 &7588169066983344439
 GameObject:
   m_ObjectHideFlags: 0

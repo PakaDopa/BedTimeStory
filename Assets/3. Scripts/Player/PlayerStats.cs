@@ -52,10 +52,10 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
     public bool isAlive => currHP>0;
 
-    private float attackPower = 5;
-    private float moveSpeed = 3;
-    private float reloadSpeed = 3;
-    private float skillCooltime = 30;
+    [SerializeField] private float attackPower = 5;
+    [SerializeField]private float moveSpeed = 3;
+    [SerializeField] private float reloadSpeed = 3;
+    [SerializeField] private float skillCooltime = 30;
 
     public float AttackPower => attackPower;
     public float MoveSpeed => moveSpeed;

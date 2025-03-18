@@ -29,7 +29,7 @@ public class UpgradeMenuItem : MonoBehaviour
     [SerializeField] UpgradeSystem upgradeSystem;
 
     private int type;
-    private int value;
+    private float value;
 
     private bool isLocked = false;
     public bool IsLocked=>isLocked;
@@ -78,28 +78,28 @@ public class UpgradeMenuItem : MonoBehaviour
                 break;
         }
     }
-    void SetValueTxt(int value)
+    void SetValueTxt(float value)
     {
         if(type == 0)
         {
-            txt_value.SetText(value.ToString());
+            txt_value.SetText($"{value}");
         }
         if (type == 1)
         {
-            txt_value.SetText(value.ToString());
+            txt_value.SetText($"{value}");
         }
         if (type == 2)
         {
-            txt_value.SetText(value.ToString() + " sec");
+            txt_value.SetText($"{value}sec");
         }
         if (type == 3)
         {
-            txt_value.SetText(value.ToString() + "sec");
+            txt_value.SetText($"{value}sec");
         }
 
     }
 
-    public void Construct(int type, int grade, int value)
+    public void Construct(int type, int grade, float value)
     {
         seq.Restart();
         

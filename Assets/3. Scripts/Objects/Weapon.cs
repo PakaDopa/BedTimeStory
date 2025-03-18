@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour
     bool isReloading = false;
 
     float projectileSpeed = 100f;
-    float rocketProjectileSpeed = 25f;
+    
 
     float currSkillCooltime = 0f;
     public float CurrSkillCooltime => currSkillCooltime;
@@ -111,9 +111,8 @@ public class Weapon : MonoBehaviour
     {
         Vector3 roketPrjDir = CalcDir();
 
-           GameObject rocketProj = Instantiate(rocketProjectilePrefab, muzzle.position, Quaternion.Euler(roketPrjDir));
-
-           rocketProj.GetComponent<Rigidbody>().AddForce(roketPrjDir * rocketProjectileSpeed, ForceMode.Impulse);
+        var rocketProj = Instantiate(rocketProjectilePrefab).GetComponent<RocketProjectile>();
+        rocketProj.Init( muzzle.position, roketPrjDir); 
 
         currSkillCooltime = PlayerStats.Instance.SkillCooltime;
 

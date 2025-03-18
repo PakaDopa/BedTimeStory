@@ -89,7 +89,7 @@ public class UpgradeSystem : MonoBehaviour
             var row = dataset[index];
 
             int grade = Convert.ToInt32(row["Grade"]);
-            int value = Convert.ToInt32(row["Value"]);
+            float value =  (float)Convert.ToDouble(row["Value"]);
 
             upgradeMenuItem.Construct(i, grade, value);
             upgradeMenuItem.EnableVfx(false);
@@ -153,7 +153,7 @@ else  // F (10% 추가, 총 100%)
 
             var row = dataset[typeOffset + gradeOffset];
             int grade = Convert.ToInt32(row["Grade"]);
-            int value = Convert.ToInt32(row["Value"]);
+            float value =  (float)Convert.ToDouble(row["Value"]);
 
             upgradeMenuItem.Construct(i, grade, value);
             upgradeMenuItem.EnableVfx(false);

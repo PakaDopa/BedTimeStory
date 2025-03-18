@@ -46,7 +46,7 @@ public class EP_00_Melee : EnemyProjectile
                 Tower tower = hit.GetComponent<Tower>();
                 if (tower !=null)
                 {
-                    Debug.Log( dmg);
+                    // Debug.Log( dmg);
                     tower.GetDamaged(dmg);
                 }
             }
