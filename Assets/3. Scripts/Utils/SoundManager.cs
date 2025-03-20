@@ -30,7 +30,7 @@ public class SoundManager : MonoBehaviour
         if (instance == null ) 
         {
             instance = this;
-            Init();
+            
         } 
         else 
         {
@@ -60,7 +60,7 @@ public class SoundManager : MonoBehaviour
     [Header("볼륨 세팅")]
     [SerializeField]  AudioMixer mixer;
 
-    float minMixerValue = -40;
+    float minMixerValue = -25;
     float maxMixerValue = 0;
     float diff_mixerValue => maxMixerValue - minMixerValue;
 
@@ -72,19 +72,34 @@ public class SoundManager : MonoBehaviour
     [Range(-80,0)] public float bgm = 0;
     [Range(-80,0)] public float sfx = 0;
     
-    bool isMute_bgm;
-    bool isMute_sfx;
+    [SerializeField] bool isMute_bgm;
+    [SerializeField] bool isMute_sfx;
 
     //====================================
+
+    void Start()
+    {
+        Init();     // audiomixer가 awake에서는 초기화가 안됨.
+    }
     void InitSoundSetting()
     {
-        master = ChangeToMixerValue(LocalDataManager.GetMaster());        
-        bgm = ChangeToMixerValue(LocalDataManager.GetBgm());    
-        sfx = ChangeToMixerValue(LocalDataManager.GetSfx());    
+        float localMaster = LocalDataManager.GetMaster();
+        float localBgm = LocalDataManager.GetBgm();
+        float localSfx = LocalDataManager.GetSfx();
+        // Debug.Log($" {localMaster} / {localBgm} / {localSfx}");
+         
+        
+        master = ChangeToMixerValue(localMaster);        
+        bgm = ChangeToMixerValue(localBgm);    
+        sfx = ChangeToMixerValue(localSfx);    
 
-        mixer?.SetFloat(nameof(master), master);
-        mixer?.SetFloat(nameof(bgm), bgm);
-        mixer?.SetFloat(nameof(sfx), sfx);
+        // Debug.Log($" {master} / {bgm} / {sfx}");
+
+        mixer.SetFloat(nameof(master), master);
+        mixer.SetFloat(nameof(bgm), bgm);
+        mixer.SetFloat(nameof(sfx), sfx);
+
+        // Debug.Log(mixer);
         
     
         // mixer?.GetFloat(nameof(master), out master);
@@ -97,17 +112,17 @@ public class SoundManager : MonoBehaviour
     {
         float mixerValue = ChangeToMixerValue(settingValue);
 
-        CheckMute();
         
         master = mixerValue;
         mixer?.SetFloat(nameof(master), master);
 
         LocalDataManager.SetMaster(settingValue);
+        CheckMute();
     }
 
     public void SetBGM(float settingValue)
     {
-        CheckMute();
+        
         
         float mixerValue = ChangeToMixerValue(settingValue);
 
@@ -115,12 +130,11 @@ public class SoundManager : MonoBehaviour
         mixer?.SetFloat(nameof(bgm), bgm);
 
         LocalDataManager.SetBgm(settingValue);
+        CheckMute();
     }
 
     public void SetSFX(float settingValue)
     {
-        CheckMute();
-        
         float mixerValue = ChangeToMixerValue(settingValue);
 
         sfx = mixerValue;
@@ -128,6 +142,7 @@ public class SoundManager : MonoBehaviour
 
 
         LocalDataManager.SetSfx(settingValue);
+        CheckMute();
     }
 
     public float GetSettingValue_Master()
@@ -168,9 +183,6 @@ public class SoundManager : MonoBehaviour
         isMute_bgm  = master == minMixerValue || bgm == minMixerValue;
         isMute_sfx  = master == minMixerValue || sfx == minMixerValue;
     }
-
-
-
 
 
     #endregion
@@ -290,6 +302,11 @@ public class SoundManager : MonoBehaviour
 
     public void Play( SoundEventSO soundData, Vector3 initPos)
     {
+        if( isMute_sfx || soundData == null)
+        {
+            return;
+        }
+        
         var sfx = Get();
         sfx?.Play(soundData, initPos);
     }

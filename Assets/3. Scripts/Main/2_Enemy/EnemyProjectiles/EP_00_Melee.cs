@@ -20,7 +20,7 @@ public class EP_00_Melee : EnemyProjectile
     void Attack()
     {
         Collider[] hits = Physics.OverlapSphere(myTransform.position.WithFloorHeight(), enemy.enemyData.attackRange, GameConstants.playerLayer | GameConstants.towerLayer);
-        Debug.Log(hits.Length);
+        // Debug.Log(hits.Length);
         // 충돌된 오브젝트들에 대해 반복 실행
         for(int i=0;i<hits.Length;i++)
         {

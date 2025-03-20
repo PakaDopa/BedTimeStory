@@ -1,5 +1,40 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3300214985180916260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407762391030800920}
+  m_Layer: 0
+  m_Name: CamParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &407762391030800920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300214985180916260}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.64, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 55119865357703234}
+  - {fileID: 2459639361408896121}
+  - {fileID: 7494280744656857756}
+  - {fileID: 2696315026926384256}
+  m_Father: {fileID: 4807865899677616379}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3627716496065519651
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,11 +60,11 @@ Transform:
   m_GameObject: {fileID: 3627716496065519651}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -9.313226e-10, w: 1}
-  m_LocalPosition: {x: 0, y: 3.6399999, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4807865899677616379}
+  m_Father: {fileID: 407762391030800920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6110485870860950204
 GameObject:
@@ -56,11 +91,11 @@ Transform:
   m_GameObject: {fileID: 6110485870860950204}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -9.313226e-10, w: 1}
-  m_LocalPosition: {x: 1.92, y: 3.64, z: -7.04}
+  m_LocalPosition: {x: 1.9199944, y: 0, z: -7.0400047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4807865899677616379}
+  m_Father: {fileID: 407762391030800920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7994667585522512473
 GameObject:
@@ -87,11 +122,11 @@ Transform:
   m_GameObject: {fileID: 7994667585522512473}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.9, y: 3.64, z: 2.9}
+  m_LocalPosition: {x: 2.9000092, y: 0, z: 2.9000092}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4807865899677616379}
+  m_Father: {fileID: 407762391030800920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8589600924498213474
 GameObject:
@@ -118,11 +153,11 @@ Transform:
   m_GameObject: {fileID: 8589600924498213474}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -9.313226e-10, w: 1}
-  m_LocalPosition: {x: 0, y: 3.6399999, z: -15}
+  m_LocalPosition: {x: 0, y: 0, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4807865899677616379}
+  m_Father: {fileID: 407762391030800920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &573682770366220317
 PrefabInstance:
@@ -1171,16 +1206,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ed9155e49b9b2f48b17cfc0cc029a03, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 55119865357703234}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ed9155e49b9b2f48b17cfc0cc029a03, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2459639361408896121}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ed9155e49b9b2f48b17cfc0cc029a03, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7494280744656857756}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ed9155e49b9b2f48b17cfc0cc029a03, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2696315026926384256}
+      addedObject: {fileID: 407762391030800920}
     - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: 7ed9155e49b9b2f48b17cfc0cc029a03, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8157444193126716870}
@@ -1263,6 +1289,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1d1032ae2c8e0424ab35a67a33b77f9e, type: 2}
   - {fileID: 11400000, guid: 7c3eeca3076677b4daad4e9a5df757d6, type: 2}
   dashSoundSO: {fileID: 11400000, guid: 729ba3bd7f61b2d4fb75a19e97aef6e2, type: 2}
+  RotationSmoothTime: 0.12
+  t_model: {fileID: 407762391030800920}
 --- !u!114 &8477205786826750492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1450,6 +1478,10 @@ MonoBehaviour:
   sps: 33
   staminaRegenWaitingTime: 1.5
   staminaRegenPerSeconds: 20
+  attackPower: 5
+  moveSpeed: 3
+  reloadSpeed: 3
+  skillCooltime: 30
   onGoldChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -183,7 +183,6 @@ MonoBehaviour:
   canRotate: 0
   isCasting: 0
   angleWithTarget: 0
-  dissolveMat: {fileID: 2100000, guid: 32d875c6b089b604e9f4c15162548514, type: 2}
   fadeTime: 1.9
   attackAnimationEvent: {fileID: 6358164774737395222}
 --- !u!1001 &2654113696850602172
@@ -286,3 +285,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityActivationTime: 0
   animationFinished: 0
+  AttackEffect: {fileID: 0}

@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // [SerializeField] public float moveSpeed = 3f;
-    [HideInInspector] public Vector3 dir;
+    // [HideInInspector] public Vector3 dir;
     float hInput, vInput;
     CharacterController controller;
 
@@ -24,13 +24,6 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine walkSoundCoroutine;
     private int soundIndex = 0;
     private bool isWalking = false;
-
-
-    const float defaultMovementSpeed = 2f;
-    float aimWeight => PlayerStats.Instance.aimState == PlayerStats.AimState.Aim ? 0.5f : 1f;
-    float dashWeight => PlayerStats.Instance.playerStatus == PlayerStats.Status.Walk? 1f: 2f;
-    float fixedMovementSpeed => PlayerStats.Instance.MoveSpeed * aimWeight * dashWeight;
-    public float behaivourSpeedMultiplier => defaultMovementSpeed / fixedMovementSpeed ;
     
     // Start is called before the first frame update
     void Start()
@@ -43,33 +36,33 @@ public class PlayerMovement : MonoBehaviour
     }
     private void GetDirectionAndMove()
     {
-        hInput = Input.GetAxis("Horizontal");
-        vInput = Input.GetAxis("Vertical");
+        // hInput = Input.GetAxis("Horizontal");
+        // vInput = Input.GetAxis("Vertical");
         
-        dir = transform.forward * vInput + transform.right * hInput;
+        // dir = transform.forward * vInput + transform.right * hInput;
         
 
-        if(hInput == 0 && vInput == 0)
-        {
-            isWalking = false;
-            PlayerStats.Instance.playerStatus = PlayerStats.Status.Idle;
-        }
-        else if(IsRun() && PlayerStats.Instance.CanRun())
-        {
-            isWalking = true;
-            PlayerStats.Instance.SetRun();
+        // if(hInput == 0 && vInput == 0)
+        // {
+            // isWalking = false;
+            // PlayerStats.Instance.playerStatus = `PlayerStats.Status.Idle;
+        // }
+        // else if(IsRun() && PlayerStats.Instance.CanRun())
+        // {
+            // isWalking = true;
+            // PlayerStats.Instance.SetRun();
 
-            float movementSpeed =  fixedMovementSpeed;
-            controller.Move(dir * (movementSpeed * 2f) * Time.deltaTime);
-        }
-        else
-        {                                                                                                                                                                         
-            isWalking = true;
-            PlayerStats.Instance.playerStatus = PlayerStats.Status.Walk;
+            // float movementSpeed =  fixedMovementSpeed;
+            // controller.Move(dir * (movementSpeed * 2f) * Time.deltaTime);
+        // }
+        // else
+        // {                                                                                                                                                                         
+            // isWalking = true;
+            // PlayerStats.Instance.playerStatus = PlayerStats.Status.Walk;
 
-            float movementSpeed =  fixedMovementSpeed;
-            controller.Move(dir * movementSpeed* Time.deltaTime);
-        }
+            // float movementSpeed =  fixedMovementSpeed;
+            // controller.Move(dir * movementSpeed* Time.deltaTime);
+        // }
     }
     // Update is called once per frame
     void Update()
@@ -81,11 +74,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         
 
-        //첫대쉬 판정
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            SoundManager.Instance.Play(dashSoundSO,Player.Instance.T.position);
-        }
+
             
         GetDirectionAndMove();
         
@@ -116,17 +105,17 @@ public class PlayerMovement : MonoBehaviour
             soundIndex = 0;
     
         float defaultDelay = 0.5f;
-        float targetDelay = defaultDelay * behaivourSpeedMultiplier;                  // 딜레이 감소 
+        // float targetDelay = defaultDelay * behaivourSpeedMultiplier;                  // 딜레이 감소 
 
-        if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Walk)
-        {
-            yield return new WaitForSeconds(targetDelay );
-        }
-        else if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
-        {
-            yield return new WaitForSeconds(targetDelay  * 0.5f);
-        }
-        else
+        // if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Walk)
+        // {
+            // yield return new WaitForSeconds(targetDelay );
+        // }
+        // else if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
+        // {
+            // yield return new WaitForSeconds(targetDelay  * 0.5f);
+        // }
+        // else
             yield return null;
 
         StartCoroutine(PlayerWalkSound());

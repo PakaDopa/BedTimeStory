@@ -15,10 +15,6 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
         Idle,       //��������
         Walk,       //�ȴ»���
         Run,        //�޸��� ���� (�ȴ»��� -> �޸��� ���� �Ļ�)
-        Aim,        //���ӻ��� (���ӻ���->���� ���� �Ļ�)
-        Attack,     //���ݻ���
-        Hitted,     //�ǰݻ���
-        Dead,       //��� -> ���ӳ�
     }
 
     public enum AimState
@@ -40,7 +36,7 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
     bool canRegenStamina => currStamina < maxStamina && Time.time >= lastRunTime + staminaRegenWaitingTime ;
 
-
+    public float dashMultiplier = 2f;       // 대시시 이동속도 배수
 
     public Status playerStatus { get; set; }
     public AimState aimState {get;set;}
@@ -53,12 +49,21 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
     public bool isAlive => currHP>0;
 
     [SerializeField] private float attackPower = 5;
-    [SerializeField]private float moveSpeed = 3;
+    [SerializeField] private float moveSpeed = 3;
     [SerializeField] private float reloadSpeed = 3;
     [SerializeField] private float skillCooltime = 30;
 
+    float attackPower_init ;
+    float moveSpeed_init ;
+    float reloadSpeed_init;
+    float skillCooltime_init;
+
+    public float currMoveSpeedRatio;
+
+
+
     public float AttackPower => attackPower;
-    public float MoveSpeed => moveSpeed;
+    // public float MoveSpeed => moveSpeed;
     public float ReloadSpeed => reloadSpeed;
     public float SkillCooltime => skillCooltime;
 
@@ -68,6 +73,51 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
     [HideInInspector] public UnityEvent<float,float, float> onRpChanged = new();    // p0: before, p1 :after, p2 max
 
     //=============================================================================
+    public void OnUpdate(PlayerLegState legState)
+    {
+        // 달리기 상태일때는 스태미나 감소
+        if (legState == PlayerLegState.Run)
+        {
+            lastRunTime = Time.time;
+
+            UpdateStamina(-sps * Time.deltaTime);
+        }
+        else
+        {
+            //
+            if ( canRegenStamina )
+            {
+                UpdateStamina(staminaRegenPerSeconds * Time.deltaTime);
+            }
+        }
+    }
+
+
+    public float GetMovementSpeed(PlayerLegState legState, PlayerBodyState bodyState)
+    {
+        float multiplier = 1f;
+        if( bodyState == PlayerBodyState.Aim)
+        {
+            multiplier = 0.5f;
+        }
+        
+        
+        if (legState == PlayerLegState.Walk)
+        {
+            float v = moveSpeed * multiplier;
+            currMoveSpeedRatio = v /moveSpeed_init;
+            return v;
+        }
+        else if (legState == PlayerLegState.Run)
+        {
+            float v = moveSpeed * dashMultiplier * multiplier;
+            currMoveSpeedRatio = v / moveSpeed_init;
+            return v;
+        }
+
+        currMoveSpeedRatio = 1;
+        return 0;
+    }
 
     public bool CanRun()
     {
@@ -78,45 +128,6 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
         //
         return false;
-    }
-
-    public void SetRun()
-    {
-        playerStatus = Status.Run;
-        lastRunTime = Time.time;
-    }
-
-    IEnumerator StaminaRoutine()
-    {
-        WaitForFixedUpdate wffu = new();
-        WaitUntil wu = new(()=>GamePlayManager.isGamePlaying );
-
-        yield return new WaitUntil(()=>isAlive && GamePlayManager.gameActiavated );
-        while( GamePlayManager.gameActiavated == true)
-        {
-            //
-            if(GamePlayManager.isGamePlaying ==false)
-            {
-                yield return wu;
-            }
-            
-            // 달리기 상태일때는 스태미나 감소
-            if( playerStatus == Status.Run)
-            {
-                UpdateStamina(-sps * Time.fixedDeltaTime);
-            }
-            // 휴식하면 게이지 참
-            else
-            {
-                //
-                if ( canRegenStamina )
-                {
-                    UpdateStamina(staminaRegenPerSeconds * Time.fixedDeltaTime);
-                }
-            }
-
-            yield return wffu;
-        }
     }
 
     void UpdateStamina(float amount)
@@ -194,22 +205,38 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
         //Debug.Log("Currgold : " + currGold);
     }
 
-    public void SetAttackPower(float value)
+    public void SetAttackPower(float value,bool isInitSetting)
     {
         attackPower = value;
+        if(isInitSetting)
+        {
+            attackPower_init = value;
+        }
     }
 
-    public void SetMoveSpeed(float value)
+    public void SetMoveSpeed(float value,bool isInitSetting)
     {
         moveSpeed = value;
+        if(isInitSetting)
+        {
+            moveSpeed_init = value;
+        }
     }
-    public void SetReloadSpeed(float value)
+    public void SetReloadSpeed(float value,bool isInitSetting)
     {
         reloadSpeed = value;
+        if(isInitSetting)
+        {
+            reloadSpeed_init = value;
+        }
     }
-    public void SetSkillCooltime(float value)
+    public void SetSkillCooltime(float value,bool isInitSetting)
     {
         skillCooltime = value;
+        if(isInitSetting)
+        {
+            skillCooltime_init = value;
+        }
     }
 
     public void Init()
@@ -218,7 +245,7 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
     }
     void ResetInfo()
     {
-        playerStatus = Status.Idle;
+        // playerStatus = Status.Idle;
 
         currHP = maxHP;
         currStamina = maxStamina;
@@ -228,7 +255,7 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
         // reloadSpeed = 3;        //  UpgradeSystem에 의해 세팅
         // skillCooltime = 30;     //  UpgradeSystem에 의해 세팅
 
-        StartCoroutine(StaminaRoutine());
+        // StartCoroutine(StaminaRoutine());
     }
 
     void Die()

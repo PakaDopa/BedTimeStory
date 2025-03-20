@@ -7,6 +7,8 @@ public class SfxObject : MonoBehaviour, IPoolObject
 {
     Transform myTransform;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] float lifeTime;
+    [SerializeField] AudioClip clip;
    
     public void OnCreatedInPool()
     {
@@ -23,6 +25,7 @@ public class SfxObject : MonoBehaviour, IPoolObject
     {
         if(soundData==null)
         {
+            SoundManager.Instance.Return(this);
             return;
         }
         
@@ -32,7 +35,13 @@ public class SfxObject : MonoBehaviour, IPoolObject
 
         //After Setting
         audioSource.PlayOneShot(soundData.clip);
-        StartCoroutine( DelayedDestroy( soundData.clip.length+ 0.1f)); 
+        float lifeTime = soundData.clip.length+ 0.1f;
+        
+        StartCoroutine( DelayedDestroy( lifeTime ));
+
+        this.lifeTime = lifeTime;
+        this.clip = soundData.clip;
+
     }
 
     IEnumerator DelayedDestroy(float lifeTime)

@@ -214,7 +214,6 @@ MonoBehaviour:
   canRotate: 0
   isCasting: 0
   angleWithTarget: 0
-  dissolveMat: {fileID: 2100000, guid: a4c8129b15b2e884fa13b92523bacbbd, type: 2}
   fadeTime: 1.9
   attackAnimationEvent: {fileID: 8357377910498526248}
   t_muzzle: {fileID: 7306656126985376843}
@@ -312,6 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityActivationTime: 0
   animationFinished: 0
+  AttackEffect: {fileID: 0}
 --- !u!4 &928027882161967741 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 672c50ff05d4cc549845802c3a3103ae, type: 3}

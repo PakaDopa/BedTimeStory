@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : DestroyableSingleton<Player>
 {
+
+    public PlayerController playerController;
     public AimStatManager aimStat;
     public Collider playerCollider;
     public PlayerStats stats;
@@ -16,10 +18,13 @@ public class Player : DestroyableSingleton<Player>
 
     public void Init()
     {
+        playerController  = GetComponent<PlayerController>();
+        
+        
         playerCollider = GetComponent<Collider>();
 
-        aimStat = GetComponent<AimStatManager>();
-        aimStat.Init();
+        // aimStat = GetComponent<AimStatManager>();
+        // aimStat.Init();
         
         stats = GetComponent<PlayerStats>();
         stats.Init();

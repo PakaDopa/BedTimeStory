@@ -93,7 +93,7 @@ public class UpgradeSystem : MonoBehaviour
 
             upgradeMenuItem.Construct(i, grade, value);
             upgradeMenuItem.EnableVfx(false);
-            upgradeMenuItem.OnSelected();
+            upgradeMenuItem.OnSelected(true);
         }
 
         // notEnoughMoneyUI = GetComponentInChildren<NotEnoughMoneyUI>();

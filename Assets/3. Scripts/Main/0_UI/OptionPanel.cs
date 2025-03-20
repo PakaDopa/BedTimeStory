@@ -135,11 +135,9 @@ public class OptionPanel : MonoBehaviour
     #region Mouse Setting
     void InitMouseSensitivity()
     {
-        float minValue = Player.Instance.aimStat.mouseSense_min;
-        float maxValue = Player.Instance.aimStat.mouseSense_max;
+        float minValue = Player.Instance.playerController.mouseSense_min;
+        float maxValue = Player.Instance.playerController.mouseSense_max;
         
-        
-
         slider_sensitivity.minValue = minValue;
         slider_sensitivity.maxValue = maxValue;
 
@@ -149,7 +147,7 @@ public class OptionPanel : MonoBehaviour
 
     void OnOpen_Mouse()
     {
-        float currValue = Player.Instance.aimStat.currMouseSense;
+        float currValue = Player.Instance.playerController.currMouseSense;
         slider_sensitivity.value = currValue;
     }
 
@@ -157,7 +155,7 @@ public class OptionPanel : MonoBehaviour
 
     void SetSensitivity(float value)
     {
-        Player.Instance.aimStat.SetMouseSense(value);
+        Player.Instance.playerController.SetMouseSense(value);
         text_sensitivity.SetText($"{slider_sensitivity.value:0.00}");
     }
 

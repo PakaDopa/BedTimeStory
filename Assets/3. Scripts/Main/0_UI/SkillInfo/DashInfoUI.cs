@@ -12,16 +12,24 @@ public class DashInfoUI : MonoBehaviour
 
 
     bool readyEffectActivated  = false;
+    bool initialized;
 
+    PlayerController playerController;
 
-    private void Start()
+    private IEnumerator Start()
     {
-
+        yield return new WaitUntil(()=>Player.Instance.initialized);
+        playerController = Player.Instance.playerController;
+        initialized = true;
     }
 
     private void Update()
     {
-        bool isRunning = PlayerStats.Instance.playerStatus == PlayerStats.Status.Run;
+        if( initialized == false)
+        {
+            return;
+        }
+        bool isRunning = playerController.legState == PlayerLegState.Run;
         
         if (isRunning)
         {

@@ -130,25 +130,25 @@ public class UpgradeMenuItem : MonoBehaviour
         LockButton.GetComponent<Image>().SetNativeSize();
     }
 
-    public void OnSelected()
+    public void OnSelected(bool isInitSetting=false)
     {
         Debug.Log($"type {type} ,value {value}");
 
         if (type == 0)
         {
-            PlayerStats.Instance.SetAttackPower(value);
+            PlayerStats.Instance.SetAttackPower(value,isInitSetting);
         }
         else if (type == 1)
         {
-            PlayerStats.Instance.SetMoveSpeed(value);
+            PlayerStats.Instance.SetMoveSpeed(value,isInitSetting);
         }
         else if (type == 2)
         {
-            PlayerStats.Instance.SetReloadSpeed(value);
+            PlayerStats.Instance.SetReloadSpeed(value,isInitSetting);
         }
         else if (type == 3)
         {
-            PlayerStats.Instance.SetSkillCooltime(value);
+            PlayerStats.Instance.SetSkillCooltime(value,isInitSetting);
         }
     }
     public void AdjustVfx(VFXData data)
