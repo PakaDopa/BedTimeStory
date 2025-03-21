@@ -37,7 +37,7 @@ public abstract class EnemyProjectile : MonoBehaviour,IPoolObject
 
     public void OnGettingFromPool()
     {
-       activated = false;
+
     }
 
 

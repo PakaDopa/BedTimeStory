@@ -7,7 +7,7 @@ public class EnemyAnimationEvent_Attack : MonoBehaviour
     public bool AbilityActivationTime;
     public bool animationFinished;
 
-    [SerializeField] ParticleSystem AttackEffect;
+    // [SerializeField] ParticleSystem AttackEffect;
     // public bool AbilityActivationTime   {get; private set;}
     // public bool animationFinished       {get; private set;}
 
@@ -23,10 +23,10 @@ public class EnemyAnimationEvent_Attack : MonoBehaviour
         AbilityActivationTime = true;
     }
 
-    public void PlayParticleSystem()
-    {
-        GameObject.Instantiate(AttackEffect, transform);
-    }
+    // public void PlayParticleSystem()
+    // {
+    //     GameObject.Instantiate(AttackEffect, transform);
+    // }
 
     public void OnFinish()
     {

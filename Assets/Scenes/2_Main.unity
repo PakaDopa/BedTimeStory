@@ -670,6 +670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 711343456}
   - component: {fileID: 711343455}
+  - component: {fileID: 711343457}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -754,6 +755,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 140.236, y: 18.528, z: 35.893005}
+--- !u!114 &711343457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711343454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!224 &816919498 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 304332015365450082, guid: 3acfe21ce7733c14696ab989b187a3fd, type: 3}
@@ -2942,7 +2966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1450380641836828589, guid: 76061be73d04b334f81157b6c135e467, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7821283571367289115, guid: 76061be73d04b334f81157b6c135e467, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9406,7 +9430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1482141931824618128, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1482141931824618128, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
       propertyPath: m_StaticEditorFlags

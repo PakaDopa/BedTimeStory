@@ -10,7 +10,7 @@ public class EP_01_Range  : EnemyProjectile
 {
     public float explosionRadius = 1.5f;
     
-    [SerializeField] ParticleSystem attackEffect;
+    // [SerializeField] ParticleSystem attackEffect;
     
     Rigidbody rb;
     Collider _collider;
@@ -31,6 +31,9 @@ public class EP_01_Range  : EnemyProjectile
 
     protected override void Init_Custom()
     {
+        initEffect.gameObject.SetActive(true);
+        
+        
         rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
 
@@ -60,6 +63,7 @@ public class EP_01_Range  : EnemyProjectile
     protected override IEnumerator DestroyCondition()
     {
         yield return new WaitUntil( ()=>Time.time >=initTime + lifeTime || onCollision);
+        initEffect.gameObject.SetActive(false);
         Explode();
 
 
