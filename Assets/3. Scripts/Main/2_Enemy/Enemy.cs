@@ -11,9 +11,9 @@ using UnityEditor.Playables;
 [RequireComponent(typeof(EnemyAI), typeof(Collider), typeof(Rigidbody) )]
 public abstract class Enemy : MonoBehaviour, IPoolObject
 {
-    public abstract IEnumerator CastRoutine(Vector3 targetPos);
-    public abstract void Attack(Vector3 targetPos);
-    public abstract AreaIndicator GetAttackAreaIndicator( Vector3 targetPos);
+    public abstract IEnumerator CastRoutine(Vector3 initPos, Vector3 targetPos);
+    public abstract void Attack(Vector3 initPos, Vector3 targetPos);
+    public abstract AreaIndicator GetAttackAreaIndicator( Vector3 initPos, Vector3 targetPos);
     
     
     
@@ -266,13 +266,13 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
 
         PlayerStats.Instance.GetGold(10);
         int rand = UnityEngine.Random.Range(0, 100);
-        if ( 90<= rand)
+        if ( 95<= rand)
         // if ( 66<= rand)
         {
             // str+="골드주머니 ";
             DropItemManager.Instance.GetItem_Pouch(t.position);
         }
-        else if ( 95 <=rand )
+        else if ( 90 <=rand )
         {
             // str+="소형 포션 ";
             DropItemManager.Instance.GetItem_Potion(t.position);
@@ -309,6 +309,7 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         //
         isCasting = true;
 
+        Vector3 initPos = t.position.WithFloorHeight();
         currTargetPosOffset = new Vector3( UnityEngine.Random.Range(-1,1), 0, UnityEngine.Random.Range(-1,1) ).normalized * enemyData.offsetWeight;
         Vector3 fixedTargetPos = targetPos+ currTargetPosOffset;
         // Debug.Log($" a0  {currTargetPosOffset} / {fixedTargetPos}");
@@ -316,7 +317,7 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         canRotate = false;
 
 
-        GetAttackAreaIndicator(fixedTargetPos);
+        GetAttackAreaIndicator(initPos , fixedTargetPos);
         // Debug.Log("공격시작");
         
         animator.SetTrigger(hash_attack);
@@ -324,14 +325,14 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         attackAnimationEvent.OnStart();
 
         // Debug.Log(" a1");
-        yield return CastRoutine(fixedTargetPos); 
+        yield return CastRoutine(initPos, fixedTargetPos); 
         if(isAlive == false)
         {
             yield break;
         }
 
         // Debug.Log(" a2");
-        Attack( fixedTargetPos);
+        Attack( initPos, fixedTargetPos);
         lastAttackTime = Time.time;
         
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using DG.Tweening;
+using TMPro;
 
 public enum PlayerLegState
 {
@@ -396,6 +397,46 @@ public class PlayerController : MonoBehaviour
         t_CinemachineCameraTarget.rotation = Quaternion.Euler(_cinemachineTargetPitch,  _cinemachineTargetYaw, 0.0f);
     }
 
+    // 카메라 반동 적용 
+    void ApplyRecoil()
+    {
+        
+        // _cinemachineTargetYaw += Random.Range(-0.5f,0.5f);
+        // _cinemachineTargetPitch -= 0.5f ;
+        StartCoroutine(  RecoilRoutine( Random.Range(-0.5f,0.5f),0.5f ,0.1f) );
+    }
+
+
+    WaitForEndOfFrame wfuf = new();
+
+    IEnumerator RecoilRoutine(float recoilX, float recoliY ,float duration)
+    {
+
+        float startYaw = 0f;
+        float startPitch = 0f;
+        float elapsed = 0;
+        while(elapsed < duration)
+        {
+            float t = elapsed / duration;
+            // 선형 보간 (부드럽게 변화)
+            float deltaYaw = Mathf.Lerp(0f, recoilX, t);
+            float deltaPitch = Mathf.Lerp(0f, recoliY, t);
+
+            _cinemachineTargetYaw += deltaYaw - startYaw;
+            _cinemachineTargetPitch -= deltaPitch - startPitch;
+
+            startYaw = deltaYaw;
+            startPitch = deltaPitch;
+
+            elapsed += Time.deltaTime;
+            yield return wfuf;
+        }
+
+        // 마지막 프레임 보정
+        _cinemachineTargetYaw += recoilX - startYaw;
+        _cinemachineTargetPitch -= recoliY - startPitch;
+    }
+
     #endregion
 
 
@@ -425,7 +466,7 @@ public class PlayerController : MonoBehaviour
 
         if( weapon.TryShoot(isAiming,toFire))
         {
-            // 발사 애니메이션? && 카메라 컨트롤
+            ApplyRecoil();  //
         }
 
         if( weapon.TryUseSkill(isAiming,toUseSkill))
@@ -437,8 +478,6 @@ public class PlayerController : MonoBehaviour
         {
 
         }
-
-
     }
     #endregion
 }

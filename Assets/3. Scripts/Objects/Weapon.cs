@@ -54,7 +54,7 @@ public class Weapon : MonoBehaviour
         if( isAiming && toShoot &&
              isReloading == false && currAmmo > 0 &&
              Time.time >= lastShotTime + shootDelay)
-        {
+        {   
             Shoot();
             return true;
         }
@@ -63,7 +63,7 @@ public class Weapon : MonoBehaviour
 
     public bool TryUseSkill(bool isAiming, bool toUseSkill)
     {
-        if(toUseSkill && Time.time >= lastUseSkillTime + PlayerStats.Instance.SkillCooltime)
+        if(isAiming && toUseSkill && Time.time >= lastUseSkillTime + PlayerStats.Instance.SkillCooltime)
         {
             UseSkill();
             return true;

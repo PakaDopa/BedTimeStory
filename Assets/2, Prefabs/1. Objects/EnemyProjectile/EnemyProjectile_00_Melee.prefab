@@ -50,4 +50,4 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0, z: 0}
   dir: {x: 0, y: 0, z: 0}
   initEffect: {fileID: 0}
-  attackAngle: 20
+  attackAngle: 120

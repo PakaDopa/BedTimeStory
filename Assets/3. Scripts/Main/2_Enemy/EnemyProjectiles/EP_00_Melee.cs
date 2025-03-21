@@ -6,7 +6,7 @@ using GameUtil;
 
 public class EP_00_Melee : EnemyProjectile
 {
-    public float attackAngle = 20f;
+    public float attackAngle = 120f;
 
 
     //================================================

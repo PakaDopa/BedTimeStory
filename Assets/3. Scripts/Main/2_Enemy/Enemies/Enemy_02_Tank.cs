@@ -9,22 +9,22 @@ public class Enemy_02_Tank: Enemy
 {
     static WaitForFixedUpdate wffu = new();
      
-    public override void Attack(Vector3 targetPos)
+    public override void Attack(Vector3 initPos, Vector3 targetPos)
     {
-        Vector3 initPos =  targetPos;
+        initPos =  targetPos;
         
         var ep = Instantiate(enemyData.prefab_enemyProjectile).GetComponent<EnemyProjectile>();
         ep.Init(  this, initPos, targetPos );
     }   
 
-    public override AreaIndicator GetAttackAreaIndicator(Vector3 targetPos)
+    public override AreaIndicator GetAttackAreaIndicator(Vector3 initPos, Vector3 targetPos)
     {
         float attackAreaRadius =  ((EP_02_Tank)enemyData.prefab_enemyProjectile).radius;
         
         return AreaIndicatorGenerator.Instance.GetCircle(this, targetPos, enemyData.castDelay, attackAreaRadius);
     }
 
-    public override IEnumerator CastRoutine( Vector3 targetPos)
+    public override IEnumerator CastRoutine(Vector3 initPos, Vector3 targetPos)
     { 
         Vector3 startPos = t.position;
         Vector3 endPos = targetPos.WithFloorHeight();
