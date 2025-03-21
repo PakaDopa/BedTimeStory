@@ -45,6 +45,8 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     [SerializeField] VictoryPanel victoryPanel;
     [SerializeField] GameOverPanel gameOverPanel;
 
+    [SerializeField] ComboToastUI comboToastUI;
+
 
     //=====================
 
@@ -94,9 +96,13 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     //     Debug.Log("게임 시작");
     // }
 
+
+
     IEnumerator GameStartRoutine()
     {
-        
+        comboToastUI.Init();
+
+
         GameManager.Instance.PauseGamePlay(false);
 
         isGamePlaying = false;
@@ -201,6 +207,18 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         isGamePlaying = false;
         gameActiavated = false;
     }
+
+    public void OnKillEnemy()
+    {
+        int killCount = ++GameManager.Instance.currGamePlayInfo.killCount;
+
+        if( killCount%30 ==0)
+        {
+            comboToastUI.Activate(killCount);
+        }
+    }
+
+
 
     public void EnablePanel(bool enable)
     {

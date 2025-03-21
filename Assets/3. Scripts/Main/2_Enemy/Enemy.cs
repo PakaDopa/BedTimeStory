@@ -246,7 +246,7 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         // animator.applyRootMotion = true;
         animator.SetTrigger(hash_die);
 
-        GameManager.Instance.currGamePlayInfo.killCount ++;
+        GamePlayManager.Instance.OnKillEnemy();
         SoundManager.Instance.OnEnemyDeath(t.position);
         StartCoroutine(DestroyRoutine());
     }
