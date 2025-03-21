@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using GameUtil;
-using UnityEditor.Callbacks;
 
 [CreateAssetMenu(fileName = "EnemyInitData_Tank", menuName = "SO/EnemyData/02_Tank", order = int.MaxValue)]
 public class EnemyData_02_Tank : EnemyDataSO

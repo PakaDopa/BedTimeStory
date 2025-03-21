@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UltimateProceduralPrimitivesFREE;
 using UnityEngine;
 
 public class ConeAreaIndicator : AreaIndicator
