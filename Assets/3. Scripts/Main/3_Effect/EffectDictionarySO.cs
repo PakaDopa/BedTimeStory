@@ -23,7 +23,10 @@ public class EffectDictionarySO : ScriptableObject
 
     public SerializableDictionary<EffectEvent,PoolData> totalPoolData = new();
 
-
+    void Awake()
+    {
+        Sync();
+    }
 
     
     // 유니티 에디터에서 값이 변경될 때마다 호출되는 메서드

@@ -10,6 +10,7 @@ public class NotEnoughMoneyUI : MonoBehaviour
 {
     [SerializeField] Image img;
     [SerializeField] TextMeshProUGUI text;
+    [SerializeField] Color textcolor;
 
     DG.Tweening.Sequence seq_notEnoughGold;
 
@@ -39,8 +40,8 @@ public class NotEnoughMoneyUI : MonoBehaviour
 
         // Debug.Log("건하");
         gameObject.SetActive(true);
-        img.color = img.color.WithAlpha(1);
-        text.color = text.color.WithAlpha(1);
+        img.color = Color.white;
+        text.color = textcolor;
         text.transform.localScale = Vector3.one;
 
         //

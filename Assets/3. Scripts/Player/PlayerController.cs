@@ -398,12 +398,12 @@ public class PlayerController : MonoBehaviour
     }
 
     // 카메라 반동 적용 
-    void ApplyRecoil()
+    void ApplyRecoil(float power = 0.5f)
     {
         
         // _cinemachineTargetYaw += Random.Range(-0.5f,0.5f);
         // _cinemachineTargetPitch -= 0.5f ;
-        StartCoroutine(  RecoilRoutine( Random.Range(-0.5f,0.5f),0.5f ,0.1f) );
+        StartCoroutine(  RecoilRoutine( Random.Range(-power,power),power ,0.1f) );
     }
 
 
@@ -471,7 +471,7 @@ public class PlayerController : MonoBehaviour
 
         if( weapon.TryUseSkill(isAiming,toUseSkill))
         {
-
+            ApplyRecoil(1.5f);
         }
 
         if( weapon.TryReload(isAiming,toReload,toFire))

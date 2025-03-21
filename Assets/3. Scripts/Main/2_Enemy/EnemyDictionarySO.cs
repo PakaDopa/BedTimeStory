@@ -29,9 +29,15 @@ public class EnemyDictionarySO : ScriptableObject
 
     public Dictionary<EnemyType, (GameObject, EnemyDataSO) > GetEssentialEnemyData(Difficulty difficulty)
     {
-        
+        // Debug.LogError("TRY 2-1");
+        // Debug.Log(   totalShapes  );
+        // Debug.Log(   totalShapes.Count  );
+         
+
         SerializableDictionary<EnemyType, GameObject> shapeList = totalShapes[difficulty];
+        // Debug.LogError("TRY 2-2");
         SerializableDictionary<EnemyType, EnemyDataSO> dataList = totalData[difficulty];
+        // Debug.LogError("TRY 2-3");
         
         
         Dictionary<EnemyType, (GameObject, EnemyDataSO) > ret = new();
@@ -49,18 +55,21 @@ public class EnemyDictionarySO : ScriptableObject
 
         }
 
+        // Debug.LogError("TRY 2-4");
         return ret;
     } 
 
 
 
-
+    void Awake()
+    {
+        Sync();
+    }
 
     
     // 유니티 에디터에서 값이 변경될 때마다 호출되는 메서드
     private void OnValidate()
     {
-
         Sync();
     }
 

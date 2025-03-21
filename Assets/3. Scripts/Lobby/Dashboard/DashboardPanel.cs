@@ -84,7 +84,7 @@ public class DashboardPanel : MonoBehaviour
 
             bool isTarget = difficulty == targetDifficulty;
             
-            Color targetColor = isTarget?Color.white: Color.white.WithAlpha(0.5f);
+            Color targetColor = isTarget?Color.white: new Color (1,1,1,0.5f);
             
             btn.GetComponent<Image>().color = targetColor;
         }

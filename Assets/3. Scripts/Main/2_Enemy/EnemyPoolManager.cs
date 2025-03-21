@@ -41,13 +41,15 @@ public class EnemyPoolManager : DestroyableSingleton<EnemyPoolManager>
 
     void InitPoolsWithDifficulty()
     {
+        // Debug.LogError(" TRY  1");
         Difficulty difficulty = GameManager.Instance.currGamePlayInfo.currDifficulty;
 
         _pools = new();
         enemyData = new();
         SerializableDictionary<EnemyType, PoolData> totalPoolData = new();
-        
+        // Debug.LogError(" TRY  2");
         var essentialData = enemyDictionary.GetEssentialEnemyData(difficulty);
+        // Debug.LogError(" TRY  3");
         foreach(var kv in essentialData)
         { 
             EnemyType type = kv.Key;

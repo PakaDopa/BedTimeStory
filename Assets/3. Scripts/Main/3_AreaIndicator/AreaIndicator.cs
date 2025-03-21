@@ -157,19 +157,20 @@ public abstract class AreaIndicator : MonoBehaviour, IPoolObject
 
             // outline
             float targetAlpha = outlineRenderer.startColor.a * progress;
-            Color targetColor = outlineRenderer.startColor.WithAlpha(targetAlpha);
+            Color startColor = outlineRenderer.startColor;
+            Color targetColor =  new Color(startColor.r,startColor.g, startColor.b,targetAlpha); 
             outlineRenderer.startColor = targetColor;
             outlineRenderer.endColor = targetColor;
 
             // full
             targetAlpha = fullSectorColor.a * progress;
-            targetColor = fullSectorColor.WithAlpha(targetAlpha);
+            targetColor = new Color (fullSectorColor.r,fullSectorColor.g,fullSectorColor.b, targetAlpha); 
             _mpbFullMesh.SetColor(colorPropertyName, targetColor);
             fullSectorRenderer.SetPropertyBlock(_mpbFullMesh);
 
             // curr
             targetAlpha = currSectorColor.a * progress;
-            targetColor = currSectorColor.WithAlpha(targetAlpha);
+            targetColor = new Color(currSectorColor.r,currSectorColor.g,currSectorColor.b,targetAlpha);
             _mpbCurrMesh.SetColor(colorPropertyName, targetColor);
             currSectorRenderer.SetPropertyBlock(_mpbCurrMesh);
             

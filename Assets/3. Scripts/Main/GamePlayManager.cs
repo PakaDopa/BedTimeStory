@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -148,6 +149,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         GameObject prefab_stage = prefabs_stage[currDifficulty];
         TotalWaveInfoSO waves = totalWaves[currDifficulty];
 
+        // Debug_WaveText(waves);
 
         Stage stage = Instantiate(prefab_stage, Vector3.zero, Quaternion.identity ).GetComponent<Stage>();
         stage.Init(waves);
@@ -242,4 +244,22 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         PlayerStats.Instance.Recover(value);
     }   
 
+    [SerializeField] TextMeshProUGUI text_debug;
+    public void Debug_WaveText(TotalWaveInfoSO waves)
+    {
+        string str=$"{waves.difficulty}\n";
+        foreach( var wave in waves.waves)
+        {
+            string str2= $"{wave.waveNum}  {wave.waveDuration} : ";
+            string str3= "";
+            foreach( var si in wave.spawnInfos)
+            {
+                str3 += $"{si.enemyType} {si.spawnCount}, ";
+            }
+            str2 += str3;
+            str += $"{str2} {str3}\n";
+        }
+
+        text_debug.SetText(str);
+    }
 }

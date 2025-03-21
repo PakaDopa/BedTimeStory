@@ -142,6 +142,7 @@ public class Stage : DestroyableSingleton<Stage>
             Vector3 spawnPos =  GetRandomSpawnPoint();
             // Vector3 spawnPos = Vector3.zero;
             EnemyPoolManager.Instance.GetEnemy(enemyType, spawnPos, clearedWaveCount ); 
+            // Debug.Log($"루틴 돌아감 {enemyType}");
             yield return wfs;
         }
     }

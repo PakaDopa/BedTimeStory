@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
+// using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,7 +73,7 @@ public class TowerStateToast : MonoBehaviour
         
         img_toast.gameObject.SetActive( true );
         img_toast.sprite = toastAppearanceInfo.sprite;  
-        img_toast.color = img_toast.color.WithAlpha(1);
+        img_toast.color = new Color(1,1,1,0);
         img_toast.transform.localScale = Vector3.one;
         
         
