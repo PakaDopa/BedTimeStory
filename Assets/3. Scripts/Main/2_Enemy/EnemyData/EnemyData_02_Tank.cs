@@ -12,14 +12,14 @@ public class EnemyData_02_Tank : EnemyDataSO
 
     public EnemyData_02_Tank()
     {
-        maxHp = 80;
+        maxHp = 90;
     
         movementSpeed = 3;
         attackSpeed = 3;    
         attackRange = 8f;
-        playerDectectionRange = 12;
+        playerDectectionRange = 20;
 
-        dmg = 30;
+        dmg = 10;
 
 
         inc_maxHp = 10;

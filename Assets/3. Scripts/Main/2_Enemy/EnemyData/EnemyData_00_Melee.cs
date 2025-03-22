@@ -14,14 +14,14 @@ public class EnemyData_00_Melee : EnemyDataSO
 
     public EnemyData_00_Melee()
     {
-        maxHp = 100;
+        maxHp = 80;
     
-        movementSpeed = 4;
+        movementSpeed = 5;
         attackSpeed = 2;    
         attackRange = 2f;
-        playerDectectionRange = 10;
+        playerDectectionRange = 15;
 
-        dmg = 10;
+        dmg = 5;
 
 
         inc_maxHp = 10;

@@ -1200,7 +1200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1034223069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7220,7 +7220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6986056068295226572, guid: e77c428e6af32ba469a12a387eeb417c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -53.000122
+      value: -53.000244
       objectReference: {fileID: 0}
     - target: {fileID: 6986056068295226572, guid: e77c428e6af32ba469a12a387eeb417c, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8699,6 +8699,10 @@ PrefabInstance:
     - target: {fileID: 3538753710768893454, guid: df43f9dc82121574191560f7441e0753, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725745126210009352, guid: df43f9dc82121574191560f7441e0753, type: 3}
+      propertyPath: maxHp
+      value: 50000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

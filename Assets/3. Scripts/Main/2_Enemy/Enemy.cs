@@ -259,26 +259,27 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
     }
 
 
-    void DropItem()
-    {        
-        // string str = "돈1원 ";
+ void DropItem()
+{
+    // 골드 10 지급
+    PlayerStats.Instance.GetGold(10);
 
-        PlayerStats.Instance.GetGold(10);
-        int rand = UnityEngine.Random.Range(0, 100);
-        if ( 95<= rand)
-        // if ( 66<= rand)
-        {
-            // str+="골드주머니 ";
-            DropItemManager.Instance.GetItem_Pouch(t.position);
-        }
-        else if ( 90 <=rand )
-        {
-            // str+="소형 포션 ";
-            DropItemManager.Instance.GetItem_Potion(t.position);
+    // 0~99 사이의 랜덤 숫자 생성
+    int rand = UnityEngine.Random.Range(0, 100);
 
-        }
-        // Debug.Log($"아이템 드랍  r {rand} : {str}");
+    // 골드 주머니: 0~9 (10%)
+    if (rand < 10)
+    {
+        DropItemManager.Instance.GetItem_Pouch(t.position);
     }
+    // 소형 포션: 10~19 (10%)
+    else if (rand < 20)
+    {
+        DropItemManager.Instance.GetItem_Potion(t.position);
+    }
+    // 20~99 (80%) → 아이템 없음
+}
+
 
 
     #region Ability

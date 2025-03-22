@@ -17,14 +17,14 @@ public class EnemyData_03_Speed : EnemyDataSO
 
     public EnemyData_03_Speed()
     {
-        maxHp = 80;
+        maxHp = 70;
     
-        movementSpeed = 3;
+        movementSpeed = 7;
         attackSpeed = 3;    
         attackRange = 8f;
-        playerDectectionRange = 12;
+        playerDectectionRange = 20;
 
-        dmg = 30;
+        dmg = 10;
 
 
         inc_maxHp = 10;

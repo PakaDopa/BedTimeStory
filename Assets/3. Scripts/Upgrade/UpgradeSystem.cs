@@ -130,24 +130,25 @@ public class UpgradeSystem : MonoBehaviour
             int gradeOffset;
             float randomNumber = UnityEngine.Random.Range(0, 100);
             // 확률 개선
-if (randomNumber < 0.5) // SSS (0.5%)
+if (randomNumber < 1)        // 1% → SSS
     gradeOffset = 0;
-else if (randomNumber < 2) // SS (1.5% 추가, 총 2%)
+else if (randomNumber < 3)   // +2% → SS (누적 3%)
     gradeOffset = 1;
-else if (randomNumber < 5) // S (3% 추가, 총 5%)
+else if (randomNumber < 8)   // +5% → S (누적 8%)
     gradeOffset = 2;
-else if (randomNumber < 15) // A (10% 추가, 총 15%)
+else if (randomNumber < 18)  // +10% → A (누적 18%)
     gradeOffset = 3;
-else if (randomNumber < 40) // B (25% 추가, 총 40%)
+else if (randomNumber < 33)  // +15% → B (누적 33%)
     gradeOffset = 4;
-else if (randomNumber < 65) // C (25% 추가, 총 65%)
+else if (randomNumber < 53)  // +20% → C (누적 53%)
     gradeOffset = 5;
-else if (randomNumber < 80) // D (15% 추가, 총 80%)
+else if (randomNumber < 73)  // +20% → D (누적 73%)
     gradeOffset = 6;
-else if (randomNumber < 90) // E (10% 추가, 총 90%)
+else if (randomNumber < 93)  // +20% → E (누적 93%)
     gradeOffset = 7;
-else  // F (10% 추가, 총 100%)
+else                         // +7% → F (누적 100%)
     gradeOffset = 8;
+
 
             min_gradeOffset = (int)MathF.Min(gradeOffset, min_gradeOffset);
 
@@ -242,19 +243,19 @@ else  // F (10% 추가, 총 100%)
         //확률 코스트
         if (count == 0)
         {
-            rerollCost = 50;
+            rerollCost = 30;
         }
         else if (count == 1)
         {
-            rerollCost = 75;
+            rerollCost = 80;
         }
         else if (count == 2)
         {
-            rerollCost = 150;
+            rerollCost = 200;
         }
         else if (count == 3)
         {
-            rerollCost = 300;
+            rerollCost = 350;
         }
 
         rerollButton.GetComponentInChildren<TextMeshProUGUI>().SetText($"<sprite name=\"0\">{rerollCost}");
