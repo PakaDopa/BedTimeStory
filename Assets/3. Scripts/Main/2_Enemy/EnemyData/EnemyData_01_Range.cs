@@ -16,7 +16,7 @@ public class EnemyData_01_Range : EnemyDataSO
         movementSpeed = 4;
         attackSpeed = 4;    
         attackRange = 10f;
-        playerDectectionRange = 20;
+        playerDectectionRange = 30;
 
         dmg = 15;
 
@@ -26,7 +26,7 @@ public class EnemyData_01_Range : EnemyDataSO
         inc_dmg = 3;
 
 
-        castDelay = 1.5f;
+        castDelay = 1f;
         offsetWeight = 0.5f;
     }
 }

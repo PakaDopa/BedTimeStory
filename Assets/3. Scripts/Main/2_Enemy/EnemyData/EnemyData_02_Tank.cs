@@ -12,12 +12,12 @@ public class EnemyData_02_Tank : EnemyDataSO
 
     public EnemyData_02_Tank()
     {
-        maxHp = 90;
+        maxHp = 100;
     
         movementSpeed = 3;
         attackSpeed = 3;    
         attackRange = 8f;
-        playerDectectionRange = 20;
+        playerDectectionRange = 25;
 
         dmg = 10;
 
@@ -27,7 +27,7 @@ public class EnemyData_02_Tank : EnemyDataSO
         inc_dmg = 3;
 
 
-        castDelay = 1.5f;
+        castDelay = 1f;
         offsetWeight = 1.5f;
     }
     

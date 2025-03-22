@@ -19,7 +19,7 @@ public class EnemyData_00_Melee : EnemyDataSO
         movementSpeed = 5;
         attackSpeed = 2;    
         attackRange = 2f;
-        playerDectectionRange = 15;
+        playerDectectionRange = 20;
 
         dmg = 5;
 
@@ -29,7 +29,7 @@ public class EnemyData_00_Melee : EnemyDataSO
         inc_dmg = 3;
 
 
-        castDelay = 1f;
+        castDelay = 0.8f;
         offsetWeight = 0.5f;
     }
 }

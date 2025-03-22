@@ -22,7 +22,7 @@ public class EnemyData_03_Speed : EnemyDataSO
         movementSpeed = 7;
         attackSpeed = 3;    
         attackRange = 8f;
-        playerDectectionRange = 20;
+        playerDectectionRange = 25;
 
         dmg = 10;
 
@@ -32,7 +32,7 @@ public class EnemyData_03_Speed : EnemyDataSO
         inc_dmg = 3;
 
 
-        castDelay = 1.5f;
+        castDelay = 1f;
         offsetWeight = 1.5f;
     }
     
