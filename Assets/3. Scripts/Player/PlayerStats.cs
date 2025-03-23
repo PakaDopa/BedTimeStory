@@ -1,28 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameUtil;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
-using UnityEngine.SceneManagement;
 
 public class PlayerStats : DestroyableSingleton<PlayerStats>
 {
-    public enum Status
-    {
-        Idle,       //��������
-        Walk,       //�ȴ»���
-        Run,        //�޸��� ���� (�ȴ»��� -> �޸��� ���� �Ļ�)
-    }
-
-    public enum AimState
-    {
-        None,
-        Aim
-    }
-
 
     [Header("InitValue")]
     public float maxHP = 100;
@@ -38,11 +21,8 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
     public float dashMultiplier = 2f;       // 대시시 이동속도 배수
 
-    public Status playerStatus { get; set; }
-    public AimState aimState {get;set;}
 
 
-    
     private int currGold = 100000;
     public int CurrGold => currGold;
 

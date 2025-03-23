@@ -40,7 +40,7 @@ public class EP_02_Tank  : EnemyProjectile
             if (tower !=null)
             {
                 // Debug.Log("타워워어");
-                Debug.Log( dmg);
+                // Debug.Log( dmg);
                 tower.GetDamaged(dmg);
             }
         }

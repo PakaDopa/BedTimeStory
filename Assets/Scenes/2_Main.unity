@@ -1286,6 +1286,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1079362982 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4066815080699555637, guid: 1d00be24234241c40a82f6e79039b239, type: 3}
+  m_PrefabInstance: {fileID: 1528134277431292359}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1079362993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079362982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b1e1fa9557e85a4e9c323da35c90f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationSmoothTime: 0.12
+  _targetRotation: 0
+  _rotationVelocity: 0
 --- !u!21 &1107581438
 Material:
   serializedVersion: 8
@@ -4496,10 +4516,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1710706515757429173, guid: 1d00be24234241c40a82f6e79039b239, type: 3}
-      propertyPath: _vCam
-      value: 
-      objectReference: {fileID: 1394767585}
-    - target: {fileID: 1710706515757429173, guid: 1d00be24234241c40a82f6e79039b239, type: 3}
       propertyPath: crossHairUI
       value: 
       objectReference: {fileID: 1435635758}
@@ -4547,10 +4563,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7914607745385459391, guid: 1d00be24234241c40a82f6e79039b239, type: 3}
+      propertyPath: _vCam
+      value: 
+      objectReference: {fileID: 1394767585}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4066815080699555637, guid: 1d00be24234241c40a82f6e79039b239, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1079362993}
   m_SourcePrefab: {fileID: 100100000, guid: 1d00be24234241c40a82f6e79039b239, type: 3}
 --- !u!114 &1642753061051970252
 MonoBehaviour:
@@ -9889,7 +9912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1482141931824618128, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1482141931824618128, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
       propertyPath: m_StaticEditorFlags

@@ -17,6 +17,7 @@ public class PlayerInputManager : MonoBehaviour
     //
     public bool aim {get; private set;}
     public bool firstAim {get; private set;}
+    public bool finishAim {get; private set;}
 
     //
     public bool fire { get; private set;}
@@ -60,6 +61,7 @@ public class PlayerInputManager : MonoBehaviour
 
         aim = Input.GetKey(KeyCode.Mouse1);
         firstAim = Input.GetKeyDown(KeyCode.Mouse1);
+        finishAim  = Input.GetKeyUp(KeyCode.Mouse1);
 
         fire = Input.GetKey(KeyCode.Mouse0);
         firstFire = Input.GetKeyDown(KeyCode.Mouse0);

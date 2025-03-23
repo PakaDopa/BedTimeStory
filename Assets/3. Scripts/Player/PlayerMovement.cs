@@ -5,127 +5,74 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // [SerializeField] public float moveSpeed = 3f;
-    // [HideInInspector] public Vector3 dir;
-    float hInput, vInput;
-    CharacterController controller;
+    Transform t;
+    private CharacterController _controller;
 
-    [SerializeField] float groundYOffset;
-    [SerializeField] LayerMask groundMask;
-    Vector3 spherePos;
-
-    [SerializeField] float gravity = -9.81f;
-    Vector3 velocity;
-
-    [Header("WalkSound")]
-    [SerializeField] SoundEventSO[] soundEventSOs;
-    [Header("DashSound")]
-    [SerializeField] SoundEventSO dashSoundSO;
-    private Coroutine walkSoundCoroutine;
-    private int soundIndex = 0;
-    private bool isWalking = false;
+    //
     
-    // Start is called before the first frame update
-    void Start()
+    [Tooltip("How fast the character turns to face movement direction")]
+    [Range(0.0f, 0.3f)]
+    public float RotationSmoothTime = 0.12f;
+
+
+
+
+
+    [SerializeField] private float _targetRotation = 0.0f;
+    [SerializeField] private float _rotationVelocity;
+    private float _verticalVelocity;
+
+
+
+    //========================================================================================
+
+    public void Init()
     {
-        //Ŀ�� �����
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        controller = GetComponent<CharacterController>();
-        // walkSoundCoroutine = StartCoroutine(PlayerWalkSound());
-    }
-    private void GetDirectionAndMove()
-    {
-        // hInput = Input.GetAxis("Horizontal");
-        // vInput = Input.GetAxis("Vertical");
-        
-        // dir = transform.forward * vInput + transform.right * hInput;
-        
-
-        // if(hInput == 0 && vInput == 0)
-        // {
-            // isWalking = false;
-            // PlayerStats.Instance.playerStatus = `PlayerStats.Status.Idle;
-        // }
-        // else if(IsRun() && PlayerStats.Instance.CanRun())
-        // {
-            // isWalking = true;
-            // PlayerStats.Instance.SetRun();
-
-            // float movementSpeed =  fixedMovementSpeed;
-            // controller.Move(dir * (movementSpeed * 2f) * Time.deltaTime);
-        // }
-        // else
-        // {                                                                                                                                                                         
-            // isWalking = true;
-            // PlayerStats.Instance.playerStatus = PlayerStats.Status.Walk;
-
-            // float movementSpeed =  fixedMovementSpeed;
-            // controller.Move(dir * movementSpeed* Time.deltaTime);
-        // }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
-        Gravity();
-        
-        if(GamePlayManager.isGamePlaying==false)
-            return;
-        
-
-
-            
-        GetDirectionAndMove();
-        
-    }
-    private bool IsGrounded()
-    {
-        spherePos = new Vector3(transform.position.x, transform.position.y - groundYOffset, transform.position.z);
-        if (Physics.CheckSphere(spherePos, controller.radius - 0.05f, groundMask))
-            return true;
-        return false;
-    }
-    private bool IsRun() => Input.GetKey(KeyCode.LeftShift);
-    private void Gravity()
-    {
-        if (!IsGrounded())
-            velocity.y += gravity * Time.deltaTime;
-        else if (velocity.y < 0)
-            velocity.y = -2;
-
-        controller.Move(velocity * Time.deltaTime);
-    }
-    IEnumerator PlayerWalkSound()
-    {
-        yield return new WaitUntil(() => isWalking && GamePlayManager.isGamePlaying == true);
-
-        soundEventSOs[soundIndex++].Raise();
-        if (soundEventSOs.Length <= soundIndex)
-            soundIndex = 0;
-    
-        float defaultDelay = 0.5f;
-        // float targetDelay = defaultDelay * behaivourSpeedMultiplier;                  // 딜레이 감소 
-
-        // if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Walk)
-        // {
-            // yield return new WaitForSeconds(targetDelay );
-        // }
-        // else if (PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
-        // {
-            // yield return new WaitForSeconds(targetDelay  * 0.5f);
-        // }
-        // else
-            yield return null;
-
-        StartCoroutine(PlayerWalkSound());
+        t = transform;
+        _controller = GetComponent<CharacterController>(); 
     }
 
 
-    public void PlayerFootStepSound()
+
+    public void Rotate(PlayerLegState currLegState, PlayerBodyState currBodyState, Vector2 moveVector, float cameraRotationH)
     {
-        soundEventSOs[soundIndex++].Raise();
-        if (soundEventSOs.Length <= soundIndex)
-            soundIndex = 0;
+        // 기본 상태에서는 플레이어를 이동방향으로 회전
+        if( currBodyState == PlayerBodyState.Default)
+        {
+            if (moveVector != Vector2.zero)
+            {
+                // normalise input direction
+                Vector3 inputDirection = new Vector3(moveVector.x, 0.0f, moveVector.y).normalized;
+                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +  cameraRotationH;
+                float rotation = Mathf.SmoothDampAngle(t.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
+                t.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            }
+        }
+        // 조준 상태의 경우 카메라 방향으로 회전 
+        else if (currBodyState == PlayerBodyState.Aim)
+        {
+            _targetRotation = cameraRotationH;
+            float rotation = Mathf.SmoothDampAngle(t.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
+            t.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+        }
     }
+
+    public void Move(PlayerLegState currLegState, PlayerBodyState currBodyState, Vector2 moveVector, float targetSpeed)
+    {
+        // move the player
+        Vector3 targetDirection= Vector3.zero;
+        if( currBodyState== PlayerBodyState.Default)
+        {
+            targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+        }
+        else if(currBodyState == PlayerBodyState.Aim)
+        {
+            targetDirection = t.forward *  moveVector.y + t.right * moveVector.x;
+        }
+        _controller.Move(targetDirection.normalized * (targetSpeed  * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+    }
+
+
+
+
 }

@@ -6,6 +6,21 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] Animator animator;
+    //
+
+
+    private float _animationBlend;      // 현재 애니메이션 진행도
+    Vector2 blendedVector;                  // 
+    public float SpeedChangeRate = 10.0f;       // 애니메이션 교체 속도
+
+
+
+
+
+
+
+
+    //
     private int _animIDSpeed;
     private int _animIDMotionSpeed;
     int _animIDhSpeed;
@@ -40,7 +55,7 @@ public class PlayerAnimation : MonoBehaviour
 
     //==================================================================================
 
-    public void OnMove_Default(float animationBlend, float inputMagnitude)
+    public void OnMove_Default(float targetSpeed)
     {
         if (_hasAnimator==false)
         {
@@ -48,14 +63,15 @@ public class PlayerAnimation : MonoBehaviour
 
         }
             
+        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
 
-        if (animationBlend < 0.01f)
+        if (_animationBlend < 0.01f)
         {
-            animationBlend = 0f;
+            _animationBlend = 0f;
         } 
 
-        _animator.SetFloat(_animIDSpeed, animationBlend);
-        _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+        _animator.SetFloat(_animIDSpeed, _animationBlend);
+        // _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
     }
 
 
@@ -67,9 +83,10 @@ public class PlayerAnimation : MonoBehaviour
 
         }
 
+        blendedVector = Vector2.Lerp(blendedVector , normalizedInput ,  Time.deltaTime * SpeedChangeRate);
 
-        _animator.SetFloat(_animIDhSpeed , normalizedInput.x);
-        _animator.SetFloat(_animIDvSpeed ,  normalizedInput.y);
+        _animator.SetFloat(_animIDhSpeed , blendedVector.x);
+        _animator.SetFloat(_animIDvSpeed ,  blendedVector.y);
 
     }
 
@@ -77,17 +94,17 @@ public class PlayerAnimation : MonoBehaviour
     public void OnSetBodyState(PlayerBodyState bodyState, float animSpeed)
     {
         bool isAim = bodyState == PlayerBodyState.Aim;
-        _animator.SetBool(_animIDIsAiming, isAim);
-        _animator.SetFloat(_animIDanimSpeed, animSpeed);
-
         if(isAim)
         {
             _animator.SetLayerWeight(1, 1);
+            _animator.SetBool(_animIDIsAiming, true);
+            _animator.SetFloat(_animIDanimSpeed, animSpeed);
             
         }
         else
         {
             _animator.SetLayerWeight(1, 0);
+            _animator.SetBool(_animIDIsAiming, false);
         }
     }
 }

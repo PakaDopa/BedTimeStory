@@ -30,8 +30,9 @@ public class DashInfoUI : MonoBehaviour
             return;
         }
         bool isRunning = playerController.legState == PlayerLegState.Run;
+        bool CanRun = PlayerStats.Instance.CanRun();
         
-        if (isRunning)
+        if (isRunning || CanRun==false)
         {
             // 칠하기
             img_fill.fillAmount = 1;

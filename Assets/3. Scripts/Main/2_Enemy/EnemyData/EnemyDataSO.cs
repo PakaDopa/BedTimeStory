@@ -33,7 +33,7 @@ public abstract class EnemyDataSO : ScriptableObject
     public float inc_movementSpeed = 0.3f;
     public float inc_dmg = 3;
 
-
+    [Tooltip("시전 후 스킬이 발사되기 까지의 시간 ( 초 )")]
     public float castDelay;
     public float attackAnimationDuration=>attackAnimClip?attackAnimClip.length:0;
     public float offsetWeight = 1f;
