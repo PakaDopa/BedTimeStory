@@ -11144,6 +11144,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bc540065e0d9f6b4c85aa33c7a0a7228, type: 2}
   - {fileID: 11400000, guid: 1d1032ae2c8e0424ab35a67a33b77f9e, type: 2}
   - {fileID: 11400000, guid: 7c3eeca3076677b4daad4e9a5df757d6, type: 2}
+  skillUseSfx: {fileID: 11400000, guid: ce62b08c107901144b96bbb9781d612d, type: 2}
+  attackEventSOs:
+  - {fileID: 11400000, guid: 004abf4fd766f264b87ee2340c7c471b, type: 2}
+  - {fileID: 11400000, guid: 2be71f085d7be7a4d997da9453bd0ffd, type: 2}
+  - {fileID: 11400000, guid: 6d98daf73be9c50479fd1b8b47df5a7a, type: 2}
+  - {fileID: 11400000, guid: 383912edfe76e434493a8b76580cf397, type: 2}
+  reloadEventSo: {fileID: 11400000, guid: 49796a070898b3549a9a2b7d2dd3bfaa, type: 2}
 --- !u!114 &4961297168079335888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17046,13 +17053,6 @@ MonoBehaviour:
   rocketProjectilePrefab: {fileID: 5579294690110463380, guid: edf9dc89fe3736f429d9ea8e79dc1300, type: 3}
   muzzle: {fileID: 4495408801249487292}
   reloadParticleSystem: {fileID: 3069826317103900942}
-  attackEventSOs:
-  - {fileID: 11400000, guid: 004abf4fd766f264b87ee2340c7c471b, type: 2}
-  - {fileID: 11400000, guid: 2be71f085d7be7a4d997da9453bd0ffd, type: 2}
-  - {fileID: 11400000, guid: 6d98daf73be9c50479fd1b8b47df5a7a, type: 2}
-  - {fileID: 11400000, guid: 383912edfe76e434493a8b76580cf397, type: 2}
-  reloadEventSo: {fileID: 11400000, guid: 49796a070898b3549a9a2b7d2dd3bfaa, type: 2}
-  skillUseSfx: {fileID: 11400000, guid: ce62b08c107901144b96bbb9781d612d, type: 2}
 --- !u!1 &8387370820421310539
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,10 +15,9 @@ public class Weapon : MonoBehaviour
     [SerializeField] Transform muzzle;
     [SerializeField] ParticleSystem reloadParticleSystem;
 
-    [SerializeField] private SoundEventSO[] attackEventSOs;
-    [SerializeField] private SoundEventSO reloadEventSo;
 
-    [SerializeField] SoundEventSO skillUseSfx;
+
+    
     // bool isAiming = false;
     // bool isShotting = false;
 
@@ -128,11 +127,6 @@ public class Weapon : MonoBehaviour
     private void Shot()
     {
         // attackEventSOs[attackIndex++].Raise();
-        var soundData = attackEventSOs[attackIndex++];
-        SoundManager.Instance.Play(soundData, Player.Instance.T.position);
-
-        if (attackIndex >= attackEventSOs.Length)
-            attackIndex = 0;
 
 
         Vector3 projectileDir = CalcDir();
@@ -154,12 +148,11 @@ public class Weapon : MonoBehaviour
         // currSkillCooltime = PlayerStats.Instance.SkillCooltime;
 
         EventManager.Instance.PostNotification(MEventType.OnShoot, this, new TransformEventArgs(transform, 20f));
-        SoundManager.Instance.Play(skillUseSfx, Player.Instance.T.position);
+        
     }
 
     private void Reload()
     {
-        SoundManager.Instance.Play(reloadEventSo, Player.Instance.T.position);
         StartCoroutine(ReloadCoroutine());
     }
 
