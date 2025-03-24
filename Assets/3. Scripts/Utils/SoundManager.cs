@@ -218,9 +218,11 @@ public class SoundManager : MonoBehaviour
     }
 
     [SerializeField] SoundEventSO[] sfxs_enemyDeath;
+    [SerializeField] SoundEventSO sfx_enemyDeath_add;
     public void OnEnemyDeath( Vector3 initPos )
     {
         PlayRandomSFX(sfxs_enemyDeath, initPos);
+        Play(sfx_enemyDeath_add,initPos);
     }
 
     // 타워

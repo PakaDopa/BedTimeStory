@@ -9,6 +9,7 @@ public class ComboToastUI : MonoBehaviour
 {
     [SerializeField] List<int> killList;        // 150, 300,600, 1020
     [SerializeField] List<Sprite> spriteList;
+    [SerializeField] SoundEventSO[] sfxs;
     
     [SerializeField]Image img;
     
@@ -84,6 +85,7 @@ public class ComboToastUI : MonoBehaviour
             if( killCount >= currValue )
             {
                 ret = spriteList[i];
+                SoundManager.Instance.Play(  sfxs[i],Vector3.zero); 
                 break;
             }
         }
