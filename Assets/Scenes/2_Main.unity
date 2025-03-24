@@ -4496,10 +4496,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1710706515757429173, guid: 1d00be24234241c40a82f6e79039b239, type: 3}
-      propertyPath: _vCam
-      value: 
-      objectReference: {fileID: 1394767585}
-    - target: {fileID: 1710706515757429173, guid: 1d00be24234241c40a82f6e79039b239, type: 3}
       propertyPath: crossHairUI
       value: 
       objectReference: {fileID: 1435635758}
@@ -4547,6 +4543,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7914607745385459391, guid: 1d00be24234241c40a82f6e79039b239, type: 3}
+      propertyPath: _vCam
+      value: 
+      objectReference: {fileID: 1394767585}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9893,7 +9893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1482141931824618128, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1482141931824618128, guid: efe913c6e087cae49a1fe6c15303b5a9, type: 3}
       propertyPath: m_StaticEditorFlags

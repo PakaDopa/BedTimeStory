@@ -101,10 +101,10 @@ public class AimStatManager : MonoBehaviour
             }
             return;
         }
-        else if(PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
-            camFollowPos.DOLocalMove(camFollowPosRunTarget.localPosition, 0.25f, false);
-        else
-            camFollowPos.DOLocalMove(camFollowPosTarget.localPosition, 0.25f, false).SetEase(Ease.OutCubic);
+        // else if(PlayerStats.Instance.playerStatus == PlayerStats.Status.Run)
+        //     camFollowPos.DOLocalMove(camFollowPosRunTarget.localPosition, 0.25f, false);
+        // else
+        //     camFollowPos.DOLocalMove(camFollowPosTarget.localPosition, 0.25f, false).SetEase(Ease.OutCubic);
     }
 
 

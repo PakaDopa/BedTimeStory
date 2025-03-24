@@ -10959,6 +10959,8 @@ GameObject:
   - component: {fileID: 4631331432323816197}
   - component: {fileID: 1710706515757429173}
   - component: {fileID: 4961297168079335888}
+  - component: {fileID: 7914607745385459391}
+  - component: {fileID: 2842555732899182069}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -11093,6 +11095,7 @@ MonoBehaviour:
   moveSpeed: 3
   reloadSpeed: 3
   skillCooltime: 30
+  currMoveSpeedRatio: 0
   onGoldChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -11130,36 +11133,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   legState: 0
   bodyState: 0
-  RotationSmoothTime: 0.1
-  SpeedChangeRate: 10
-  t_CinemachineCameraTarget: {fileID: 3080863503739880580}
-  TopClamp: 3
-  BottomClamp: -3
-  LockCameraPosition: 0
-  _cinemachineTargetYaw: 0
-  _cinemachineTargetPitch: 0
-  _targetRotation: 0
-  _rotationVelocity: 0
-  _3rdPersonFollow: {fileID: 0}
-  currCamOffset: {x: 0, y: 0, z: 0}
-  targetCamOffset: {x: 0, y: 0, z: 0}
-  vCamOffset_default: {x: 0.4, y: 0, z: -1.4}
-  vCamOffset_aim: {x: 0.6, y: 0, z: 0.6}
-  camOffsetModifier_dash: {x: 0, y: 0, z: -1.6}
-  switchDuration: 0.1
   mouseSense: 0
   crossHairUI: {fileID: 0}
-  t_mainCam: {fileID: 0}
-  _vCam: {fileID: 0}
   aimSfx: {fileID: 11400000, guid: 283cf7e2e9eb78941af1172d56fbf903, type: 2}
-  soundEventSOs:
+  dashSoundSO: {fileID: 11400000, guid: 729ba3bd7f61b2d4fb75a19e97aef6e2, type: 2}
+  sfxs_footstep:
   - {fileID: 11400000, guid: cd5e2c7042fcfca46ae5382d81c7045a, type: 2}
   - {fileID: 11400000, guid: d4d10d31111cab54b85a1646be736931, type: 2}
   - {fileID: 11400000, guid: 9eb68fdc1b1844941a98d68137541246, type: 2}
+  - {fileID: 11400000, guid: bc540065e0d9f6b4c85aa33c7a0a7228, type: 2}
   - {fileID: 11400000, guid: 1d1032ae2c8e0424ab35a67a33b77f9e, type: 2}
   - {fileID: 11400000, guid: 7c3eeca3076677b4daad4e9a5df757d6, type: 2}
-  - {fileID: 11400000, guid: bc540065e0d9f6b4c85aa33c7a0a7228, type: 2}
-  dashSoundSO: {fileID: 11400000, guid: 729ba3bd7f61b2d4fb75a19e97aef6e2, type: 2}
+  skillUseSfx: {fileID: 11400000, guid: ce62b08c107901144b96bbb9781d612d, type: 2}
+  attackEventSOs:
+  - {fileID: 11400000, guid: 004abf4fd766f264b87ee2340c7c471b, type: 2}
+  - {fileID: 11400000, guid: 2be71f085d7be7a4d997da9453bd0ffd, type: 2}
+  - {fileID: 11400000, guid: 6d98daf73be9c50479fd1b8b47df5a7a, type: 2}
+  - {fileID: 11400000, guid: 383912edfe76e434493a8b76580cf397, type: 2}
+  reloadEventSo: {fileID: 11400000, guid: 49796a070898b3549a9a2b7d2dd3bfaa, type: 2}
 --- !u!114 &4961297168079335888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11173,6 +11164,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  SpeedChangeRate: 10
+--- !u!114 &7914607745385459391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066815080699555637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a14b6c137683ea45a2eec51cb71237e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vCam: {fileID: 0}
+  t_CinemachineCameraTarget: {fileID: 3080863503739880580}
+  TopClamp: 3
+  BottomClamp: -3
+  LockCameraPosition: 0
+  _cinemachineTargetYaw: 0
+  _cinemachineTargetPitch: 0
+  _3rdPersonFollow: {fileID: 0}
+  currCamOffset: {x: 0, y: 0, z: 0}
+  targetCamOffset: {x: 0, y: 0, z: 0}
+  vCamOffset_default: {x: 0.4, y: 0, z: -1.4}
+  vCamOffset_aim: {x: 0.6, y: 0, z: 0.6}
+  camOffsetModifier_dash: {x: 0, y: 0, z: -1.6}
+  switchDuration: 0.1
+--- !u!114 &2842555732899182069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066815080699555637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b1e1fa9557e85a4e9c323da35c90f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationSmoothTime: 0.12
+  _targetRotation: 0
+  _rotationVelocity: 0
 --- !u!1 &4298793411969465416
 GameObject:
   m_ObjectHideFlags: 0
@@ -17020,13 +17053,6 @@ MonoBehaviour:
   rocketProjectilePrefab: {fileID: 5579294690110463380, guid: edf9dc89fe3736f429d9ea8e79dc1300, type: 3}
   muzzle: {fileID: 4495408801249487292}
   reloadParticleSystem: {fileID: 3069826317103900942}
-  attackEventSOs:
-  - {fileID: 11400000, guid: 004abf4fd766f264b87ee2340c7c471b, type: 2}
-  - {fileID: 11400000, guid: 2be71f085d7be7a4d997da9453bd0ffd, type: 2}
-  - {fileID: 11400000, guid: 6d98daf73be9c50479fd1b8b47df5a7a, type: 2}
-  - {fileID: 11400000, guid: 383912edfe76e434493a8b76580cf397, type: 2}
-  reloadEventSo: {fileID: 11400000, guid: 49796a070898b3549a9a2b7d2dd3bfaa, type: 2}
-  skillUseSfx: {fileID: 11400000, guid: ce62b08c107901144b96bbb9781d612d, type: 2}
 --- !u!1 &8387370820421310539
 GameObject:
   m_ObjectHideFlags: 0

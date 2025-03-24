@@ -26,107 +26,62 @@ public class PlayerController : MonoBehaviour
     public PlayerBodyState bodyState;
     
     
-    
-    Transform t;
     PlayerInputManager input;
     PlayerStats stats;
+    PlayerCamera playerCamera;
+    PlayerMovement  playerMove;
     PlayerAnimation animationController;
     Weapon weapon;
-
-
-
-    [Header("Player")]
-
-    [Tooltip("How fast the character turns to face movement direction")]
-    [Range(0.0f, 0.3f)]
-    public float RotationSmoothTime = 0.12f;
-
-    [Tooltip("Acceleration and deceleration")]
-    public float SpeedChangeRate = 10.0f;
-
-
-    [Header("Cinemachine")]
-    [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-    public Transform t_CinemachineCameraTarget;
-
-    [Tooltip("How far in degrees can you move the camera up")]
-    public float TopClamp = 70.0f;
-
-    [Tooltip("How far in degrees can you move the camera down")]
-    public float BottomClamp = -30.0f;
-
-
-    [Tooltip("For locking the camera position on all axis")]
-    public bool LockCameraPosition = false;
-
-    // cinemachine
-    [SerializeField] private float _cinemachineTargetYaw;
-    [SerializeField] private float _cinemachineTargetPitch;
-
-    // player
-    // private float _speed;
-    private float _animationBlend;
-    Vector2 blendedVector;
-    [SerializeField] private float _targetRotation = 0.0f;
-    [SerializeField] private float _rotationVelocity;
-    private float _verticalVelocity;
-
-
     
-    private CharacterController _controller;
-    private const float _threshold = 0.01f;
-
-    
-
-
 
     //
-    [SerializeField] Cinemachine3rdPersonFollow _3rdPersonFollow;
-    [SerializeField] Vector3 currCamOffset; 
-    [SerializeField] Vector3 targetCamOffset;
-    [SerializeField]Vector3 vCamOffset_default = new Vector3(0.4f,0,-1.4f);
-    [SerializeField]Vector3 vCamOffset_aim = new Vector3(0.6f,0,0.6f);
-    [SerializeField]Vector3 camOffsetModifier_dash = new Vector3(-0.4f, 0,-1.6f);
-    [SerializeField] float switchDuration = 0.2f;
-
     public float mouseSense_min => 0.01f;
     public float mouseSense_max => 2f;
 
     [SerializeField] float mouseSense;
     public float currMouseSense => mouseSense;
 
+
+    // UI
     [SerializeField] GameObject crossHairUI;
 
-    Sequence seq_shoot;
-    [SerializeField] Transform t_mainCam;
-    [SerializeField] CinemachineVirtualCamera _vCam;
 
-
-    [SerializeField] float originFOV{get;set;} 
-
+    // SFX
+    [Header("SFX")]
     [SerializeField] SoundEventSO aimSfx;
+    [SerializeField] SoundEventSO dashSoundSO;
+    [SerializeField] SoundEventSO[] sfxs_footstep;
+    [SerializeField] SoundEventSO skillUseSfx;
+    [SerializeField] private SoundEventSO[] attackEventSOs;
+    [SerializeField] private SoundEventSO reloadEventSo;
 
+    private int footStepSfxIdx = 0;
+    int shotSfxIdx = 0;
+
+
+    //=======================================================================
+    private void Start()
+    {
+        Init();
+    }
     
+    // 기능들의 초기화를 직접 제어한다. 
     public void Init()
     {
-        t=transform;
         input = GetComponent<PlayerInputManager>();
         stats = GetComponent<PlayerStats>();
         animationController  = GetComponent<PlayerAnimation>();
         animationController.Init();
-
+        playerCamera = GetComponent<PlayerCamera>();
+        playerCamera.Init();
+        playerMove = GetComponent<PlayerMovement>();
+        playerMove.Init();
         weapon = GetComponentInChildren<Weapon>();
+        //
+        mouseSense  = LocalDataManager.GetMouseSense();
     }
 
-    private void Start()
-    {
-        Init();
-        InitCameraSetting();
-        
-        
-        _controller = GetComponent<CharacterController>();
-    }
-
+    // 기능들을 현재 상태에 따라 업데이트한다. 
     private void Update()
     {
         if(GamePlayManager.isGamePlaying == false)
@@ -134,22 +89,15 @@ public class PlayerController : MonoBehaviour
             return;
         }
         
-
-
-        // 캐릭터
-        SetBodyState(); // 조준 설정
-        SetLegState();  // 인풋에 따라 하체 상태 설정
-        RotateAndMove(legState,bodyState);
-
-        // 무기
-        ControlWeapon(bodyState);       
-
-        // 스탯
-        stats.OnUpdate(legState);
-
-
-        // 카메라 ()
-        ControlCamera();
+        // 플레이어 상태 설정
+        SetBodyState(); // 조준 상태
+        SetLegState();  // 인풋에 따라 하체 상태
+        
+        // 하위 기능 설정
+        RotateAndMove(legState,bodyState);  // 움직임 & 애니메이션 
+        ControlWeapon(bodyState);           // 무기
+        stats.OnUpdate(legState);           // 스탯
+        playerCamera.ControlCameraPosition(legState,bodyState); // 카메라
     }
 
     private void LateUpdate()
@@ -158,12 +106,12 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        CameraRotation(bodyState);
+        playerCamera.ControlCameraRotation( input.mouseMoveVector, mouseSense);
     }
 
+    //===========================================================================================================
 
-
-
+    // 다리 상태 ( 가만히, 걷기, 뛰기 )
     void SetLegState()
     {
         // 입력이 있는 경우, 키를 입력한 방향으로 회전
@@ -191,14 +139,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    // 상체 상태 ( 기본, 조준 ) // 추후 사격도 추가할까 생각중
     void SetBodyState()
     {
         // 입력이 있는 경우, 키를 입력한 방향으로 회전
         if (input.aim)
         {
             bodyState = PlayerBodyState.Aim;
-
             if(input.firstAim)
             {
                 EnterAimState();
@@ -208,121 +155,44 @@ public class PlayerController : MonoBehaviour
         else
         {
             bodyState = PlayerBodyState.Default;
-
-            ExitAimState();
+            if (input.finishAim)
+            {
+                ExitAimState();
+            }
         }
 
         float animSpeed = stats.currMoveSpeedRatio;
         animationController.OnSetBodyState(bodyState,animSpeed);
     }
 
-
-    void Rotate(PlayerLegState currLegState, PlayerBodyState currBodyState)
-    {
-        // 기본 상태에서는 플레이어를 이동방향으로 회전
-        if( currBodyState == PlayerBodyState.Default)
-        {
-            if (input.playerMoveVector != Vector2.zero)
-            {
-                // normalise input direction
-                Vector3 inputDirection = new Vector3(input.playerMoveVector.x, 0.0f, input.playerMoveVector.y).normalized;
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +  t_mainCam.transform.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-            }
-        }
-        // 조준 상태의 경우 카메라 방향으로 회전 
-        else if (currBodyState == PlayerBodyState.Aim)
-        {
-            _targetRotation = t_mainCam.transform.eulerAngles.y;
-            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
-            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-        }
-    }
-
-
+    // 회전, 이동 - 애니메이션까지 
     private void RotateAndMove(PlayerLegState currLegState, PlayerBodyState currBodyState)
     {
-        //
-        float targetSpeed = stats.GetMovementSpeed(currLegState,currBodyState);
-        // Debug.Log(targetSpeed);
-        float inputMagnitude = input.playerMoveVector.magnitude;
-
+        Vector2 moveVector = input.playerMoveVector;
 
         // 회전 적용
-        Rotate(currLegState, currBodyState );
+        playerMove.Rotate(currLegState, currBodyState, moveVector, playerCamera.t_mainCam.eulerAngles.y);
 
-        // move the player
-        Vector3 targetDirection= Vector3.zero;
-        if( currBodyState== PlayerBodyState.Default)
+        //
+        float targetSpeed = stats.GetMovementSpeed(currLegState,currBodyState); // 다리 상태, 조준 상테에 따라 이동속도가 다름. 
+        playerMove.Move(currLegState, currBodyState, moveVector, targetSpeed );
+
+
+        // 애니메이션 (상태별로)
+        if( bodyState== PlayerBodyState.Default)
         {
-            targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-            
             // Animation
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-            animationController.OnMove_Default(_animationBlend, inputMagnitude);
+            animationController.OnMove_Default(targetSpeed);
         }
-        else if(currBodyState == PlayerBodyState.Aim)
+        else if(bodyState == PlayerBodyState.Aim)
         {
-            targetDirection = transform.forward *  input.playerMoveVector.y + transform.right * input.playerMoveVector.x;
-            Vector2 normalizedVector = input.playerMoveVector.normalized;
-
-            blendedVector = Vector2.Lerp(blendedVector , normalizedVector ,  Time.deltaTime * SpeedChangeRate);
-            animationController.OnMove_OnAim(blendedVector);
-        }
-        _controller.Move(targetDirection.normalized * (targetSpeed  * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-    }
-
-    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
-    {
-        if (lfAngle < -360f) lfAngle += 360f;
-        if (lfAngle > 360f) lfAngle -= 360f;
-        return Mathf.Clamp(lfAngle, lfMin, lfMax);
-    }
-
-
-
-
-
-    
-    [Header("WalkSound")]
-    [SerializeField] SoundEventSO[] soundEventSOs;
-    [Header("DashSound")]
-    [SerializeField] SoundEventSO dashSoundSO;
-
-    private int soundIndex = 0;
-
-    private void OnFootstep(AnimationEvent animationEvent)
-    {
-        if (animationEvent.animatorClipInfo.weight > 0.5f)
-        {
-            var sfx = soundEventSOs[soundIndex++];
-            SoundManager.Instance.Play(sfx, Player.Instance.T.position);
-            
-            if (soundEventSOs.Length <= soundIndex)
-                soundIndex = 0;
+            Vector2 normalizedVector = moveVector.normalized;
+            animationController.OnMove_OnAim(normalizedVector);
         }
     }
 
 
-
-
-
-    #region ===Camera===
-    void InitCameraSetting()
-    {
-        t_mainCam =  GameObject.FindGameObjectWithTag("MainCamera").transform;
-
-        _3rdPersonFollow = _vCam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-        
-        originFOV = _vCam.m_Lens.FieldOfView;
-        _cinemachineTargetYaw = t_CinemachineCameraTarget.rotation.eulerAngles.y;
-        
-        mouseSense  = LocalDataManager.GetMouseSense();
-
-        Manager.EventManager.Instance.AddListener(MEventType.OnShoot, OnShoot);
-    }
-
+    // 감도 설정  
     public void SetMouseSense(float value)
     {
         mouseSense = Mathf.Clamp(value, mouseSense_min, mouseSense_max);
@@ -331,131 +201,25 @@ public class PlayerController : MonoBehaviour
         LocalDataManager.SetSense( mouseSense );
     }
 
-    void OnShoot(MEventType MEventType, Component Sender, System.EventArgs args = null)
-    {
-        TransformEventArgs tArgs = args as TransformEventArgs;
-        float recoil_camera = (float)tArgs.value[0];
-        
-        if(seq_shoot !=null && seq_shoot.IsActive())
-        {
-            seq_shoot.Kill();
-        }
-        float targetFOV = originFOV + recoil_camera ;
-
-        Sequence seq = DOTween.Sequence()
-        .Append(DOTween.To(() => _vCam.m_Lens.FieldOfView, x =>_vCam.m_Lens.FieldOfView= x, targetFOV, 0.05f))
-        .Append(DOTween.To(() => _vCam.m_Lens.FieldOfView, x =>_vCam.m_Lens.FieldOfView= x, originFOV, 0.05f))
-        .Play();
-
-        seq_shoot = seq;
-    }
-
-    void ControlCamera()
-    {
-        if (_3rdPersonFollow == null)
-        {
-            return;
-        }
-        
-        // shoulder offset 적용
-        Vector3 newTargetOffset = vCamOffset_default;
-        if( bodyState == PlayerBodyState.Aim)
-        {
-            newTargetOffset = vCamOffset_aim;
-        }
-
-        Vector3 offsetModifier = Vector3.zero;
-        if( legState == PlayerLegState.Run )
-        {
-            offsetModifier = camOffsetModifier_dash;
-        }
-
-        targetCamOffset = newTargetOffset + offsetModifier;
-
-
-        // 카메라 적용
-        _3rdPersonFollow.ShoulderOffset= Vector3.SmoothDamp( _3rdPersonFollow.ShoulderOffset, targetCamOffset, ref currCamOffset, switchDuration);
-    }
-
-    private void CameraRotation(PlayerBodyState bodyState)
-    {
-
-            // if there is an input and camera position is not fixed
-        if (input.mouseMoveVector.sqrMagnitude >= _threshold && !LockCameraPosition)
-        {
-                //Don't multiply mouse input by Time.deltaTime;
-
-                _cinemachineTargetYaw += input.mouseMoveVector.x *  mouseSense ;
-                _cinemachineTargetPitch -= input.mouseMoveVector.y  *  mouseSense ;
-        }
-
-        // clamp our rotations so our values are limited 360 degrees
-        _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
-        _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
-
-        // Cinemachine will follow this target
-        t_CinemachineCameraTarget.rotation = Quaternion.Euler(_cinemachineTargetPitch,  _cinemachineTargetYaw, 0.0f);
-    }
-
-    // 카메라 반동 적용 
-    void ApplyRecoil(float power = 0.5f)
-    {
-        
-        // _cinemachineTargetYaw += Random.Range(-0.5f,0.5f);
-        // _cinemachineTargetPitch -= 0.5f ;
-        StartCoroutine(  RecoilRoutine( Random.Range(-power,power),power ,0.1f) );
-    }
-
-
-    WaitForEndOfFrame wfuf = new();
-
-    IEnumerator RecoilRoutine(float recoilX, float recoliY ,float duration)
-    {
-
-        float startYaw = 0f;
-        float startPitch = 0f;
-        float elapsed = 0;
-        while(elapsed < duration)
-        {
-            float t = elapsed / duration;
-            // 선형 보간 (부드럽게 변화)
-            float deltaYaw = Mathf.Lerp(0f, recoilX, t);
-            float deltaPitch = Mathf.Lerp(0f, recoliY, t);
-
-            _cinemachineTargetYaw += deltaYaw - startYaw;
-            _cinemachineTargetPitch -= deltaPitch - startPitch;
-
-            startYaw = deltaYaw;
-            startPitch = deltaPitch;
-
-            elapsed += Time.deltaTime;
-            yield return wfuf;
-        }
-
-        // 마지막 프레임 보정
-        _cinemachineTargetYaw += recoilX - startYaw;
-        _cinemachineTargetPitch -= recoliY - startPitch;
-    }
-
-    #endregion
-
 
     #region ===Weapon===
+    // 조준 시작
     void EnterAimState()
     {
-        SoundManager.Instance.Play(aimSfx, Player.Instance.T.position);
+        SoundManager.Instance.Play(aimSfx, Player.Instance.T.position); 
 
-        crossHairUI.SetActive(true);
-        targetCamOffset = vCamOffset_aim;
+        crossHairUI.SetActive(true);    
+        playerCamera.OnAim(true);
     }
 
+    // 조준 해제
     void ExitAimState()
     {
         crossHairUI.SetActive(false);
-        targetCamOffset = vCamOffset_default;
+        playerCamera.OnAim(false);
     }
 
-
+    // 장전, 사격, 스킬 
     void ControlWeapon(PlayerBodyState bodyState )
     {  
         bool isAiming = bodyState == PlayerBodyState.Aim;
@@ -466,18 +230,46 @@ public class PlayerController : MonoBehaviour
 
         if( weapon.TryShoot(isAiming,toFire))
         {
-            ApplyRecoil();  //
+            playerCamera.ApplyRecoil();  //
+            PlaySFX_fire();
         }
 
         if( weapon.TryUseSkill(isAiming,toUseSkill))
         {
-            ApplyRecoil(1.5f);
+            playerCamera.ApplyRecoil(1.5f);     // 사격보다 반동이 쏌
+            SoundManager.Instance.Play(skillUseSfx, Player.Instance.T.position);   // 스킬 sfx
         }
 
         if( weapon.TryReload(isAiming,toReload,toFire))
         {
-
+            SoundManager.Instance.Play(reloadEventSo, Player.Instance.T.position);  // 장전 sfx
         }
     }
     #endregion
+
+
+    // 발자국 소리 - 애니메이션 이벤트에 의해 자동으로 호출 
+    private void OnFootstep(AnimationEvent animationEvent)
+    {
+        if (animationEvent.animatorClipInfo.weight > 0.5f)
+        {
+            var sfx = sfxs_footstep[footStepSfxIdx++];
+            SoundManager.Instance.Play(sfx, Player.Instance.T.position);
+            
+            if (sfxs_footstep.Length <= footStepSfxIdx)
+                footStepSfxIdx = 0;
+        }
+    }
+
+    // 사격 sfx
+    void PlaySFX_fire()
+    {
+        var soundData = attackEventSOs[shotSfxIdx ++];
+        SoundManager.Instance.Play(soundData, Player.Instance.T.position);
+
+        if (shotSfxIdx  >= attackEventSOs.Length)
+            shotSfxIdx  = 0;
+
+    }
+
 }
