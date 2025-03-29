@@ -18,13 +18,13 @@ MonoBehaviour:
     waveDuration: 200
     spawnInfos:
     - enemyType: 0
-      spawnCount: 100
+      spawnCount: 1
     - enemyType: 1
-      spawnCount: 100
+      spawnCount: 1
     - enemyType: 2
-      spawnCount: 100
+      spawnCount: 1
     - enemyType: 3
-      spawnCount: 100
+      spawnCount: 1
   - waveNum: 2
     waveDuration: 60
     spawnInfos:

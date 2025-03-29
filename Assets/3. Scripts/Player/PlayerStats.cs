@@ -121,7 +121,9 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
     public void TakeDamage(float amount)
     {
-        if( isAlive == false)
+if(true)
+return;        
+//if( isAlive == false)
         {
             return;
         }

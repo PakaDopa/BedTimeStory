@@ -86,6 +86,12 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         {
             Stage.Instance.FinishWave();
         }
+
+
+	if(Input.GetKeyDown(KeyCode.Space))
+{
+	GameManager.Instance.PauseGamePlay(!GameManager.Instance.isPaused);
+}
 #endif
     }
 
