@@ -107,4 +107,13 @@ public class PlayerAnimation : MonoBehaviour
             _animator.SetBool(_animIDIsAiming, false);
         }
     }
+
+
+
+    public void OnGameFinisehd()
+    {
+        _animator.speed = 0f;
+    }
+
+
 }

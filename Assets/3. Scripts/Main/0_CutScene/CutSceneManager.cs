@@ -2,39 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 using TMPro;
 using DG.Tweening;
 
 public class CutSceneManager : MonoBehaviour
 {
+    
 
     [SerializeField] List<GameObject> pages= new();
     [SerializeField] List<Image> cuts;
 
 
+    [SerializeField] GameObject imgParent;
     [SerializeField] TextMeshProUGUI text_howToStart;
     
     public int currPage;
     public int cutIdx;
     
     
-        public bool isCutSceneFinished =>  cutIdx >= cuts.Count;
-    public static bool isCutSceneEnabled = false;                            // 컷씬 활성화여부 
+    public bool isPlaying => cutIdx < cuts.Count;
+    public bool isWaitingForInput;
+    public bool isFinished;
+
+    
+
+
+    public void Init()
+    {
+        imgParent.SetActive(false);
+        text_howToStart.gameObject.SetActive(false);
+    }
 
     void Update()
     {
-        if (isCutSceneFinished == false && Input.GetKeyDown(KeyCode.Alpha6))
+
+
+        #if UNITY_EDITOR
+        if (isPlaying && Input.GetKeyDown(KeyCode.Alpha6))
         {
             Debug.Log("히든 커맨드");
             Time.timeScale = 5f;
         }
-        
-        
-        if (isCutSceneFinished && Input.anyKey)
+        #endif        
+
+
+        if (isPlaying && Input.GetKeyDown(KeyCode.Escape)) //    강제 종료 
         {
-            // Debug.Log("사용자 입력 감지됨!");
-            CloseCutSceneAndStartWave();
+            isFinished = true;
+        }   
+        else if (isWaitingForInput && Input.anyKeyDown)    // 컷씬 종료
+        {
+            // CloseCutSceneAndStartWave();
+            isFinished = true;      // 이때 업적띄우기??
         }
     }
 
@@ -42,8 +63,7 @@ public class CutSceneManager : MonoBehaviour
     public IEnumerator PlayCutScene()
     {
         Debug.Log("컷씬 시작");
-        gameObject.SetActive(true);
-        
+        imgParent.SetActive(true);
         text_howToStart.gameObject.SetActive(false);
         foreach( Image img in cuts)
         {
@@ -54,7 +74,7 @@ public class CutSceneManager : MonoBehaviour
     
         yield return new WaitForSeconds(1f);
 
-        while(isCutSceneFinished == false)
+        while(isPlaying)
         {
             if ( cutIdx == 5 )
             {
@@ -69,6 +89,7 @@ public class CutSceneManager : MonoBehaviour
         }
         
         
+        isWaitingForInput = true;
         OnCutSceneFinish();
 
         Debug.Log("컷씬 끝");
@@ -106,7 +127,7 @@ public class CutSceneManager : MonoBehaviour
     {
         Debug.Log("컷씬 종료 입력");
         
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);
         // GamePlayManager.Instance.OnCutSceneFinish();
         
     }

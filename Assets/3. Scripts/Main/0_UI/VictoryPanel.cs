@@ -8,11 +8,10 @@ public class VictoryPanel : MonoBehaviour
     [SerializeField] GameObject[] fillStars;
 
 
-    public void Open()
+    public void Open(float rate)
     {
         int starCount = 1;
         
-        float  rate = Tower.Instance.hp/ Tower.Instance.maxHp;
         Debug.Log($" 타워 남은체력 {rate}" );
 
         if( 0.61f<= rate)

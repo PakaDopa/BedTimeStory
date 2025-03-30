@@ -8,7 +8,7 @@ public class Btn_Retry: Btn_Parent
 {
     public override void Init()
     {
-        GetComponent<Button>().onClick.AddListener(  ()=> SceneLoadManager.Instance.Load_MainScene() );
+        GetComponent<Button>().onClick.AddListener(  ()=> GameManager.Instance.ReTryThisGame() );
     }
 }
 

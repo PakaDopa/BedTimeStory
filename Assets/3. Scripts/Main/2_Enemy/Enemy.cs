@@ -236,6 +236,17 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         return tweener;
     }
 
+    public void CleanDeath()
+    {
+        _collider.enabled = false;
+
+        enemyAI.OnDie();
+        animator.SetTrigger(hash_die);
+
+        StartCoroutine(DestroyRoutine());
+    }
+
+
     void Die()
     {
         _collider.enabled = false;
@@ -309,11 +320,16 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         //
         isCasting = true;
 
-        Vector3 initPos = t.position.WithFloorHeight();
+        Vector3 initPos = t.position.WithFloorHeight();         
         currTargetPosOffset = new Vector3( UnityEngine.Random.Range(-1,1), 0, UnityEngine.Random.Range(-1,1) ).normalized * enemyData.offsetWeight;
         Vector3 fixedTargetPos = targetPos+ currTargetPosOffset;
         // Debug.Log($" a0  {currTargetPosOffset} / {fixedTargetPos}");
         yield return WaitUntilLookAtTarget();
+        if(isAlive == false)
+        {
+            yield break;
+        }
+
         canRotate = false;
 
 
@@ -337,6 +353,11 @@ public abstract class Enemy : MonoBehaviour, IPoolObject
         
 
         yield return new WaitUntil(()=> attackAnimationEvent.animationFinished == true || isCasting == false);
+        if(isAlive == false)
+        {
+            yield break;
+        }
+
         // Debug.Log("공격끝");
         animator.SetBool(hash_isCasting, false);
         isCasting = false;

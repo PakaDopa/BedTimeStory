@@ -77,7 +77,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -95,15 +95,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459469fadf7b0984c9112ce0fa88f2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTime: 2
   soundSO:
   - {fileID: 11400000, guid: 5d9c74598a378d94abe6a4a210399adc, type: 2}
   - {fileID: 11400000, guid: c203671e4611ac645b8476e3914d224c, type: 2}
   - {fileID: 11400000, guid: 21b739840688f2f469344ae3ebdbe8f3, type: 2}
+  prefab_shoot: {fileID: 0}
   hitPrefab: {fileID: 2730053630047889979, guid: 8b3609b85c5a5c44c8d24e081ce73334, type: 3}
   trails:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  explosionSfx: {fileID: 0}
 --- !u!1001 &5718265158934396894
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -32,6 +32,7 @@ public class Projectile : MonoBehaviour
         if( prefab_shoot !=null)
         {
             var shootVFX = Instantiate(prefab_shoot, transform.position, Quaternion.identity);
+            Destroy(shootVFX,3f);       // 나중에 풀링
         }
         
         StartCoroutine(DestroyCoroutine());

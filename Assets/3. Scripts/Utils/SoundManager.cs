@@ -118,6 +118,12 @@ public class SoundManager : MonoBehaviour
 
         LocalDataManager.SetMaster(settingValue);
         CheckMute();
+
+
+        if( currBgmSource!=null)
+        {
+            currBgmSource.mute = isMute_bgm;
+        }
     }
 
     public void SetBGM(float settingValue)
@@ -131,6 +137,10 @@ public class SoundManager : MonoBehaviour
 
         LocalDataManager.SetBgm(settingValue);
         CheckMute();
+        if( currBgmSource!=null)
+        {
+            currBgmSource.mute = isMute_bgm;
+        }
     }
 
     public void SetSFX(float settingValue)
@@ -283,6 +293,7 @@ public class SoundManager : MonoBehaviour
     [Header("Pool Setting")]
     [SerializeField] SfxObject prfab_sfx;
     [SerializeField] SfxObject prfab_bgm;
+    AudioSource currBgmSource;
     Transform t;
     [SerializeField] Pool<SfxObject> sfxPools;     // 풀 
 
@@ -315,10 +326,10 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBgm(SoundEventSO soundData)
     {
-        AudioSource bgmSource = Instantiate(prfab_bgm).GetComponent<AudioSource>();
-        bgmSource.clip = soundData.clip;
-        bgmSource.loop = true;
-        bgmSource.Play();
+        currBgmSource = Instantiate(prfab_bgm).GetComponent<AudioSource>();
+        currBgmSource.clip = soundData.clip;
+        currBgmSource.loop = true;
+        currBgmSource.Play();
     }
 
 

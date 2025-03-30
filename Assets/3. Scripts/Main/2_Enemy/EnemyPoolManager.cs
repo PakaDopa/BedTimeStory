@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using GameUtil;
 
 public class EnemyPoolManager : DestroyableSingleton<EnemyPoolManager>
 {
+    FastList<Enemy> aliveEnemies = new();
+
     public bool initialized {get;private set;}
     public Transform t;
     [SerializeField] EnemyDictionarySO enemyDictionary;                           // 프리팹 정보들로 미리 풀 데이터 세팅
@@ -97,6 +99,8 @@ public class EnemyPoolManager : DestroyableSingleton<EnemyPoolManager>
         var enemy = pool.Get();        // 초기화 필요.
         enemy.transform.position = initPos;
         enemy.Init( data, waveNum,initPos );
+
+        aliveEnemies.Add(enemy);
         
         return enemy;
     }
@@ -117,6 +121,18 @@ public class EnemyPoolManager : DestroyableSingleton<EnemyPoolManager>
     {
         var pool = GetPool(enemy.enemyData.type);
         pool.Take(enemy);
+        aliveEnemies.Remove(enemy);
+    }
+
+
+    public void OnPlayerVictory()
+    {
+        SoundManager.Instance.OnEnemyDeath(t.position);
+        List<Enemy> enemies = aliveEnemies.GetTotalItems();
+        for(int i=enemies.Count-1; i>=0;i--)
+        {
+            enemies[i].CleanDeath();
+        }     
     }
 
     //======================================================

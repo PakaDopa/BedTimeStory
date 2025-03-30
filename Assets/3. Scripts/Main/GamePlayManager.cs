@@ -34,7 +34,6 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     [SerializeField] SoundEventSO gameWin;
 
     // [SerializeField] Button testWaveStartBtn;
-    [SerializeField] CutSceneManager cutSceneManager;
     [SerializeField] bool inGameCutSceneEnable = true;
     [SerializeField] PlayableDirector inGameCutScene;
     SkipCutScene skipCutScene;
@@ -43,8 +42,10 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     //======= UI ==========
     [Header("UI")]
     [SerializeField] Canvas mainUICanvas;
-    [SerializeField] VictoryPanel victoryPanel;
-    [SerializeField] GameOverPanel gameOverPanel;
+    [SerializeField] GameObject victoryNotice;
+    [SerializeField] GameObject gameOverNotice;
+    // [SerializeField] VictoryPanel victoryPanel;
+    // [SerializeField] GameOverPanel gameOverPanel;
 
     [SerializeField] ComboToastUI comboToastUI;
 
@@ -87,11 +88,29 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
             Stage.Instance.FinishWave();
         }
 
+        if(Input.GetKey(KeyCode.Alpha6) )
+        {
+            if( Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                Victory();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                GameOver();
+            }
 
-	if(Input.GetKeyDown(KeyCode.Space))
-{
-	GameManager.Instance.PauseGamePlay(!GameManager.Instance.isPaused);
-}
+
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Debug_SpawnItem();
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            GameManager.Instance.PauseGamePlay(!GameManager.Instance.isPaused);
+        }
+
 #endif
     }
 
@@ -122,13 +141,6 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
 
         //
         onGamePlayStart?.Invoke();          // 게임 초기화 알림. : UI 초기작업
-        
-        // 컷씬대기, 디버그할 땐 플래그 false 해놓기
-        if( CutSceneManager.isCutSceneEnabled )
-        {
-            StartCoroutine(cutSceneManager.PlayCutScene());
-            yield return new WaitUntil( ()=>cutSceneManager.gameObject.activeSelf == false);
-        }
         
         if(inGameCutSceneEnable == true)
         {
@@ -181,18 +193,30 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
             return;
         }
         
-        
-        // gameOver.Raise();
-        SoundManager.Instance.Play(gameOver,transform.position);
+        Debug.Log("패배");
+        StartCoroutine(GameOverRoutine());
+    }
 
-
-        
-        GameManager.Instance.LockCursor(false);
-        gameOverPanel.Open();
-
+    IEnumerator GameOverRoutine()
+    {
         isGamePlaying = false;
         gameActiavated = false;
+        Player.Instance.OnDefeated();
+
+
+        //
+        SoundManager.Instance.Play(gameOver,transform.position);
+        gameOverNotice.SetActive(true);
+        GameManager.Instance.LockCursor(false);
+        
+        //
+        yield return new WaitForSeconds(2);
+        
+        //
+        SceneLoadManager.Instance.Load_Result();
     }
+
+
 
     public void Victory()
     {
@@ -201,24 +225,40 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
             return;
         }
         
-        
-        // 통계 기록. 
-        SoundManager.Instance.Play(gameWin,transform.position);
-        GameManager.Instance.currGamePlayInfo.OnVictory();
-        //
-        Debug.Log("승리!");
-        
-        
-        GameManager.Instance.LockCursor(false);
-        victoryPanel.Open();
+    
+        //    
+        Debug.Log("승리");
+        StartCoroutine(VictoryRoutine());
+    }
 
+    IEnumerator VictoryRoutine()
+    {
         isGamePlaying = false;
         gameActiavated = false;
+        
+        Player.Instance.OnVictory();
+        
+        //
+        SoundManager.Instance.Play(gameWin,transform.position);
+        GameManager.Instance.LockCursor(false);
+        victoryNotice.SetActive(true);
+
+        // 통계 기록. 
+        GameManager.Instance.currGamePlayInfo.OnVictory();
+        EnemyPoolManager.Instance.OnPlayerVictory();
+
+        // yield return null;
+        yield return new WaitForSeconds(2);
+
+
+        //
+        SceneLoadManager.Instance.Load_Result();
     }
 
     public void OnKillEnemy()
     {
         int killCount = ++GameManager.Instance.currGamePlayInfo.killCount;
+        Debug.Log($"킬 {killCount}");
 
         if( killCount%30 ==0)
         {
@@ -267,5 +307,24 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         }
 
         text_debug.SetText(str);
+    }
+
+
+
+    public void Debug_SpawnItem()
+    {
+            // 골드 주머니: 0~9 (10%)
+        int rand = UnityEngine.Random.Range(0, 100);
+
+        Vector3 randomSpawnPoint = Player.Instance.T.position + new Vector3(2,0,2);
+        if (rand < 50)
+        {
+            DropItemManager.Instance.GetItem_Pouch(randomSpawnPoint);
+        }
+        // 소형 포션: 10~19 (10%)
+        else
+        {
+            DropItemManager.Instance.GetItem_Potion(randomSpawnPoint);
+        }
     }
 }

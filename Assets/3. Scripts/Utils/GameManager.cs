@@ -38,6 +38,7 @@ public class CurrGamePlayInfo
     public bool cleared;
     public string clearDate;
     public float towerHp;               // 클리어시 남은 타워 체력 
+    public float towerHpRatio;               // 클리어시 남은 타워 체력 
 
     // 새 게임이 시작될 때, 
     public CurrGamePlayInfo(Difficulty targetDifficulty)
@@ -52,6 +53,7 @@ public class CurrGamePlayInfo
         cleared   = true;
         clearDate = DateTime.Now.ToString("yyyy.MM.dd_HH:mm:ss");
         towerHp   = Tower.Instance.hp;
+        towerHpRatio = towerHp/Tower.Instance.maxHp;
 
         LocalDataManager.SaveClearedGamePlayInfo(this);
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 using Cinemachine;
 using DG.Tweening;
 using TMPro;
+using System.Threading;
 
 public enum PlayerLegState
 {
@@ -79,6 +80,8 @@ public class PlayerController : MonoBehaviour
         weapon = GetComponentInChildren<Weapon>();
         //
         mouseSense  = LocalDataManager.GetMouseSense();
+
+        ExitAimState(); 
     }
 
     // 기능들을 현재 상태에 따라 업데이트한다. 
@@ -270,6 +273,22 @@ public class PlayerController : MonoBehaviour
         if (shotSfxIdx  >= attackEventSOs.Length)
             shotSfxIdx  = 0;
 
+    }
+
+
+
+
+
+    //========================================
+    public void OnVictory()
+    {
+        animationController.OnGameFinisehd();
+    }
+
+
+    public void OnDefeated()
+    {
+        animationController.OnGameFinisehd();
     }
 
 }

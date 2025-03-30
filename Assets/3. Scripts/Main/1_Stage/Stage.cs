@@ -88,7 +88,6 @@ public class Stage : DestroyableSingleton<Stage>
         clearedWaveCount++;
         if (isVictory)
         {
-            GameManager.Instance.PauseGamePlay(true);
             GamePlayManager.Instance.Victory();
         }
         else

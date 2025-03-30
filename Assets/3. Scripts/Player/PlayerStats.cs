@@ -120,10 +120,8 @@ public class PlayerStats : DestroyableSingleton<PlayerStats>
 
 
     public void TakeDamage(float amount)
-    {
-if(true)
-return;        
-//if( isAlive == false)
+    {       
+        if( isAlive == false)
         {
             return;
         }
@@ -243,6 +241,7 @@ return;
     void Die()
     {
         Player.Instance.playerCollider.enabled = false;
+        
         GamePlayManager.Instance.GameOver();
     }
 }

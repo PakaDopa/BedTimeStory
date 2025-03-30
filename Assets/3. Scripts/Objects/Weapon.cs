@@ -123,7 +123,7 @@ public class Weapon : MonoBehaviour
     // }
     // private void IsShot() => isShotting = Input.GetKey(KeyCode.Mouse0);
     
-    
+   
     private void Shot()
     {
         // attackEventSOs[attackIndex++].Raise();
@@ -170,23 +170,37 @@ public class Weapon : MonoBehaviour
         EventManager.Instance.PostNotification(MEventType.ChangeArmo, this, new TransformEventArgs(transform, currAmmo, maxAmmo));
     }
 
+
+
+    // [SerializeField] Vector3 targetEndPos;
     private Vector3 CalcDir()
     {
         Vector3 startPos = muzzle.position;
         Vector3 endPos;
 
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, 10000))
-        {
-            endPos = hitInfo.point;
-        }
-        else
-        {
-            endPos = Camera.main.transform.position + Camera.main.transform.forward * 10000;
-        }
+        // RaycastHit hitInfo;
+        // if (Physics.Raycast(ray, out hitInfo, 10000))
+        // {
+        //     endPos = hitInfo.point;
+            
+        // }
+        // else
+        // {
+        endPos = Camera.main.transform.position + Camera.main.transform.forward * 10000;
+        // }
 
+
+        // targetEndPos = endPos;
         Vector3 projectileDir = Vector3.Normalize((endPos - startPos));
         return projectileDir;
     }
+
+
+    // void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawSphere(targetEndPos, 0.3f);
+
+    // }
 }

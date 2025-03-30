@@ -35,4 +35,15 @@ public class Player : DestroyableSingleton<Player>
 
         initialized = true;
     }
+
+
+    public void OnVictory()
+    {
+        playerController.OnVictory();
+    }
+
+    public void OnDefeated()
+    {
+        playerController.OnDefeated();
+    }
 }
