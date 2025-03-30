@@ -11,12 +11,12 @@ public class EnemyData_01_Range : EnemyDataSO
     
     public EnemyData_01_Range()
     {
-        maxHp = 60;
+        maxHp = 70;
     
-        movementSpeed = 4;
+        movementSpeed = 3002;
         attackSpeed = 4;    
         attackRange = 10f;
-        playerDectectionRange = 30;
+        playerDectectionRange = 40;
 
         dmg = 15;
 
@@ -26,7 +26,7 @@ public class EnemyData_01_Range : EnemyDataSO
         inc_dmg = 3;
 
 
-        castDelay = 1f;
+        castDelay = 0.5f;
         offsetWeight = 0.5f;
     }
 }

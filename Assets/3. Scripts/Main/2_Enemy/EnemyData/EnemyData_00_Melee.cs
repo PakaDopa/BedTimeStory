@@ -14,12 +14,12 @@ public class EnemyData_00_Melee : EnemyDataSO
 
     public EnemyData_00_Melee()
     {
-        maxHp = 80;
+        maxHp = 90;
     
-        movementSpeed = 5;
+        movementSpeed = 500;
         attackSpeed = 2;    
         attackRange = 2f;
-        playerDectectionRange = 20;
+        playerDectectionRange = 30;
 
         dmg = 5;
 
@@ -29,7 +29,7 @@ public class EnemyData_00_Melee : EnemyDataSO
         inc_dmg = 3;
 
 
-        castDelay = 0.8f;
+        castDelay = 0.4f;
         offsetWeight = 0.5f;
     }
 }
