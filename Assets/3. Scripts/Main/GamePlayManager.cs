@@ -48,6 +48,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     // [SerializeField] GameOverPanel gameOverPanel;
 
     [SerializeField] ComboToastUI comboToastUI;
+    [SerializeField] KillMark killMark;
 
 
     //=====================
@@ -127,6 +128,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
     IEnumerator GameStartRoutine()
     {
         comboToastUI.Init();
+        killMark.Init();
 
 
         GameManager.Instance.PauseGamePlay(false);
@@ -264,6 +266,8 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         {
             comboToastUI.Activate(killCount);
         }
+
+        killMark.Activate();
     }
 
 
