@@ -41,6 +41,7 @@ public class SceneLoadManager : DestroyableSingleton<SceneLoadManager>
     //===================
     public void LoadScene(string sceneName)
     {
+        GameManager.Instance?.PauseGamePlay(false);
         if( isLoading )
         {
             return;

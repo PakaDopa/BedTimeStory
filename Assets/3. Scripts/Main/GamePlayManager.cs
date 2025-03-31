@@ -212,7 +212,7 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         GameManager.Instance.LockCursor(false);
         
         //
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSecondsRealtime(2);
         
         //
         SceneLoadManager.Instance.Load_Result();
@@ -250,8 +250,8 @@ public class GamePlayManager : DestroyableSingleton<GamePlayManager>
         EnemyPoolManager.Instance.OnPlayerVictory();
 
         // yield return null;
-        yield return new WaitForSeconds(2);
-
+        yield return new WaitForSecondsRealtime(2);
+        
 
         //
         SceneLoadManager.Instance.Load_Result();
