@@ -98,6 +98,10 @@ public static class LocalDataManager
     public static RankingData LoadRankingData()
     {
         RankingData rankingData =LoadJson<RankingData>(path_rankingData); 
+        if(rankingData ==null)
+        {
+            rankingData = new();
+        }
         rankingData.CheckIntegrity();
 
 

@@ -63,9 +63,9 @@ public class CurrGamePlayInfo
 public class RankingData
 {
     public string systemId;
-    public List<CurrGamePlayInfo> list_easy;
-    public List<CurrGamePlayInfo> list_normal;
-    public List<CurrGamePlayInfo> list_hard;
+    public List<CurrGamePlayInfo> list_easy=new();
+    public List<CurrGamePlayInfo> list_normal=new();
+    public List<CurrGamePlayInfo> list_hard=new();
 
 
     public bool needInitialization => string.IsNullOrEmpty(systemId) ||  systemId.Equals( SystemInfo.deviceUniqueIdentifier ) == false; 
@@ -74,9 +74,9 @@ public class RankingData
     {
         if( needInitialization )
         {
-            list_easy.Clear();
-            list_normal.Clear();
-            list_hard.Clear();
+            list_easy?.Clear();
+            list_normal?.Clear();
+            list_hard?.Clear();
 
             string newId =SystemInfo.deviceUniqueIdentifier; 
             Debug.LogWarning($" 랭킹 데이터 초기화 필요! before : {systemId} / after : {newId}");
